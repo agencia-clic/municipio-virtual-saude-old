@@ -6,7 +6,7 @@
 
 <!-- actions - start -->
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Administrção Medicamentos</span>
+    <span class="h4 text-800">Administração Medicamentos</span>
     <span class="badge rounded-pill badge-soft-primary">{{ $medication_administrations['count'] }} de {{ $medication_administrations['data']->total() }} registros</span>
 </div>
 
@@ -26,7 +26,7 @@
                         <nav style="--falcon-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23748194'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                               <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                              <li class="breadcrumb-item active" aria-current="page">Administrção Medicamentos</li>
+                              <li class="breadcrumb-item active" aria-current="page">Administração Medicamentos</li>
                             </ol>
                         </nav>
                     </div>
@@ -42,7 +42,7 @@
     <div class="card-header">
         <div class="row flex-between-center">
             <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Administrção Medicamentos</h5>
+                <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Administração Medicamentos</h5>
             </div>
         </div>
     </div>

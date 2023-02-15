@@ -42,7 +42,7 @@
         <div class="card-header">
             <div class="row flex-between-end">
                 <div class="col-auto align-self-center">
-                    <h5 class="mb-0">Basico</h5>
+                    <h5 class="mb-0">Básico</h5>
                 </div>
             </div>
         </div>
@@ -101,7 +101,7 @@
                     <div id="IdMedicationUnits_fields" class="form-group">
                         <div class="row">
                             <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-                                <label for="IdMedicationUnits">Uniadade:</label>
+                                <label for="IdMedicationUnits">Unidade:</label>
                                 <select class="form-select js-choice form-select-sm-choice" id="IdMedicationUnits" size="1" name="IdMedicationUnits" required="required" data-options='{"removeItemButton":true,"placeholder":true}'>
                                     @if(!empty($medication_units))
                                         @foreach ($medication_units as $val)
@@ -206,7 +206,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="title_fields" class="form-group">
-                        <label for="title" id="label_title">Titulo:</label>
+                        <label for="title" id="label_title">Título:</label>
                         <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" value="{{old('title') ?? $medicines->title ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>

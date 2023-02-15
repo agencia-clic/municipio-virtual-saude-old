@@ -25,7 +25,7 @@
             </li>
 
             <li>
-                <a class="dropdown-item link-600 fw-medium" href="{{ route('users', ['module' => 'medical']) }}">Medicos</a>
+                <a class="dropdown-item link-600 fw-medium" href="{{ route('users', ['module' => 'medical']) }}">Médicos</a>
             </li>
 
             @if(!empty(auth()->user()->units_current()))
@@ -158,7 +158,7 @@
     </a>
     <ul class="dropdown-menu">
         <li>
-            <a class="dropdown-item link-600 fw-medium" href="{{ route('emergency_services.form') }}">Recepeção</a>
+            <a class="dropdown-item link-600 fw-medium" href="{{ route('emergency_services.form') }}">Recepção</a>
         </li>
         <li>
             <a class="dropdown-item link-600 fw-medium" href="{{ route('screenings') }}">Acolhimento</a>

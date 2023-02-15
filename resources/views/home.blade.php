@@ -28,7 +28,7 @@
         <div class="card h-md-100 ecommerce-card-min-width card-border">
             <div class="card-header pb-0">
                 <h6 class="mb-0 mt-2 mb-0 d-flex align-items-center">
-                    ATEDIMENTOS MEDICOS
+                    ATENDIMENTOS MÉDICO
                 </h6>
             </div>
             <div class="card-body d-flex flex-column justify-content-end">

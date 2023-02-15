@@ -176,7 +176,7 @@
                         <div class="text-secondary">{{  $users->address }}</div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
-                        <span class="common-label"><strong>Numero:</strong></span>
+                        <span class="common-label"><strong>Número:</strong></span>
                         <div class="text-secondary">{{  $users->number }}</div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">

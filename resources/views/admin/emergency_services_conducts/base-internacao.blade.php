@@ -115,7 +115,7 @@
 
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div id="number_fields" class="form-group">
-                    <label for="number" id="label_number">Numero:</label>
+                    <label for="number" id="label_number">Número:</label>
                     <input type="text" id="number" name="number" class="form-control" value="{{ old('number') ?? $users->number ?? "" }}">
                     <div class="valid-feedback">sucesso!</div>
                 </div>

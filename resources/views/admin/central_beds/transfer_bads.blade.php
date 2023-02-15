@@ -80,7 +80,7 @@
         <div class="row mt-1">
             <div class="col-sm-12 col-md col-lg col-xl">
                 <div id="title_fields" class="form-group">
-                    <label for="title" id="label_title">Titulo:</label>
+                    <label for="title" id="label_title">Título:</label>
                     <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" value="{{old('title') ?? $rooms_beds->title ?? ""}}" required>
                     <div class="valid-feedback">sucesso!</div>
                 </div>

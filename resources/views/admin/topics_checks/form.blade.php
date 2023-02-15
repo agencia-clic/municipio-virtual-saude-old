@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
         <div id="title_fields" class="form-group">
-            <label for="title" id="label_title">Titulo:</label>
+            <label for="title" id="label_title">Título:</label>
             <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" value="{{old('title') ?? $topics_checks->title ?? ""}}" required>
             <div class="valid-feedback">sucesso!</div>
         </div>

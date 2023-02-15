@@ -26,11 +26,6 @@
                     </div>
     
                     <div class="mb-3">
-                        @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="text-muted float-end">
-                                <small><strong>{{ __('Esqueceu sua senha?') }}</strong></small>
-                            </a>
-                        @endif
     
                         <label for="password" class="form-label">Senha:</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" required placeholder="Digite sua senha">

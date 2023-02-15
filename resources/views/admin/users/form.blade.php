@@ -42,7 +42,7 @@
         <div class="card-header">
             <div class="row flex-between-end">
                 <div class="col-auto align-self-center">
-                    <h5 class="mb-0">Basico</h5>
+                    <h5 class="mb-0">Básico</h5>
                 </div>
             </div>
         </div>
@@ -216,7 +216,7 @@
 
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="date_birth_fields" class="form-group @error('date_birth') is-invalid @enderror">
-                        <label for="date_birth" id="label_date_birth">Data Naciemnto:</label>
+                        <label for="date_birth" id="label_date_birth">Data Nascimento:</label>
                         <input type="text" id="date_birth" name="date_birth" class="form-control" value="@if(!empty(old('date_birth'))) {{old('date_birth')}} @elseif(!empty($users->date_birth)){{date('d-m-Y', strtotime($users->date_birth))}}@endif">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
@@ -408,7 +408,7 @@
 
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="number_fields" class="form-group">
-                        <label for="number" id="label_number">Numero:</label>
+                        <label for="number" id="label_number">Número:</label>
                         <input type="text" id="number" name="number" class="form-control" value="{{ old('number') ?? $users->number ?? "" }}">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
@@ -521,7 +521,7 @@
 
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="origin_fields" class="form-group">
-                        <label for="origin" id="label_origin">Pais:</label>
+                        <label for="origin" id="label_origin">País:</label>
                         <input type="text" id="origin" name="origin" class="form-control" value="{{ old('origin') ?? $users->origin ?? "" }}">
                         <div class="valid-feedback">sucesso!</div>
                     </div>

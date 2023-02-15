@@ -57,7 +57,7 @@
 
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="date_birth_fields" class="form-group @error('date_birth') is-invalid @enderror">
-                        <label for="date_birth" id="label_date_birth">Data Naciemnto:</label>
+                        <label for="date_birth" id="label_date_birth">Data Nascimento:</label>
                         <input type="text" id="date_birth" name="date_birth" class="form-control" value="{{!empty($users) ? date('d-m-Y', strtotime($users->date_birth)) : old('date_birth') }}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
@@ -293,7 +293,7 @@
 
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="number_fields" class="form-group">
-                        <label for="number" id="label_number">Numero:</label>
+                        <label for="number" id="label_number">Número:</label>
                         <input type="text" id="number" name="number" class="form-control" value="{{ old('number') ?? $users->number ?? "" }}">
                         <div class="valid-feedback">sucesso!</div>
                     </div>

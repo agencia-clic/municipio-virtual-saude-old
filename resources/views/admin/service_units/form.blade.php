@@ -42,7 +42,7 @@
         <div class="card-header">
             <div class="row flex-between-end">
                 <div class="col-auto align-self-center">
-                    <h5 class="mb-0">Basico</h5>
+                    <h5 class="mb-0">Básico</h5>
                 </div>
             </div>
         </div>
@@ -279,7 +279,7 @@
 
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="number_fields" class="form-group">
-                        <label for="number" id="label_number">Numero:</label>
+                        <label for="number" id="label_number">Número:</label>
                         <input type="text" id="number" name="number" class="form-control @error('number') is-invalid @enderror" value="{{ old('number') ?? $service_units->number ?? "" }}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>

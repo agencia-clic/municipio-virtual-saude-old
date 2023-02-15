@@ -42,7 +42,7 @@
         <div class="card-header">
             <div class="row flex-between-end">
                 <div class="col-auto align-self-center">
-                    <h5 class="mb-0">Basico</h5>
+                    <h5 class="mb-0">Básico</h5>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div id="title_fields" class="form-group">
-                        <label for="title" id="label_title">Titulo:</label>
+                        <label for="title" id="label_title">Título:</label>
                         <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" value="{{old('title') ?? $procedures->title ?? ""}}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>

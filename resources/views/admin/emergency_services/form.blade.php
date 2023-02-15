@@ -71,7 +71,7 @@
                     <div class="card-header">
                         <div class="row flex-between-end">
                             <div class="col-auto align-self-center">
-                                <h5 class="mb-0">Basico</h5>
+                                <h5 class="mb-0">Básico</h5>
                             </div>
                         </div>
                     </div>
