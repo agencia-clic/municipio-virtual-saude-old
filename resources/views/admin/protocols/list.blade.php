@@ -4,48 +4,49 @@
 
 @csrf <!--token--> 
 
-<div class="card mb-3">
-    <div class="card-body">
-        <div class="row flex-between-center">
-            <div class="col-sm-auto mb-2 mb-sm-0">
-                <h6 class="mb-0">{{ $protocols['count'] }} de {{ $protocols['data']->total() }} registros</h6>
-            </div>
-            <div class="col-sm-auto">
-                <div class="row gx-2 align-items-center">
-                    <div class="col-auto">
-                        <button class="btn btn-falcon-default btn-sm me-2" role="button">Protocolos</button>
+<!-- actions - start -->
+<div class="mt-3 mb-3">
+    <span class="h4 text-800">Protocolos</span>
+    <span class="badge rounded-pill badge-soft-primary">{{ $protocols['count'] }} de {{ $protocols['data']->total() }} registros</span>
+</div>
+
+    <div class="col-12 mb-2">
+        <div class="card border h-100 border-primary">
+            <div class="card-body">
+                <div class="row flex-between-center">
+                    <div class="col-sm-auto mb-2 mb-sm-0">
+                        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                            <button class="btn btn-primary" type="button" data-redirect="{{ route('protocols.form') }}"><span class="fas fa-plus"></span></button>
+                            <button class="btn btn-primary" title="Filtros" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2"><span class="fas fa-search"></span></button>
+                            <button class="btn btn-primary collapsed" type="button" title="Limpar Filtros" data-redirect="{{ route('protocols.form') }}"><span class="fas fa-times"></span></button>
+                        </div>
+                    </div>
+                    <div class="col-sm-auto">
+                        <div class="row gx-2 align-items-center">
+                            <nav style="--falcon-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23748194'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Fluxogramas</li>
+                                </ol>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+<!-- actions - end -->
 
-<div class="card mb-3" id="customersTable" data-list=''>
+<div class="card mb-3" id="customersTable" data-list=''>   
 
     <div class="card-header">
         <div class="row flex-between-center">
             <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
                 <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Protocolos</h5>
             </div>
-            <div class="col-8 col-sm-auto text-end ps-2">
-                <div id="table-customers-replace-element">
-                    <a href="{{ route('protocols.form') }}">
-                        <button class="btn btn-falcon-default btn-sm" type="button">
-                            <span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span>
-                            <span class="d-none d-sm-inline-block ms-1">Novo registro</span>
-                        </button>
-                    </a>
-
-                    <button class="btn btn-falcon-default btn-sm mx-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                        <span class="fas fa-filter" data-fa-transform="shrink-3 down-2"></span>
-                        <span class="d-none d-sm-inline-block ms-1">Filtros</span>
-                    </button>
-                </div>
-            </div>
         </div>
-    </div>
-    
+    </div>  
+
     <div class="accordion" id="accordionExample">
         <div class="accordion-item">
             <div class="accordion-collapse collapse {{ app('request')->input('protocols') ? "show" : ""}}" id="collapse2" aria-labelledby="heading2" data-bs-parent="#accordionExample">

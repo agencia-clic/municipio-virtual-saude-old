@@ -6,7 +6,7 @@
 
 <!-- actions - start -->
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Usuários</span>
+    <span class="h4 text-800">Médicos</span>
     <span class="badge rounded-pill badge-soft-primary">{{ $users['count'] }} de {{ $users['data']->total() }} registros</span>
 </div>
 

@@ -2,25 +2,38 @@
 
 @section('content')
 
-<div class="card mb-3">
-    <div class="card-body">
-        <div class="row flex-between-center">
-            <div class="col-sm-auto mb-2 mb-sm-0">
-                <h6 class="mb-0">@if(empty($protocols))Inserir @else Editar @endif</h6>
-            </div>
-            <div class="col-sm-auto">
-                <div class="row gx-2 align-items-center">
-                    <div class="col-auto">
-                        <a href="{{ redirect()->getUrlGenerator()->previous() }}">
-                            <button class="btn btn-falcon-default btn-sm me-2" role="button">Protocolos</button>
-                        </a>
-                        <button class="btn btn-falcon-primary btn-sm" role="button">@if(empty($protocols))Inserir @else Editar @endif</button>
+<div class="mt-3 mb-3">
+    <span class="h4 text-800">Protocolos</span>
+</div>
+
+<!-- form -- start -->
+<form class="needs-validation" id="form" name="form" method="POST" enctype="multipart/form-data" action="{{ empty($protocols->IdProtocols) ? route('protocols.form.create') : route('protocols.form.update',['IdProtocols' => base64_encode($protocols->IdProtocols)])}}" novalidate="">
+
+    <div class="col-12 mb-2">
+        <div class="card border h-100 border-primary">
+            <div class="card-body">
+                <div class="row flex-between-center">
+                    <div class="col-sm-auto mb-2 mb-sm-0">
+                        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                            <button class="btn btn-primary" type="button" data-redirect="{{ route('protocols') }}"><span class="fas fa-arrow-left"></span></button>
+                            <button class="btn btn-primary" type="submit"><span class="fas fa-save"></span></button>
+                        </div>
+                    </div>
+                    <div class="col-sm-auto">
+                        <div class="row gx-2 align-items-center">
+                            <nav style="--falcon-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23748194'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                  <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                                  <li class="breadcrumb-item"><a href="{{route('protocols')}}">Protocolos</a></li>
+                                  <li class="breadcrumb-item active" aria-current="page">@if(empty($flowcharts))Inserir @else Editar @endif</li>
+                                </ol>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 <!-- form -- start -->
 <form class="needs-validation" id="form" name="form" method="POST" enctype="multipart/form-data" action="{{ empty($protocols->IdProtocols) ? route('protocols.form.create') : route('protocols.form.update',['IdProtocols' => base64_encode($protocols->IdProtocols)])}}" novalidate="">

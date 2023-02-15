@@ -1,5 +1,5 @@
 <!-- menu --start -->
-<ul class="nav nav-pills ms-auto flex-row custom-nav-header">
+<ul class="nav nav-pills flex-row custom-nav-header">
 
     <!-- records -->
     <li class="nav-item dropdown">
@@ -152,62 +152,64 @@
     <!-- execution -->
     @if(!empty(auth()->user()->units_current()))
     <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-        <i class="fas fa-poll-h"></i>
-        Execução 
-    </a>
-    <ul class="dropdown-menu">
-        <li>
-            <a class="dropdown-item link-600 fw-medium" href="{{ route('emergency_services.form') }}">Recepção</a>
-        </li>
-        <li>
-            <a class="dropdown-item link-600 fw-medium" href="{{ route('screenings') }}">Acolhimento</a>
-        </li>
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+            <i class="fas fa-poll-h"></i>
+            Execução 
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item link-600 fw-medium" href="{{ route('emergency_services.form') }}">Recepeção</a>
+            </li>
+            <li>
+                <a class="dropdown-item link-600 fw-medium" href="{{ route('screenings') }}">Acolhimento</a>
+            </li>
 
-        @if($flowcharts_menu = FlowchartsMenu::menu())
-            @foreach ($flowcharts_menu as $val)
-                <li>
-                    <a class="dropdown-item link-600 fw-medium" href="{{ route('medical_care', ['IdFlowcharts' => base64_encode($val->IdFlowcharts)]) }}">{{ $val->title }}</a>
-                </li>
-            @endforeach
-        @endif
+            @if($flowcharts_menu = FlowchartsMenu::menu())
+                @foreach ($flowcharts_menu as $val)
+                    <li>
+                        <a class="dropdown-item link-600 fw-medium" href="{{ route('medical_care', ['IdFlowcharts' => base64_encode($val->IdFlowcharts)]) }}">{{ $val->title }}</a>
+                    </li>
+                @endforeach
+            @endif
 
-        <li>
-            <a class="dropdown-item link-600 fw-medium" href="{{ route('emergency_services_procedures.list.run') }}">Procedimentos</a>
-        </li>
-        <li>
-            <a class="dropdown-item link-600 fw-medium" href="{{ route('observation') }}">Observação</a>
-        </li>
-       
-    </ul>
+            <li>
+                <a class="dropdown-item link-600 fw-medium" href="{{ route('emergency_services_procedures.list.run') }}">Procedimentos</a>
+            </li>
+            <li>
+                <a class="dropdown-item link-600 fw-medium" href="{{ route('observation') }}">Observação</a>
+            </li>
+        
+        </ul>
+    </li>
     @endif
 
     <!-- internment -->
     @if(!empty(auth()->user()->units_current()))
 
         <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-            <i class="fas fa-procedures"></i>
-            Internação 
-        </a>
-        <ul class="dropdown-menu">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                <i class="fas fa-procedures"></i>
+                Internação 
+            </a>
+            <ul class="dropdown-menu">
 
-            <li>
-                <a class="dropdown-item link-600 fw-medium" href="{{ route('approve_admissions') }}">Aprovação de Internação</a>
-            </li>
-            <li>
-                <a class="dropdown-item link-600 fw-medium" href="{{ route('central_beds') }}">Central de Leitos</a>
-            </li>
-            <li>
-                <a class="dropdown-item link-600 fw-medium" href="{{ route('inpatients') }}">Pacientes Internados</a>
-            </li>
+                <li>
+                    <a class="dropdown-item link-600 fw-medium" href="{{ route('approve_admissions') }}">Aprovação de Internação</a>
+                </li>
+                <li>
+                    <a class="dropdown-item link-600 fw-medium" href="{{ route('central_beds') }}">Central de Leitos</a>
+                </li>
+                <li>
+                    <a class="dropdown-item link-600 fw-medium" href="{{ route('inpatients') }}">Pacientes Internados</a>
+                </li>
 
-        </ul>
+            </ul>
+        </li>
     @endif
 
 </ul>
 
-<ul class="navbar-nav navbar-nav-icons ms-1 flex-row align-items-center custom-nav-header">
+<ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center custom-nav-header">
 
     <!-- select units - start -->
     @if(auth()->user()->units()->count > 1)
