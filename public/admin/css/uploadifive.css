@@ -1,0 +1,81 @@
+.uploadifive-button {
+	border: 1px solid #DDD;
+	color: #666;	
+	text-align: center;
+	font-size: 13px;
+	text-align: left;
+	padding-left: 10px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;	
+
+	border-width: 3px;
+	border-style: dashed;
+}
+#uploadifive-file_upload{
+	
+	height: 150px !important;
+	line-height: 130px !important;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.uploadifive-button:hover {
+	background-color: #F5F5F5;
+}
+.uploadifive-button.disabled {
+	background-color: #D0D0D0;
+	color: #808080;
+}
+.uploadifive-queue {
+	margin-bottom: 1em;
+}
+.dropzone {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	font: 11px Verdana, Geneva, sans-serif;
+	margin-top: 5px;
+	/* max-width: 405px; */
+	padding: 10px;
+}
+.uploadifive-error {
+	background-color: #FDE5DD !important;
+}
+.dropzone .file {
+	height: 48px;
+	width: 48px;
+	margin-right: 10px;
+}
+.dropzone .fileinfo{
+	color: #FF0000 !important;
+}
+.dropzone.completed {
+	background-color: #E5E5E5;
+}
+.dropzone .progress {
+	background-color: #E5E5E5;
+	margin-top: 10px;
+	width: 100%;
+}
+.dropzone .progress-bar {
+	background-color: #0099FF;
+	height: 100%;
+	width: 1px;
+}
+
+#uploadifive-file_upload > input[type=file]{
+	width: 100%;
+}
+
+.dropzone{
+    min-height: 60px !important;
+    border: 0 !important;
+    background: '' !important;
+    padding: 0 !important;
+	margin-top: 10px !important;
+}
+
+.fileinfo-success {
+	color: rgba(0, 128, 0, 0.828) !important;
+}

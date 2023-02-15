@@ -1,0 +1,187 @@
+.hide{
+    display: none;
+}
+
+/* iframe - start */
+.container_iframe {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 60vh;
+}
+
+/* Then style the iframe to fit in the container div with full height and width */
+.responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+body::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+    background: rgb(175, 175, 175);        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgb(126, 126, 126);    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 3px solid rgb(144, 144, 144);  /* creates padding around scroll thumb */
+}
+
+/** classification **/
+.emergency{
+    background: rgba(255, 0, 0, 0.71) !important;
+}
+.very_urgent{
+    background: rgba(255, 166, 0, 0.815) !important;
+}
+.urgent{
+    background: rgba(255, 225, 0, 0.83) !important;
+    color: #7a8593 !important;
+}
+.little_urgent{
+    background: rgba(0, 128, 0, 0.828) !important;
+}
+.not_urgent{
+    background: rgba(0, 0, 255, 0.726) !important
+}
+/** scale pain color **/
+.pain_zero{
+    background: rgba(26,380,50,255);
+    color: #7a8593;
+}
+.pain_one{
+    background: rgba(102,350,34,255);
+    color: #7a8593;
+}
+.pain_two{
+    background: rgba(126,320,13,255);
+    color: #7a8593;
+}
+.pain_three{
+    background: rgba(191,260,7,255);
+    color: #7a8593;
+}
+.pain_four{
+    background: rgba(255,230,1,255);
+    color: #7a8593;
+}
+.pain_five{
+    background: rgba(255,200,0,255);
+    color: #7a8593;
+}
+.pain_six{
+    background: rgba(254,153,0,255);
+    color: #ffffff;
+}
+.pain_seven{
+    background: rgba(254,120,11,255);
+    color: #ffffff;
+}
+.pain_eight{
+    background: rgba(251,90,22,255);
+    color: #ffffff;
+}
+.pain_nine{
+    background: rgba(247,75,29,255);
+    color: #ffffff;
+}
+.pain_ten{
+    background: rgba(247,7,29,255);
+    color: #ffffff;
+}
+
+/* select2 */
+.select2-close-mask{
+    z-index: 2099;
+}
+.select2-dropdown{
+    z-index: 3051;
+}
+
+/* ============ desktop view ============ */
+@media all and (min-width: 992px) {
+	.dropdown-menu li{ position: relative; 	}
+	.nav-item .submenu{ 
+		display: none;
+		position: absolute;
+		left:100%; top:-7px;
+	}
+	.nav-item .submenu-left{ 
+		right:100%; left:auto;
+	}
+	.dropdown-menu > li:hover{ background-color: #f1f1f1 }
+	.dropdown-menu > li:hover > .submenu{ display: block; }
+}	
+/* ============ desktop view .end// ============ */
+
+/* ============ small devices ============ */
+@media (max-width: 991px) {
+  .dropdown-menu .dropdown-menu{
+      margin-left:0.7rem; margin-right:0.7rem; margin-bottom: .5rem;
+  }
+}	
+/* ============ small devices .end// ============ */
+
+.choices__inner{
+    min-height: 35px !important;
+    height: 35px;
+}
+
+.choices .choices__list--multiple .choices__item {
+    margin-top: 1px !important;
+}
+
+.choices .choices__input--cloned {
+    margin-top: 1px !important;
+}
+
+.choices__list--single .choices__item {
+    margin-top: -10px !important;
+}
+
+.kanban-items-container .active {
+    background: #5e646b;
+    color: #FFF;
+}
+
+.block-item-class{
+    display: none;
+}
+
+.kanban-item-invalid{
+    border:solid 2px; 
+    border-color: rgb(238, 64, 64);
+}
+
+.dropzone .dz-preview .dz-image{
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.kanban-item .card-body{
+    padding: 0.75rem 1.25rem !important;
+}
+
+.custom-nav {
+    -webkit-box-shadow: 0 4px 6px -6px #222;
+    -moz-box-shadow: 0 4px 6px -6px #222;
+    box-shadow: 0 4px 6px -6px #222;
+}
+
+.custom-nav-header{
+    min-height: 2.3125rem !important;
+}
+
+.card-border{
+    border-left: 1px;
+    border-left: 5px solid #2c7be5;
+}
