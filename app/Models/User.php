@@ -102,7 +102,7 @@ class User extends Authenticatable
             $users->where('cpf_cnpj', 'LIKE', preg_replace('/[^0-9]/', '', $filter['cpf_cnpj'])."%");
         endif;
 
-        return array("data" => $users->paginate(env('PAGE_NUMBER')), "count" => $users->count());
+        return $users->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

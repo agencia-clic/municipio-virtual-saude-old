@@ -111,17 +111,6 @@
     </div>
     <!-- content - end -->
 
-    <!-- actions - start -->
-    <div class="col-12">
-
-        <a href="{{ redirect()->getUrlGenerator()->previous() }}">
-            <div class="btn btn-secondary">Voltar</div>
-        </a>
-
-        <button class="btn btn-primary" type="submit">@if(empty($medication_units))Inserir @else Editar @endif</button>
-    </div>
-
-    <!-- actions - end -->
 </form>
 
 @endsection

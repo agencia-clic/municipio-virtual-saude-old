@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
@@ -60,6 +62,18 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        // make users defull
+        DB::table('users')->insert([
+            [
+                'name' => 'Agência clic',
+                'cpf_cnpj' => '14414603000144',
+                'email' => 'contato@agenciaclic.com.br',
+                'password' => Hash::make('QNU#ARDxfwbak@b8jBuSzNJN%3Km594n%zm3G^Pwp#@i9^S4j4aeZ$dwhw$v!vezMQku&R!ZuRZ8*m%MHfPt7PU#cp'),
+                'status' => 'a',
+                'level' => 's'
+            ]
+        ]);
     }
 
     /**

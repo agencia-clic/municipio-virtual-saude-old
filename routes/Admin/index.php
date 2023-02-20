@@ -3,17 +3,11 @@
 //home
 require_once('home.php');
 
-//users
-require_once('users.php');
-
 //query
 require_once('query.php');
 
 //service units
 require_once('service_units.php');
-
-//users service units
-require_once('users_service_units.php');
 
 //medication classifications
 require_once('medication_administrations.php');
@@ -39,9 +33,6 @@ require_once('protocols_medication.php');
 //medical specialties
 require_once('medical_specialties.php');
 
-//users medical specialties
-require_once('users_medical_specialties.php');
-
 //topics
 require_once('topics.php');
 
@@ -50,9 +41,6 @@ require_once('topics_checks.php');
 
 //emergency classification manchester
 require_once('classification_manchester.php');
-
-//service units forwarding
-require_once('service_units_forwarding.php');
 
 //service units forwarding
 require_once('call.php');
@@ -147,23 +135,11 @@ require_once('approve_admissions.php');
 //emergency_services_vital_data
 require_once('emergency_services_vital_data.php');
 
-//flowchart
-require_once('flowcharts.php');
-
-//flowcharts_scales
-require_once('flowcharts_scales.php');
-
 //units logged in
 Route::group(['middleware' => 'auth', 'belongUnit'], function () {
 
     //emergency_services
     require_once('emergency_services.php');
-
-    //users patients
-    require_once('users_patients.php');
-
-    //users diseases
-    require_once('users_diseases.php');
 
     //screenings
     require_once('screenings.php');

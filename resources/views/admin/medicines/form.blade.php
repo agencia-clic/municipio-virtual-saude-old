@@ -166,7 +166,7 @@
 
                             <div class="col-sm-2 col-md-2 col-lg-1 mt-4">
                                 <div class="btn-group mb-2" role="group">
-                                    <button class="btn btn-primary" type="button" title="Infusão" iframe-form="{{ route('medication_dilutions.form_modal') }}" iframe-create="{{ route('medication_dilutions.form.create_modal') }}"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span></button>                                   
+                                    <button class="btn btn-primary" type="button" title="Diluição" iframe-form="{{ route('medication_dilutions.form_modal') }}" iframe-create="{{ route('medication_dilutions.form.create_modal') }}"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span></button>                                   
                                 </div>
                             </div>  
                         </div>

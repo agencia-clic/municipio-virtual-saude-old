@@ -61,7 +61,7 @@ class EmergencyServicesForwardInternalController extends Controller
 
         $validator = Validator::make($data, [
             'IdMedicalSpecialties' => ['required', 'string'],
-            'type' => ['required', 'string'],
+            'type_forward_internal' => ['required', 'string'],
         ]);
 
         if($validator->fails()):

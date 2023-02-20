@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
+use App\Helpers\Mask2;
 use Illuminate\Support\Str;
 use DB;
 
@@ -25,7 +25,7 @@ class UsersController extends Controller
     {
         $this->middleware('auth');
         $this->users = new User();
-        $this->mask = new Mask();
+        $this->mask = new Mask2();
     }
 
     /**

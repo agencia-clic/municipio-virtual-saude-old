@@ -97,9 +97,6 @@ class EmergencyServicesConductsController extends Controller
      */
     public function store(Request $request, $type, $IdEmergencyServices)
     {
-
-        echo "teste"; exit;
-
         $IdEmergencyServices = base64_decode($IdEmergencyServices);
         $emergency_services_conducts = $this->emergency_services_conducts->list($IdEmergencyServices);
         $emergency_services = $this->emergency_services->list_current($IdEmergencyServices);

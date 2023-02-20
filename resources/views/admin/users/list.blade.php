@@ -7,7 +7,20 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Médicos</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $users['count'] }} de {{ $users['data']->total() }} registros</span>
+
+    <span class="badge bg-primary">
+        @if ($users->firstItem())
+            <span class="font-medium">{{ $users->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $users->lastItem() }}</span>
+        @else
+            {{ $users->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $users->total() }}</span>
+        {!! __('registros') !!}
+    </span>
+
 </div>
 
 <div class="col-12 mb-2">
@@ -102,21 +115,20 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 mb-0 border overflow-hidden border">
 
-                @if(!empty($users['data']->total()) AND ($users['data']->total() > 0))
+                @if(!empty($users->total()) AND ($users->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 white-space-nowrap">Name</th>
                             <th class="sort pe-1 white-space-nowrap text-center" width="5%">Nivel</th>
                             <th class="sort pe-1 white-space-nowrap text-center" width="10%">CPF/CNPJ</th>
                             <th class="sort pe-1 white-space-nowrap text-center" width="10%">Email</th>
-                            <th class="sort pe-1 white-space-nowrap text-center" width="10%">Telefone</th>
                             <th class="sort pe-1 white-space-nowrap text-center" width="5%">Status</th>
                             <th class="no-sort text-end">Ações</th>
                         </tr>
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($users['data'] as $val)
+                        @foreach($users as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdUsers}}-table">
                                 <td class="border name white-space-nowrap py-2">
                                     <div class="d-flex d-flex align-items-center">
@@ -145,10 +157,14 @@
                                     @endif
                                 </td>
 
-                                <td class="border email py-2 text-1000 text-center">{{ $mask->cpf_cnpj($val->cpf_cnpj) }}</td>
-
+                                <td class="border email py-2 text-1000 text-center">
+                                    @if(strlen($val->cpf_cnpj) == 11):
+                                        {{ Mask::default($val->cpf_cnpj, '###.###.###-##') }}
+                                    @else
+                                        {{ Mask::default($val->cpf_cnpj, '##.###.###/####-##') }}
+                                    @endif
+                                </td>
                                 <td class="border email py-2 text-1000 text-center">{{ $val->email }}</td>
-                                <td class="border phone white-space-nowrap text-1000 py-2 text-center">{{ $mask->phone($val->phone) }}</td>
 
                                 <td class="border phone white-space-nowrap text-1000 py-2 text-center">
                                     @if($val->status == "a")
@@ -198,7 +214,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $users['data']->appends(app('request')->all())->links() }}
+    {{ $users->appends(app('request')->all())->links() }}
     
 </div>
 @endsection

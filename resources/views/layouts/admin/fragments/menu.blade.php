@@ -10,12 +10,6 @@
         <ul class="dropdown-menu">
             @if(!empty(auth()->user()->units_current()))
                 <li>
-                    <a class="dropdown-item link-600 fw-medium" href="{{ route('flowcharts-scales') }}">Fluxograma</a>
-                </li>
-            @endif
-
-            @if(!empty(auth()->user()->units_current()))
-                <li>
                     <a class="dropdown-item link-600 fw-medium" href="{{ route('users_patients.list') }}">Pacientes</a>
                 </li>
             @endif
@@ -117,13 +111,6 @@
                         </li>
                     @endcanany
 
-                    <!-- flowcharts -->
-                    @canany(['isSuper'])
-                        <li>
-                            <a class="dropdown-item dropdown-item link-600 fw-medium" href="{{ route('flowcharts') }}">Fluxogramas</a>
-                        </li>
-                    @endcanany
-
                     @if(!empty(auth()->user()->units_current()))
                         <li>
                             <a class="dropdown-item dropdown-item link-600 fw-medium" href="{{ route('call_panel') }}">Painel de Chamada</a>
@@ -163,14 +150,6 @@
             <li>
                 <a class="dropdown-item link-600 fw-medium" href="{{ route('screenings') }}">Acolhimento</a>
             </li>
-
-            @if($flowcharts_menu = FlowchartsMenu::menu())
-                @foreach ($flowcharts_menu as $val)
-                    <li>
-                        <a class="dropdown-item link-600 fw-medium" href="{{ route('medical_care', ['IdFlowcharts' => base64_encode($val->IdFlowcharts)]) }}">{{ $val->title }}</a>
-                    </li>
-                @endforeach
-            @endif
 
             <li>
                 <a class="dropdown-item link-600 fw-medium" href="{{ route('emergency_services_procedures.list.run') }}">Procedimentos</a>
