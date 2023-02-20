@@ -3,7 +3,13 @@
 @section('content')
 
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Médicos</span>
+    <span class="h4 text-800">
+        @if(app('request')->input('module') == 'medical')
+            Médicos
+        @else
+            Usuários
+        @endif
+    </span>
 </div>
 
 <!-- form -- start -->
