@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Medicines;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use App\Models\MedicationAdministrations;
 use App\Models\MedicationDilutions;
 use App\Models\MedicationInfusao;
@@ -18,7 +17,6 @@ use DB;
 class MedicinesController extends Controller
 {
     protected $medicines;
-    protected $mask;
     protected $medication_administrations;
     protected $medication_infusao;
     protected $medication_dilutions;
@@ -35,7 +33,6 @@ class MedicinesController extends Controller
     {
         $this->middleware('auth');
         $this->medicines = new Medicines();
-        $this->mask = new Mask();
         $this->medication_administrations = new MedicationAdministrations();
         $this->medication_infusao = new MedicationInfusao();
         $this->medication_dilutions = new MedicationDilutions();
@@ -56,7 +53,6 @@ class MedicinesController extends Controller
         return view('admin.medicines.list', [
             'title' => "Medicamentos | ".env('APP_NAME'),
             'medicines' => $medicines,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -103,7 +99,6 @@ class MedicinesController extends Controller
     {
         return view('admin.medicines.form', [
             'title' => "Medicamentos | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'medication_dilutions' => $this->medication_dilutions->list_select(),
             'medication_infusao' => $this->medication_infusao->list_select(),
             'medication_administrations' => $this->medication_administrations->list_select(),

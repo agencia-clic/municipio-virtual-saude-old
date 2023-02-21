@@ -19,6 +19,16 @@ class CreateServiceUnitsForwardingTable extends Migration
             $table->integer('IdServiceUnitsReceive');
             $table->timestamps();
         });
+
+        // make users service unit defull
+        if(env('APP_ENV') == 'local'):
+            DB::table('service_units_forwarding')->insert([
+                [
+                    'IdServiceUnits' => 2,
+                    'IdServiceUnitsReceive' => 1,
+                ]
+            ]);
+        endif;
     }
 
     /**
