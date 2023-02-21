@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Accommodations;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class AccommodationsController extends Controller
 {
     protected $accommodations;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -23,7 +21,6 @@ class AccommodationsController extends Controller
     {
         $this->middleware('auth');
         $this->accommodations = new Accommodations();
-        $this->mask = new Mask();
     }
 
     /**
@@ -37,7 +34,6 @@ class AccommodationsController extends Controller
 
         return view('admin.accommodations.list', [
             'accommodations' => $accommodations,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -121,9 +117,7 @@ class AccommodationsController extends Controller
      */
     public function show_modal($IdAccommodations = null)
     {
-        return view('admin.accommodations.form_modal', [
-            'mask' => $this->mask,
-        ]);
+        return view('admin.accommodations.form_modal');
     }
 
     /**
