@@ -17,7 +17,7 @@
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div id="topics_letter_fields" class="form-group">
                     <label for="topics_letter" id="label_topics_letter">FILTRO: Letra:</label>
-                    <select id="topics_letter" name="topics_letter" class="form-control">
+                    <select id="topics_letter" name="topics_letter" class="form-control form-control-sm">
                         <option value="">...</option>
                         <option value="A">A</option>
                         <option value="B">B</option>
@@ -52,14 +52,14 @@
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div id="topics_fields" class="form-group">
                     <label for="topics" id="label_topics">FILTRO: TÓPICO:</label>
-                    <input type="text" id="topics" name="topics" class="form-control" autocomplete="off">    
+                    <input type="text" id="topics" name="topics" class="form-control form-control-sm" autocomplete="off">    
                 </div>
             </div>
             
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div id="topics_sinais_fields" class="form-group">
                     <label for="topics_sinais" id="label_topics_sinais">FILTRO: SINAIS DE ALERTA:</label>
-                    <input type="text" id="topics_sinais" name="topics_sinais" class="form-control" autocomplete="off">    
+                    <input type="text" id="topics_sinais" name="topics_sinais" class="form-control form-control-sm" autocomplete="off">    
                 </div>
             </div>
         </div>
@@ -68,7 +68,7 @@
             <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2">
                 <div id="topics_button_fields" class="form-group">
                     <label for="topics_button" id="label_topics_button"></label>
-                    <button type="button" class="form-control btn btn-outline-secondary query-topics" title="Buscar" url="{{ route('topics.form.query') }}">
+                    <button type="button" class="form-control btn btn-outline-secondary btn-sm query-topics" title="Buscar" url="{{ route('topics.form.query') }}">
                         <span class="fas fa-search" data-fa-transform="shrink-3 down-2"></span>
                     </button>
                 </div>

@@ -54,6 +54,7 @@ class ServiceUnitsController extends Controller
 
         $validator = Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'acronym' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:service_units'],
             'IdUsers' => ['required', 'string', 'max:11'],
@@ -73,6 +74,7 @@ class ServiceUnitsController extends Controller
         ServiceUnits::create([
             'name' => $data['name'],
             'code' => $data['code'],
+            'acronym' => $data['code'],
             'IdUsers' => $data['IdUsers'],
             'email' => $data['email'],
             'status' => $data['status'],

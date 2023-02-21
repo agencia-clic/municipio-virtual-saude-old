@@ -53,25 +53,25 @@
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="IdProcedures_fields" class="form-group">
                         <label for="IdProcedures" id="label_IdProcedures">Código:</label>
-                        <input type="text" id="IdProcedures" name="IdProcedures" class="form-control" value="@if(!empty($procedures)){{ $procedures->IdProcedures }}@endif" readonly="">
+                        <input type="text" id="IdProcedures" name="IdProcedures" class="form-control form-control-sm" value="@if(!empty($procedures)){{ $procedures->IdProcedures }}@endif" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="created_at_fields" class="form-group">
                         <label for="created_at" id="label_created_at">Criação:</label>
-                        <input type="text" id="created_at" name="created_at" class="form-control" value="@if(!empty($procedures)){{ date('d-m-Y H:i', strtotime($procedures->created_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="created_at" name="created_at" class="form-control form-control-sm" value="@if(!empty($procedures)){{ date('d-m-Y H:i', strtotime($procedures->created_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="updated_at_fields" class="form-group">
                         <label for="updated_at" id="label_updated_at">Última edição:</label>
-                        <input type="text" id="updated_at" name="updated_at" class="form-control" value="@if(!empty($procedures)){{ date('d-m-Y H:i', strtotime($procedures->updated_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="updated_at" name="updated_at" class="form-control form-control-sm" value="@if(!empty($procedures)){{ date('d-m-Y H:i', strtotime($procedures->updated_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="status_fields" class="form-group">
                         <label for="status" id="label_status" class="label_status">Status:</label>
-                        <select name="status" class="form-control @error('status') is-invalid @enderror">
+                        <select name="status" class="form-control form-control-sm @error('status') is-invalid @enderror">
                             <option value="a" @if((old('status') == "a") OR (!empty($procedures) AND ($procedures->status == "a")))selected @endif>Ativo</option>
                             <option value="b" @if((old('status') == "b") OR (!empty($procedures) AND ($procedures->status == "b")))selected @endif>Bloqueado</option>
                         </select>
@@ -99,7 +99,7 @@
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div id="title_fields" class="form-group">
                         <label for="title" id="label_title">Título:</label>
-                        <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" value="{{old('title') ?? $procedures->title ?? ""}}" required>
+                        <input type="text" id="title" name="title" class="form-control form-control-sm @error('title') is-invalid @enderror" value="{{old('title') ?? $procedures->title ?? ""}}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div id="code_fields" class="form-group">
                         <label for="code" id="label_code">Código:</label>
-                        <input type="text" id="code" name="code" class="form-control @error('code') is-invalid @enderror" value="{{old('code') ?? $procedures->code ?? ""}}" required>
+                        <input type="text" id="code" name="code" class="form-control form-control-sm @error('code') is-invalid @enderror" value="{{old('code') ?? $procedures->code ?? ""}}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>

@@ -56,14 +56,14 @@
                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <div id="IdEmergencyServicesProcedures_campo" class="form-group">
                                     <label for="IdEmergencyServicesProcedures" id="label_IdEmergencyServicesProcedures">Código:</label>
-                                    <input type="number" min="1" id="IdEmergencyServicesProcedures" name="IdEmergencyServicesProcedures" class="form-control" value="{{ app('request')->input('IdEmergencyServicesProcedures') }}" maxlength="11" autocomplete="off" />
+                                    <input type="number" min="1" id="IdEmergencyServicesProcedures" name="IdEmergencyServicesProcedures" class="form-control form-control-sm" value="{{ app('request')->input('IdEmergencyServicesProcedures') }}" maxlength="11" autocomplete="off" />
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <div id="status_campo" class="form-group">
                                     <label for="status" id="label_status">Status:</label>
-                                    <select name="status" id="status" class="form-control">
+                                    <select name="status" id="status" class="form-control form-control-sm">
                                         <option value="open" {{ app('request')->input('status') == "open" ? "selected" : ""}}>Aguardando</option>
                                         <option value="executed" {{ app('request')->input('status') == "executed" ? "selected" : ""}}>Executados</option>
                                         <option value="refused" {{ app('request')->input('status') == "refused" ? "selected" : ""}}>Resusados</option>
@@ -74,20 +74,20 @@
                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <div id="name_campo" class="form-group">
                                     <label for="name" id="label_name">Nome</label>
-                                    <input type="text" id="name" name="name" class="form-control" value="{{ app('request')->input('name') }}" maxlength="100" autocomplete="off" />
+                                    <input type="text" id="name" name="name" class="form-control form-control-sm" value="{{ app('request')->input('name') }}" maxlength="100" autocomplete="off" />
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <div id="cpf_cnpj_campo" class="form-group">
                                     <label for="cpf_cnpj" id="label_cpf_cnpj">CPF</label>
-                                    <input type="text" id="cpf_cnpj" name="cpf_cnpj" class="form-control" value="{{ app('request')->input('cpf_cnpj') }}" maxlength="100" autocomplete="off" />
+                                    <input type="text" id="cpf_cnpj" name="cpf_cnpj" class="form-control form-control-sm" value="{{ app('request')->input('cpf_cnpj') }}" maxlength="100" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
 
-                        <input type="hidden" name="medical_care" class="form-control" value="foo"/>
-                        <input type="hidden" id="page" class="form-control" value="{{ app('request')->input('page') }}"/>
+                        <input type="hidden" name="medical_care" class="form-control form-control-sm" value="foo"/>
+                        <input type="hidden" id="page" class="form-control form-control-sm" value="{{ app('request')->input('page') }}"/>
                         <button class="btn btn-outline-primary me-1 mb-1 mt-2 btn-sm" type="submit">FILTRAR</button>
 
                     </form>

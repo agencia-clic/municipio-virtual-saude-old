@@ -30,7 +30,7 @@
                                 <label class="form-label" for="validationCustomEmail">{{__('E-mail')}}</label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="email">@</span>
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="validationCustomEmail" value="{{ $email ?? old('email') }}" required autocomplete="email" required autocomplete="email" autofocus>
+                                    <input id="email" type="email" class="form-control form-control-sm @error('email') is-invalid @enderror" name="email" id="validationCustomEmail" value="{{ $email ?? old('email') }}" required autocomplete="email" required autocomplete="email" autofocus>
             
                                     <div class="invalid-feedback">
                                        {{trans('message.required_field')}}
@@ -42,7 +42,7 @@
                                 <label class="form-label" for="validationCustomPassword">{{__('Nova Senha')}}</label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="password">@</span>
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="validationCustomPassword" required autocomplete="Nova Senha" min="8">
+                                    <input id="password" type="password" class="form-control form-control-sm @error('password') is-invalid @enderror" name="password" id="validationCustomPassword" required autocomplete="Nova Senha" min="8">
             
                                     <div class="invalid-feedback">
                                        {{trans('message.required_field')}}
@@ -54,7 +54,7 @@
                                 <label class="form-label" for="validationPasswordConfirmation">{{__('Confirme a Senha')}}</label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="password_confirmation">@</span>
-                                    <input id="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="validationPasswordConfirmation" required autocomplete="Confirme a Senha" min="8">
+                                    <input id="password_confirmation" type="password" class="form-control form-control-sm @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="validationPasswordConfirmation" required autocomplete="Confirme a Senha" min="8">
             
                                     <div class="invalid-feedback">
                                        {{trans('message.required_field')}}

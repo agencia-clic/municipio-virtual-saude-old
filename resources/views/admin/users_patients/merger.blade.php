@@ -25,7 +25,7 @@
             <div class="col-sm-3 col-md-3 col-lg-2 col-xl-3">
                 <div id="user_letter_fields" class="form-group">
                     <label for="user_letter" id="label_user_letter">FILTRO: Letra:</label>
-                    <select id="user_letter" name="user_letter" class="form-control">
+                    <select id="user_letter" name="user_letter" class="form-control form-control-sm">
                         <option value="">...</option>
                         <option value="A">A</option>
                         <option value="B">B</option>
@@ -60,42 +60,42 @@
             <div class="col-sm-9 col-md-9 col-lg-5 col-xl-3">
                 <div id="user_name_fields" class="form-group">
                     <label for="user_name" id="label_user_name">FILTRO: Nome:</label>
-                    <input type="text" id="user_name" name="user_name" class="form-control" maxlength="50" autocomplete="off">    
+                    <input type="text" id="user_name" name="user_name" class="form-control form-control-sm" maxlength="50" autocomplete="off">    
                 </div>
             </div>
             
             <div class="col-sm-9 col-md-3 col-lg-3 col-xl-3">
                 <div id="user_cpf_cnpj_fields" class="form-group">
                     <label for="user_cpf_cnpj" id="label_user_cpf_cnpj">FILTRO: CPF/CNPJ:</label>
-                    <input type="text" id="user_cpf_cnpj" name="user_cpf_cnpj" class="form-control" maxlength="14" autocomplete="off">    
+                    <input type="text" id="user_cpf_cnpj" name="user_cpf_cnpj" class="form-control form-control-sm" maxlength="14" autocomplete="off">    
                 </div>
             </div>
 
             <div class="col-sm-9 col-md-3 col-lg-3 col-xl-3">
                 <div id="user_phone_fields" class="form-group">
                     <label for="user_phone" id="label_user_phone">FILTRO: Telefone:</label>
-                    <input type="text" id="user_phone" name="user_phone" class="form-control" maxlength="15" autocomplete="off">    
+                    <input type="text" id="user_phone" name="user_phone" class="form-control form-control-sm" maxlength="15" autocomplete="off">    
                 </div>
             </div>
             
             <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2">
                 <div id="user_button_fields" class="form-group mt-2">
                     <label for="user_button" id="label_user_button"></label>
-                    <button type="button" class="form-control btn btn-outline-secondary">Adicionar</button>
+                    <button type="button" class="form-control btn btn-outline-secondary btn-sm">Adicionar</button>
                 </div>
             </div>
 
             <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2">
                 <div id="user_button_fields" class="form-group mt-2">
                     <label for="user_button" id="label_user_button"></label>
-                    <button type="button" class="form-control btn btn-outline-secondary" url="{{ route('users.form.query') }}" data-id="{{old('IdUsers') ?? $service_units->IdUsers ?? ""}}" query-fields="user_letter,user_name,user_cpf_cnpj,user_phone" select="IdUsers">Buscar</button>
+                    <button type="button" class="form-control btn btn-outline-secondary btn-sm" url="{{ route('users.form.query') }}" data-id="{{old('IdUsers') ?? $service_units->IdUsers ?? ""}}" query-fields="user_letter,user_name,user_cpf_cnpj,user_phone" select="IdUsers">Buscar</button>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8">
                 <div id="IdUsers_fields" class="form-group">
                     <label for="IdUsers" id="label_IdUsers">Contribuinte</label>
-                    <select id="IdUsers" name="IdUsers" class="form-control @error('IdUsers') is-invalid @enderror" required>
+                    <select id="IdUsers" name="IdUsers" class="form-control form-control-sm @error('IdUsers') is-invalid @enderror" required>
                         <option value="">...</option>
                     </select>
                 </div>              

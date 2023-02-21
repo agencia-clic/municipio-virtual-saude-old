@@ -25,7 +25,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div id="title_fields" class="form-group">
                     <label for="title" id="label_title">Título:</label>
-                    <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" value="{{old('title') ?? $medicines->title ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
+                    <input type="text" id="title" name="title" class="form-control form-control-sm @error('title') is-invalid @enderror" value="{{old('title') ?? $medicines->title ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
                     <div class="valid-feedback">sucesso!</div>
                 </div>
             </div>

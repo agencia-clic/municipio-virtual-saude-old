@@ -48,21 +48,21 @@
             <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                 <div id="cpf_cnpj_filter_fields" class="form-group">
                     <label for="cpf_cnpj_filter" id="label_cpf_cnpj_filter">CPF FILTRO:</label>
-                    <input type="text" id="cpf_cnpj_filter" name="cpf_cnpj_filter" class="form-control" oninput="this.value = this.value.toUpperCase()">
+                    <input type="text" id="cpf_cnpj_filter" name="cpf_cnpj_filter" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
                 </div>
             </div>
         
             <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                 <div id="name_patient_filter_fields" class="form-group">
                     <label for="name_patient_filter" id="label_name_patient_filter">NOME FILTRO:</label>
-                    <input type="text" id="name_patient_filter" name="name_patient_filter" class="form-control" oninput="this.value = this.value.toUpperCase()">
+                    <input type="text" id="name_patient_filter" name="name_patient_filter" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
                 </div>
             </div>
         
             <div class="col-sm-12 col-md col-lg col-xl">
                 <div id="IdUsers_fields" class="form-group">
                     <label for="IdUsers" id="label_IdUsers">Pacientes</label>
-                    <select id="IdUsers" name="IdUsers" class="form-control @error('IdUsers') is-invalid @enderror" url-query="{{ route('users.query.responsavel.json') }}">
+                    <select id="IdUsers" name="IdUsers" class="form-control form-control-sm @error('IdUsers') is-invalid @enderror" url-query="{{ route('users.query.responsavel.json') }}">
                         <option value="">...</option>
                     </select>
                 </div>              
@@ -92,7 +92,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div id="note_fields" class="form-group">
                     <label class="form-label" for="note_label"></label>
-                    <textarea class="form-control" id="note" name="note" rows="3" placeholder="Observação"></textarea>
+                    <textarea class="form-control form-control-sm" id="note" name="note" rows="3" placeholder="Observação"></textarea>
                     <div class="valid-feedback">sucesso!</div>
                 </div>
             </div>

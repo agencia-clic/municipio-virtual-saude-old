@@ -106,7 +106,7 @@
         <div class="row mt-1">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div id="note_finalize_fields" class="form-group">
-                    <textarea class="form-control @error('note_finalize') is-invalid @enderror" id="note_finalize" name="note_finalize" placeholder="Motivo da Finalização" rows="4"></textarea>
+                    <textarea class="form-control form-control-sm @error('note_finalize') is-invalid @enderror" id="note_finalize" name="note_finalize" placeholder="Motivo da Finalização" rows="4"></textarea>
                     <div class="valid-feedback">sucesso!</div>
                 </div>
             </div>
@@ -157,7 +157,7 @@
         <div class="row mt-1">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div id="note_denied_medication_fields" class="form-group">
-                    <textarea class="form-control @error('note_denied_medication') is-invalid @enderror" id="note_denied_medication" name="note_denied_medication" placeholder="Paciente Negou a Medicação" rows="4"></textarea>
+                    <textarea class="form-control form-control-sm @error('note_denied_medication') is-invalid @enderror" id="note_denied_medication" name="note_denied_medication" placeholder="Paciente Negou a Medicação" rows="4"></textarea>
                     <div class="valid-feedback">sucesso!</div>
                 </div>
             </div>

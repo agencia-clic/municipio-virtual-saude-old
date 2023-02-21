@@ -53,25 +53,25 @@
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="IdRooms_fields" class="form-group">
                         <label for="IdRooms" id="label_IdRooms">Código:</label>
-                        <input type="text" id="IdRooms" name="IdRooms" class="form-control" value="@if(!empty($rooms)){{ $rooms->IdRooms }}@endif" readonly="">
+                        <input type="text" id="IdRooms" name="IdRooms" class="form-control form-control-sm" value="@if(!empty($rooms)){{ $rooms->IdRooms }}@endif" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="created_at_fields" class="form-group">
                         <label for="created_at" id="label_created_at">Criação:</label>
-                        <input type="text" id="created_at" name="created_at" class="form-control" value="@if(!empty($rooms)){{ date('d-m-Y H:i', strtotime($rooms->created_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="created_at" name="created_at" class="form-control form-control-sm" value="@if(!empty($rooms)){{ date('d-m-Y H:i', strtotime($rooms->created_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="updated_at_fields" class="form-group">
                         <label for="updated_at" id="label_updated_at">Última edição:</label>
-                        <input type="text" id="updated_at" name="updated_at" class="form-control" value="@if(!empty($rooms)){{ date('d-m-Y H:i', strtotime($rooms->updated_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="updated_at" name="updated_at" class="form-control form-control-sm" value="@if(!empty($rooms)){{ date('d-m-Y H:i', strtotime($rooms->updated_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="status_fields" class="form-group">
                         <label for="status" id="label_status" class="label_status">Status:</label>
-                        <select name="status" class="form-control @error('status') is-invalid @enderror">
+                        <select name="status" class="form-control form-control-sm @error('status') is-invalid @enderror">
                             <option value="a" @if((old('status') == "a") OR (!empty($rooms) AND ($rooms->status == "a")))selected @endif>Ativo</option>
                             <option value="b" @if((old('status') == "b") OR (!empty($rooms) AND ($rooms->status == "b")))selected @endif>Bloqueado</option>
                         </select>
@@ -100,7 +100,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="title_fields" class="form-group">
                         <label for="title" id="label_title">Título:</label>
-                        <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" value="{{old('title') ?? $rooms->title ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
+                        <input type="text" id="title" name="title" class="form-control form-control-sm @error('title') is-invalid @enderror" value="{{old('title') ?? $rooms->title ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="initials_fields" class="form-group">
                         <label for="initials" id="label_initials">Siagla:</label>
-                        <input type="text" id="initials" name="initials" class="form-control @error('initials') is-invalid @enderror" value="{{old('initials') ?? $rooms->initials ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
+                        <input type="text" id="initials" name="initials" class="form-control form-control-sm @error('initials') is-invalid @enderror" value="{{old('initials') ?? $rooms->initials ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="capacity_fields" class="form-group">
                         <label for="capacity" id="label_capacity">Capacidade:</label>
-                        <input type="text" id="capacity" name="capacity" class="form-control @error('capacity') is-invalid @enderror" value="{{old('capacity') ?? $rooms->capacity ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
+                        <input type="text" id="capacity" name="capacity" class="form-control form-control-sm @error('capacity') is-invalid @enderror" value="{{old('capacity') ?? $rooms->capacity ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="determining_sex_fields" class="form-group">
                         <label for="determining_sex" id="label_determining_sex" class="label_determining_sex">Sexo Determinante:</label>
-                        <select name="determining_sex" class="form-control @error('determining_sex') is-invalid @enderror" required>
+                        <select name="determining_sex" class="form-control form-control-sm @error('determining_sex') is-invalid @enderror" required>
                             <option value="i" @if((old('determining_sex') == "i") OR (!empty($rooms) AND ($rooms->determining_sex == "i")))selected @endif>INDIFERENTE</option>
                             <option value="m" @if((old('determining_sex') == "m") OR (!empty($rooms) AND ($rooms->determining_sex == "m")))selected @endif>MASCULINO</option>
                             <option value="f" @if((old('determining_sex') == "f") OR (!empty($rooms) AND ($rooms->determining_sex == "f")))selected @endif>FEMININO</option>
@@ -170,7 +170,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="international_exclusive_fields" class="form-group">
                         <label for="international_exclusive" id="label_international_exclusive" class="label_international_exclusive">Exclusivo Internação:</label>
-                        <select name="international_exclusive" class="form-control @error('international_exclusive') is-invalid @enderror">
+                        <select name="international_exclusive" class="form-control form-control-sm @error('international_exclusive') is-invalid @enderror">
                             <option value="y" @if((old('international_exclusive') == "y") OR (!empty($rooms) AND ($rooms->international_exclusive == "y")))selected @endif>Sim</option>
                             <option value="n" @if((old('international_exclusive') == "n") OR (!empty($rooms) AND ($rooms->international_exclusive == "n")))selected @endif>Não</option>
                         </select>

@@ -5,14 +5,14 @@
     <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
         <div id="code_procedures_filter_fields" class="form-group">
             <label for="code_procedures_filter" id="label_code_procedures_filter">Código FILTRO:</label>
-            <input type="text" id="code_procedures_filter" code_procedures_filter="code_procedures_filter" class="form-control" oninput="this.value = this.value.toUpperCase()">
+            <input type="text" id="code_procedures_filter" code_procedures_filter="code_procedures_filter" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
         </div>
     </div>
 
     <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
         <div id="title_procedures_filter_fields" class="form-group">
             <label for="title_procedures_filter" id="label_title_procedures_filter">Procedimento FILTRO:</label>
-            <input type="text" id="title_procedures_filter" name="title_procedures_filter" class="form-control" oninput="this.value = this.value.toUpperCase()">
+            <input type="text" id="title_procedures_filter" name="title_procedures_filter" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
         </div>
     </div>
 
@@ -30,7 +30,7 @@
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div id="note_fields" class="form-group">
             <label class="form-label" for="note_label">Observação</label>
-            <textarea class="form-control @error('note') is-invalid @enderror" id="note" name="note" rows="3" required>{{old('note') ?? $emergency_services_procedures->note ?? ""}}</textarea>
+            <textarea class="form-control form-control-sm @error('note') is-invalid @enderror" id="note" name="note" rows="3" required>{{old('note') ?? $emergency_services_procedures->note ?? ""}}</textarea>
             <div class="valid-feedback">sucesso!</div>
         </div>
     </div>

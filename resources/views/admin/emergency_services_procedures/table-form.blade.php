@@ -3,14 +3,14 @@
     <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
         <label for="name_users_run_filter_filter" id="label_name_users_run_filter"><strong>Nome FILTRO:</strong></label>
         <div class="input-group mb-2">
-            <input type="text" id="name_users_run_filter" name="name_users_run_filter" class="form-control" oninput="this.value = this.value.toUpperCase()">
+            <input type="text" id="name_users_run_filter" name="name_users_run_filter" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
         </div>
     </div>
 
     <div class="col-sm-12 col-md col-lg col-xl">
         <div id="IdUsersResponsibleRunProcedures_fields" class="form-group">
             <label for="IdUsersResponsibleRunProcedures" id="label_IdUsersResponsibleRunProcedures">Profissional Responsável</label>
-            <select id="IdUsersResponsibleRunProcedures" name="IdUsersResponsibleRunProcedures" class="form-control @error('IdUsersResponsibleRunProcedures') is-invalid @enderror" url-query="{{ route('users.query.responsavel.json') }}">
+            <select id="IdUsersResponsibleRunProcedures" name="IdUsersResponsibleRunProcedures" class="form-control form-control-sm @error('IdUsersResponsibleRunProcedures') is-invalid @enderror" url-query="{{ route('users.query.responsavel.json') }}">
                 <option value="{{ auth()->user()->IdUsers }}">...</option>
             </select>
         </div>              
@@ -38,7 +38,7 @@
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div id="note_refused_fields" class="form-group">
                 <label class="form-label" for="note_refused_label">Observação</label>
-                <textarea class="form-control @error('note_refused') is-invalid @enderror" id="note_refused" name="note_refused" rows="6" required></textarea>
+                <textarea class="form-control form-control-sm @error('note_refused') is-invalid @enderror" id="note_refused" name="note_refused" rows="6" required></textarea>
                 <div class="valid-feedback">sucesso!</div>
             </div>
         </div>
@@ -48,7 +48,7 @@
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div id="medical_report_fields" class="form-group">
                 <label class="form-label" for="medical_report_label">Laudo</label>
-                <textarea class="form-control @error('medical_report') is-invalid @enderror" id="medical_report" name="medical_report" rows="6" required></textarea>
+                <textarea class="form-control form-control-sm @error('medical_report') is-invalid @enderror" id="medical_report" name="medical_report" rows="6" required></textarea>
                 <div class="valid-feedback">sucesso!</div>
             </div>
         </div>

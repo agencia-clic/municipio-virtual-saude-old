@@ -270,7 +270,7 @@ function proceduresRefused(a) {
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="form-group">
                 <label class="form-label" for="cancellation_justification_label">Motivo:</label>
-                <textarea class="form-control" name="cancellation_justification" rows="3" required></textarea>
+                <textarea class="form-control form-control-sm" name="cancellation_justification" rows="3" required></textarea>
                 <div class="valid-feedback">sucesso!</div>
             </div>
         </div>

@@ -53,25 +53,25 @@
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="IdFunctionalUnits_fields" class="form-group">
                         <label for="IdFunctionalUnits" id="label_IdFunctionalUnits">Código:</label>
-                        <input type="text" id="IdFunctionalUnits" name="IdFunctionalUnits" class="form-control" value="@if(!empty($functional_units)){{ $functional_units->IdFunctionalUnits }}@endif" readonly="">
+                        <input type="text" id="IdFunctionalUnits" name="IdFunctionalUnits" class="form-control form-control-sm" value="@if(!empty($functional_units)){{ $functional_units->IdFunctionalUnits }}@endif" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="created_at_fields" class="form-group">
                         <label for="created_at" id="label_created_at">Criação:</label>
-                        <input type="text" id="created_at" name="created_at" class="form-control" value="@if(!empty($functional_units)){{ date('d-m-Y H:i', strtotime($functional_units->created_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="created_at" name="created_at" class="form-control form-control-sm" value="@if(!empty($functional_units)){{ date('d-m-Y H:i', strtotime($functional_units->created_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="updated_at_fields" class="form-group">
                         <label for="updated_at" id="label_updated_at">Última edição:</label>
-                        <input type="text" id="updated_at" name="updated_at" class="form-control" value="@if(!empty($functional_units)){{ date('d-m-Y H:i', strtotime($functional_units->updated_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="updated_at" name="updated_at" class="form-control form-control-sm" value="@if(!empty($functional_units)){{ date('d-m-Y H:i', strtotime($functional_units->updated_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="status_fields" class="form-group">
                         <label for="status" id="label_status" class="label_status">Status:</label>
-                        <select name="status" class="form-control @error('status') is-invalid @enderror">
+                        <select name="status" class="form-control form-control-sm @error('status') is-invalid @enderror">
                             <option value="a" @if((old('status') == "a") OR (!empty($functional_units) AND ($functional_units->status == "a")))selected @endif>Ativo</option>
                             <option value="b" @if((old('status') == "b") OR (!empty($functional_units) AND ($functional_units->status == "b")))selected @endif>Bloqueado</option>
                         </select>
@@ -100,7 +100,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="title_fields" class="form-group">
                         <label for="title" id="label_title">Título:</label>
-                        <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" value="{{old('title') ?? $functional_units->title ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
+                        <input type="text" id="title" name="title" class="form-control form-control-sm @error('title') is-invalid @enderror" value="{{old('title') ?? $functional_units->title ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="initials_fields" class="form-group">
                         <label for="initials" id="label_initials">Sigla:</label>
-                        <input type="text" id="initials" name="initials" class="form-control @error('initials') is-invalid @enderror" value="{{old('initials') ?? $functional_units->initials ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
+                        <input type="text" id="initials" name="initials" class="form-control form-control-sm @error('initials') is-invalid @enderror" value="{{old('initials') ?? $functional_units->initials ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="initials_fields" class="form-group">
                         <label for="capacity" id="label_capacity">Capacidade:</label>
-                        <input type="text" id="capacity" name="capacity" class="form-control @error('capacity') is-invalid @enderror" value="{{old('capacity') ?? $functional_units->capacity ?? ""}}" oninput="this.value = this.value.toUpperCase()">
+                        <input type="text" id="capacity" name="capacity" class="form-control form-control-sm @error('capacity') is-invalid @enderror" value="{{old('capacity') ?? $functional_units->capacity ?? ""}}" oninput="this.value = this.value.toUpperCase()">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="initials_fields" class="form-group">
                         <label for="sector" id="label_sector">Setor:</label>
-                        <input type="text" id="sector" name="sector" class="form-control @error('sector') is-invalid @enderror" value="{{old('sector') ?? $functional_units->sector ?? ""}}" oninput="this.value = this.value.toUpperCase()">
+                        <input type="text" id="sector" name="sector" class="form-control form-control-sm @error('sector') is-invalid @enderror" value="{{old('sector') ?? $functional_units->sector ?? ""}}" oninput="this.value = this.value.toUpperCase()">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>

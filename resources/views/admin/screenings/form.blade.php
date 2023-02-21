@@ -142,13 +142,13 @@
                         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div id="IdScreenings_fields" class="form-group">
                                 <label for="IdScreenings" id="label_IdScreenings">Código:</label>
-                                <input type="text" id="IdScreenings" name="IdScreenings" class="form-control" value="@if(!empty($screenings)){{ $screenings->IdScreenings }}@endif" readonly="">
+                                <input type="text" id="IdScreenings" name="IdScreenings" class="form-control form-control-sm" value="@if(!empty($screenings)){{ $screenings->IdScreenings }}@endif" readonly="">
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div id="created_at_fields" class="form-group">
                                 <label for="created_at" id="label_created_at">Criação:</label>
-                                <input type="text" id="created_at" name="created_at" class="form-control" value="@if(!empty($screenings)){{ date('d-m-Y H:i', strtotime($screenings->created_at)) }}@endif" maxlength="19" readonly="">
+                                <input type="text" id="created_at" name="created_at" class="form-control form-control-sm" value="@if(!empty($screenings)){{ date('d-m-Y H:i', strtotime($screenings->created_at)) }}@endif" maxlength="19" readonly="">
                             </div>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="weight_fields" class="form-group">
                                     <label for="weight" id="label_weight">Peso:</label>
-                                    <input type="text" id="weight" name="weight" class="form-control @error('weight') is-invalid @enderror" value="{{old('weight') ?? $screenings->weight ?? ""}}" @if(!empty($screenings)) disabled @endif>
+                                    <input type="text" id="weight" name="weight" class="form-control form-control-sm @error('weight') is-invalid @enderror" value="{{old('weight') ?? $screenings->weight ?? ""}}" @if(!empty($screenings)) disabled @endif>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -196,7 +196,7 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="heart_rate_fields" class="form-group">
                                     <label for="heart_rate" id="label_heart_rate">Frequência Cardíaca (BPM):</label>
-                                    <input type="text" id="heart_rate" name="heart_rate" class="form-control @error('heart_rate') is-invalid @enderror" value="{{old('heart_rate') ?? $screenings->heart_rate ?? ""}}" @if(!empty($screenings)) disabled @endif>
+                                    <input type="text" id="heart_rate" name="heart_rate" class="form-control form-control-sm @error('heart_rate') is-invalid @enderror" value="{{old('heart_rate') ?? $screenings->heart_rate ?? ""}}" @if(!empty($screenings)) disabled @endif>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -206,7 +206,7 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="height_fields" class="form-group">
                                     <label for="height" id="label_height">Altura:</label>
-                                    <input type="text" id="height" name="height" class="form-control @error('height') is-invalid @enderror" value="{{old('height') ?? $screenings->height ?? ""}}" @if(!empty($screenings)) disabled @endif>
+                                    <input type="text" id="height" name="height" class="form-control form-control-sm @error('height') is-invalid @enderror" value="{{old('height') ?? $screenings->height ?? ""}}" @if(!empty($screenings)) disabled @endif>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -214,7 +214,7 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="respiratory_frequency_fields" class="form-group">
                                     <label for="respiratory_frequency" id="label_respiratory_frequency">Frequência Respiratória (RPM):</label>
-                                    <input type="text" id="respiratory_frequency" name="respiratory_frequency" class="form-control @error('respiratory_frequency') is-invalid @enderror" value="{{old('respiratory_frequency') ?? $screenings->respiratory_frequency ?? ""}}" @if(!empty($screenings)) disabled @endif>
+                                    <input type="text" id="respiratory_frequency" name="respiratory_frequency" class="form-control form-control-sm @error('respiratory_frequency') is-invalid @enderror" value="{{old('respiratory_frequency') ?? $screenings->respiratory_frequency ?? ""}}" @if(!empty($screenings)) disabled @endif>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -222,7 +222,7 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="O2_saturation_fields" class="form-group">
                                     <label for="O2_saturation" id="label_O2_saturation">Saturação O²:</label>
-                                    <input type="text" id="O2_saturation" name="O2_saturation" class="form-control @error('O2_saturation') is-invalid @enderror" value="{{old('O2_saturation') ?? $screenings->O2_saturation ?? ""}}" @if(!empty($screenings)) disabled @endif>
+                                    <input type="text" id="O2_saturation" name="O2_saturation" class="form-control form-control-sm @error('O2_saturation') is-invalid @enderror" value="{{old('O2_saturation') ?? $screenings->O2_saturation ?? ""}}" @if(!empty($screenings)) disabled @endif>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -232,7 +232,7 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="blood_pressure_fields" class="form-group">
                                     <label for="blood_pressure" id="label_blood_pressure">Pressão Arterial (MM/HG):</label>
-                                    <input type="text" id="blood_pressure" name="blood_pressure" class="form-control @error('blood_pressure') is-invalid @enderror" value="{{old('blood_pressure') ?? $screenings->blood_pressure ?? ""}}" @if(!empty($screenings)) disabled @endif>
+                                    <input type="text" id="blood_pressure" name="blood_pressure" class="form-control form-control-sm @error('blood_pressure') is-invalid @enderror" value="{{old('blood_pressure') ?? $screenings->blood_pressure ?? ""}}" @if(!empty($screenings)) disabled @endif>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -240,7 +240,7 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="ecg_fields" class="form-group">
                                     <label for="ecg" id="label_ecg">ECG:</label>
-                                    <input type="text" id="ecg" name="ecg" class="form-control @error('ecg') is-invalid @enderror" value="{{old('ecg') ?? $screenings->ecg ?? ""}}" @if(!empty($screenings)) disabled @endif>
+                                    <input type="text" id="ecg" name="ecg" class="form-control form-control-sm @error('ecg') is-invalid @enderror" value="{{old('ecg') ?? $screenings->ecg ?? ""}}" @if(!empty($screenings)) disabled @endif>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -248,7 +248,7 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="blood_glucose_fields" class="form-group">
                                     <label for="blood_glucose" id="label_blood_glucose">Glicemia:</label>
-                                    <input type="text" id="blood_glucose" name="blood_glucose" class="form-control @error('blood_glucose') is-invalid @enderror" value="{{old('blood_glucose') ?? $screenings->blood_glucose ?? ""}}" @if(!empty($screenings)) disabled @endif>
+                                    <input type="text" id="blood_glucose" name="blood_glucose" class="form-control form-control-sm @error('blood_glucose') is-invalid @enderror" value="{{old('blood_glucose') ?? $screenings->blood_glucose ?? ""}}" @if(!empty($screenings)) disabled @endif>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -259,7 +259,7 @@
                                 <div id="rule_of_pain_fields" class="form-group">
                                     <label for="rule_of_pain" id="label_rule_of_pain"></label>
                                     <label class="form-label" for="rule_of_pain">Régua da Dor: <span>{{old('rule_of_pain') ?? $screenings->rule_of_pain ?? "0"}}</span></label>
-                                    <input class="form-range" id="rule_of_pain" name="rule_of_pain" class="form-control @error('rule_of_pain') is-invalid @enderror" value="{{old('rule_of_pain') ?? $screenings->rule_of_pain ?? "0"}}" type="range" min="0" max="10" @if(!empty($screenings)) disabled @endif/>
+                                    <input class="form-range" id="rule_of_pain" name="rule_of_pain" class="form-control form-control-sm @error('rule_of_pain') is-invalid @enderror" value="{{old('rule_of_pain') ?? $screenings->rule_of_pain ?? "0"}}" type="range" min="0" max="10" @if(!empty($screenings)) disabled @endif/>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -293,7 +293,7 @@
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div id="gestational_age_fields" class="form-group">
                                     <label for="gestational_age" id="label_gestational_age">Idade Gestacional:</label>
-                                    <input type="text" id="gestational_age" name="gestational_age" class="form-control @error('gestational_age') is-invalid @enderror" value="{{old('gestational_age') ?? $screenings->gestational_age ?? ""}}" @if(!empty($screenings)) disabled @endif>
+                                    <input type="text" id="gestational_age" name="gestational_age" class="form-control form-control-sm @error('gestational_age') is-invalid @enderror" value="{{old('gestational_age') ?? $screenings->gestational_age ?? ""}}" @if(!empty($screenings)) disabled @endif>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -304,7 +304,7 @@
                                 <div id="classification_fields" class="form-group">
                                     <label for="classification" id="label_classification"></label>
                                     <label class="form-label" for="classification">Classificação: <span></span></label>
-                                    <input class="form-range" id="classification" name="classification" class="form-control @error('classification') is-invalid @enderror" value="{{old('classification') ?? $screenings->classification ?? "0"}}" type="range" min="0" max="4" @if(!empty($screenings)) disabled @endif/>
+                                    <input class="form-range" id="classification" name="classification" class="form-control form-control-sm @error('classification') is-invalid @enderror" value="{{old('classification') ?? $screenings->classification ?? "0"}}" type="range" min="0" max="4" @if(!empty($screenings)) disabled @endif/>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -324,7 +324,7 @@
                     </div>
                     
                     <div class="card-body bg-light">
-                        <textarea class="form-control @error('complaints') is-invalid @enderror" id="complaints" name="complaints" rows="3" placeholder="Observação" @if(!empty($screenings)) disabled @endif>{{old('complaints') ?? $screenings->complaints ?? ""}}</textarea>
+                        <textarea class="form-control form-control-sm @error('complaints') is-invalid @enderror" id="complaints" name="complaints" rows="3" placeholder="Observação" @if(!empty($screenings)) disabled @endif>{{old('complaints') ?? $screenings->complaints ?? ""}}</textarea>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -354,7 +354,7 @@
 
                         <div id="IdFlowcharts_fields" class="form-group">
                             <label for="IdFlowcharts" id="label_IdFlowcharts" class="label_IdFlowcharts">Fluxo</label>
-                            <select name="IdFlowcharts" id="IdFlowcharts" class="form-control @error('IdFlowcharts') is-invalid @enderror" @if(!empty($screenings)) disabled @endif>
+                            <select name="IdFlowcharts" id="IdFlowcharts" class="form-control form-control-sm @error('IdFlowcharts') is-invalid @enderror" @if(!empty($screenings)) disabled @endif>
                                 <option value="">...</option>
                                 @if(!empty($flowcharts))
                                     @foreach($flowcharts as $val)
@@ -384,7 +384,7 @@
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3">
                                 <div id="discharge_reason_fields" class="form-group">
                                     <label for="discharge_reason" id="label_discharge_reason">Motivo da Alta:</label>
-                                    <textarea class="form-control @error('discharge_reason') is-invalid @enderror" id="discharge_reason" name="discharge_reason" rows="3" placeholder="Observação" @if(!empty($screenings)) disabled @endif>{{old('discharge_reason') ?? $emergency_services->discharge_reason ?? ""}}</textarea>
+                                    <textarea class="form-control form-control-sm @error('discharge_reason') is-invalid @enderror" id="discharge_reason" name="discharge_reason" rows="3" placeholder="Observação" @if(!empty($screenings)) disabled @endif>{{old('discharge_reason') ?? $emergency_services->discharge_reason ?? ""}}</textarea>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>

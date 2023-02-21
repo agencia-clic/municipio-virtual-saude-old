@@ -53,25 +53,25 @@
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="IdAccommodations_fields" class="form-group">
                         <label for="IdAccommodations" id="label_IdAccommodations">Código:</label>
-                        <input type="text" id="IdAccommodations" name="IdAccommodations" class="form-control" value="@if(!empty($accommodations)){{ $accommodations->IdAccommodations }}@endif" readonly="">
+                        <input type="text" id="IdAccommodations" name="IdAccommodations" class="form-control form-control-sm" value="@if(!empty($accommodations)){{ $accommodations->IdAccommodations }}@endif" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="created_at_fields" class="form-group">
                         <label for="created_at" id="label_created_at">Criação:</label>
-                        <input type="text" id="created_at" name="created_at" class="form-control" value="@if(!empty($accommodations)){{ date('d-m-Y H:i', strtotime($accommodations->created_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="created_at" name="created_at" class="form-control form-control-sm" value="@if(!empty($accommodations)){{ date('d-m-Y H:i', strtotime($accommodations->created_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="updated_at_fields" class="form-group">
                         <label for="updated_at" id="label_updated_at">Última edição:</label>
-                        <input type="text" id="updated_at" name="updated_at" class="form-control" value="@if(!empty($accommodations)){{ date('d-m-Y H:i', strtotime($accommodations->updated_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="updated_at" name="updated_at" class="form-control form-control-sm" value="@if(!empty($accommodations)){{ date('d-m-Y H:i', strtotime($accommodations->updated_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="status_fields" class="form-group">
                         <label for="status" id="label_status" class="label_status">Status:</label>
-                        <select name="status" class="form-control @error('status') is-invalid @enderror">
+                        <select name="status" class="form-control form-control-sm @error('status') is-invalid @enderror">
                             <option value="a" @if((old('status') == "a") OR (!empty($accommodations) AND ($accommodations->status == "a")))selected @endif>Ativo</option>
                             <option value="b" @if((old('status') == "b") OR (!empty($accommodations) AND ($accommodations->status == "b")))selected @endif>Bloqueado</option>
                         </select>
@@ -100,7 +100,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div id="title_fields" class="form-group">
                         <label for="title" id="label_title">Título:</label>
-                        <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" value="{{old('title') ?? $accommodations->title ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
+                        <input type="text" id="title" name="title" class="form-control form-control-sm @error('title') is-invalid @enderror" value="{{old('title') ?? $accommodations->title ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>

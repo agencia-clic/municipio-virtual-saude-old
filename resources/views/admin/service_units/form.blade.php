@@ -53,25 +53,25 @@
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="IdServiceUnits_fields" class="form-group">
                         <label for="IdServiceUnits" id="label_IdServiceUnits">Código:</label>
-                        <input type="text" id="IdServiceUnits" name="IdServiceUnits" class="form-control" value="@if(!empty($service_units)){{ $service_units->IdServiceUnits }}@endif" readonly="">
+                        <input type="text" id="IdServiceUnits" name="IdServiceUnits" class="form-control form-control-sm" value="@if(!empty($service_units)){{ $service_units->IdServiceUnits }}@endif" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="created_at_fields" class="form-group">
                         <label for="created_at" id="label_created_at">Criação:</label>
-                        <input type="text" id="created_at" name="created_at" class="form-control" value="@if(!empty($service_units)){{ date('d-m-Y H:i', strtotime($service_units->created_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="created_at" name="created_at" class="form-control form-control-sm" value="@if(!empty($service_units)){{ date('d-m-Y H:i', strtotime($service_units->created_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="updated_at_fields" class="form-group">
                         <label for="updated_at" id="label_updated_at">Última edição:</label>
-                        <input type="text" id="updated_at" name="updated_at" class="form-control" value="@if(!empty($service_units)){{ date('d-m-Y H:i', strtotime($service_units->updated_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="updated_at" name="updated_at" class="form-control form-control-sm" value="@if(!empty($service_units)){{ date('d-m-Y H:i', strtotime($service_units->updated_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="status_fields" class="form-group">
                         <label for="status" id="label_status" class="label_status">Status:</label>
-                        <select name="status" class="form-control @error('status') is-invalid @enderror">
+                        <select name="status" class="form-control form-control-sm @error('status') is-invalid @enderror">
                             <option value="a" @if((old('status') == "a") OR (!empty($service_units) AND ($service_units->status == "a")))selected @endif>Ativo</option>
                             <option value="b" @if((old('status') == "b") OR (!empty($service_units) AND ($service_units->status == "b")))selected @endif>Bloqueado</option>
                         </select>
@@ -121,7 +121,7 @@
                 <div class="col-sm-3 col-md-3 col-lg-2 col-xl-3">
                     <div id="user_letter_fields" class="form-group">
                         <label for="user_letter" id="label_user_letter">FILTRO: Letra:</label>
-                        <select id="user_letter" name="user_letter" class="form-control">
+                        <select id="user_letter" name="user_letter" class="form-control form-control-sm">
                             <option value="">...</option>
                             <option value="A">A</option>
                             <option value="B">B</option>
@@ -156,35 +156,35 @@
                 <div class="col-sm-9 col-md-9 col-lg-5 col-xl-3">
                     <div id="user_name_fields" class="form-group">
                         <label for="user_name" id="label_user_name">FILTRO: Nome:</label>
-                        <input type="text" id="user_name" name="user_name" class="form-control" maxlength="50" autocomplete="off">    
+                        <input type="text" id="user_name" name="user_name" class="form-control form-control-sm" maxlength="50" autocomplete="off">    
                     </div>
                 </div>
                 
                 <div class="col-sm-9 col-md-3 col-lg-3 col-xl-3">
                     <div id="user_cpf_cnpj_fields" class="form-group">
                         <label for="user_cpf_cnpj" id="label_user_cpf_cnpj">FILTRO: CPF/CNPJ:</label>
-                        <input type="text" id="user_cpf_cnpj" name="user_cpf_cnpj" class="form-control" maxlength="14" autocomplete="off">    
+                        <input type="text" id="user_cpf_cnpj" name="user_cpf_cnpj" class="form-control form-control-sm" maxlength="14" autocomplete="off">    
                     </div>
                 </div>
 
                 <div class="col-sm-9 col-md-3 col-lg-3 col-xl-3">
                     <div id="user_phone_fields" class="form-group">
                         <label for="user_phone" id="label_user_phone">FILTRO: Telefone:</label>
-                        <input type="text" id="user_phone" name="user_phone" class="form-control" maxlength="15" autocomplete="off">    
+                        <input type="text" id="user_phone" name="user_phone" class="form-control form-control-sm" maxlength="15" autocomplete="off">    
                     </div>
                 </div>
                 
                 <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2">
                     <div id="user_button_fields" class="form-group">
                         <label for="user_button" id="label_user_button">Buscar:</label>
-                        <button type="button" class="form-control btn btn-outline-secondary" url="{{ route('users.form.query') }}" data-id="{{old('IdUsers') ?? $service_units->IdUsers ?? ""}}" query-fields="user_letter,user_name,user_cpf_cnpj,user_phone" select="IdUsers">Buscar</button>
+                        <button type="button" class="form-control btn btn-outline-secondary btn-sm" url="{{ route('users.form.query') }}" data-id="{{old('IdUsers') ?? $service_units->IdUsers ?? ""}}" query-fields="user_letter,user_name,user_cpf_cnpj,user_phone" select="IdUsers">Buscar</button>
                     </div>
                 </div>
 
                 <div class="col-sm-12 col-md-6 col-lg-12 col-xl-10">
                     <div id="IdUsers_fields" class="form-group">
                         <label for="IdUsers" id="label_IdUsers">Contribuinte</label>
-                        <select id="IdUsers" name="IdUsers" class="form-control @error('IdUsers') is-invalid @enderror" required>
+                        <select id="IdUsers" name="IdUsers" class="form-control form-control-sm @error('IdUsers') is-invalid @enderror" required>
                             <option value="">...</option>
                         </select>
                     </div>              
@@ -211,7 +211,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="name_fields" class="form-group">
                         <label for="name" id="label_name">Nome:</label>
-                        <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{old('name') ?? $service_units->name ?? ""}}" required>
+                        <input type="text" id="name" name="name" class="form-control form-control-sm @error('name') is-invalid @enderror" value="{{old('name') ?? $service_units->name ?? ""}}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -219,7 +219,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="code_fields" class="form-group">
                         <label for="code" id="label_code">Código:</label>
-                        <input type="text" id="code" name="code" class="form-control @error('code') is-invalid @enderror" value="{{old('code') ?? $service_units->code ?? ""}}" required>
+                        <input type="text" id="code" name="code" class="form-control form-control-sm @error('code') is-invalid @enderror" value="{{old('code') ?? $service_units->code ?? ""}}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -229,7 +229,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="email_fields" class="form-group">
                         <label for="email" id="label_email">E-mail:</label>
-                        <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{old('email') ?? $service_units->email ?? ""}}" required>
+                        <input type="email" id="email" name="email" class="form-control form-control-sm @error('email') is-invalid @enderror" value="{{old('email') ?? $service_units->email ?? ""}}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -238,7 +238,7 @@
                     <div id="phone_fields" class="form-group">
                         <label for="phone" id="label_phone">Telefone:</label>
                         <input type="text" id="phone" 
-                        name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') ?? $service_units->phone ?? "" }}" required>
+                        name="phone" class="form-control form-control-sm @error('phone') is-invalid @enderror" value="{{ old('phone') ?? $service_units->phone ?? "" }}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -264,7 +264,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="zip_code_fields" class="form-group">
                         <label for="zip_code" id="label_zip_code">CEP:</label>
-                        <input type="text" id="zip_code" name="zip_code" class="form-control @error('zip_code') is-invalid @enderror" value="{{ old('zip_code') ?? $service_units->zip_code ?? "" }}" query="true" required>
+                        <input type="text" id="zip_code" name="zip_code" class="form-control form-control-sm @error('zip_code') is-invalid @enderror" value="{{ old('zip_code') ?? $service_units->zip_code ?? "" }}" query="true" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -272,7 +272,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="address_fields" class="form-group">
                         <label for="address" id="label_address">Endereço:</label>
-                        <input type="text" id="address" name="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') ?? $service_units->address ?? "" }}" required>
+                        <input type="text" id="address" name="address" class="form-control form-control-sm @error('address') is-invalid @enderror" value="{{ old('address') ?? $service_units->address ?? "" }}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -280,7 +280,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="number_fields" class="form-group">
                         <label for="number" id="label_number">Número:</label>
-                        <input type="text" id="number" name="number" class="form-control @error('number') is-invalid @enderror" value="{{ old('number') ?? $service_units->number ?? "" }}" required>
+                        <input type="text" id="number" name="number" class="form-control form-control-sm @error('number') is-invalid @enderror" value="{{ old('number') ?? $service_units->number ?? "" }}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -290,7 +290,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="district_fields" class="form-group">
                         <label for="district" id="label_district">Bairro:</label>
-                        <input type="text" id="district" name="district" class="form-control @error('district') is-invalid @enderror" value="{{ old('district') ?? $service_units->district ?? "" }}" required>
+                        <input type="text" id="district" name="district" class="form-control form-control-sm @error('district') is-invalid @enderror" value="{{ old('district') ?? $service_units->district ?? "" }}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -298,7 +298,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="city_fields" class="form-group">
                         <label for="city" id="label_city">Cidade:</label>
-                        <input type="text" id="city" name="city" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') ?? $service_units->city ?? "" }}" required>
+                        <input type="text" id="city" name="city" class="form-control form-control-sm @error('city') is-invalid @enderror" value="{{ old('city') ?? $service_units->city ?? "" }}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -306,7 +306,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="uf_fields" class="form-group">
                         <label for="uf" id="label_uf">Estado/UF:</label>
-                        <select id="uf" name="uf" class="form-control @error('uf') is-invalid @enderror" required>
+                        <select id="uf" name="uf" class="form-control form-control-sm @error('uf') is-invalid @enderror" required>
                             <option value="" selected="selected">...</option>
                             <option value="AC" @if((old('uf') == "AC") OR (!empty($service_units) AND ($service_units->uf == "AC")))selected @endif>AC</option>
                             <option value="AL" @if((old('uf') == "AL") OR (!empty($service_units) AND ($service_units->uf == "AL")))selected @endif>AL</option>

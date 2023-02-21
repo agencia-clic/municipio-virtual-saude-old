@@ -56,25 +56,25 @@
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="IdProtocols_fields" class="form-group">
                         <label for="IdProtocols" id="label_IdProtocols">Código:</label>
-                        <input type="text" id="IdProtocols" name="IdProtocols" class="form-control" value="@if(!empty($protocols)){{ $protocols->IdProtocols }}@endif" readonly="">
+                        <input type="text" id="IdProtocols" name="IdProtocols" class="form-control form-control-sm" value="@if(!empty($protocols)){{ $protocols->IdProtocols }}@endif" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="created_at_fields" class="form-group">
                         <label for="created_at" id="label_created_at">Criação:</label>
-                        <input type="text" id="created_at" name="created_at" class="form-control" value="@if(!empty($protocols)){{ date('d-m-Y H:i', strtotime($protocols->created_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="created_at" name="created_at" class="form-control form-control-sm" value="@if(!empty($protocols)){{ date('d-m-Y H:i', strtotime($protocols->created_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="updated_at_fields" class="form-group">
                         <label for="updated_at" id="label_updated_at">Última edição:</label>
-                        <input type="text" id="updated_at" name="updated_at" class="form-control" value="@if(!empty($protocols)){{ date('d-m-Y H:i', strtotime($protocols->updated_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="updated_at" name="updated_at" class="form-control form-control-sm" value="@if(!empty($protocols)){{ date('d-m-Y H:i', strtotime($protocols->updated_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div id="status_fields" class="form-group">
                         <label for="status" id="label_status" class="label_status">Status:</label>
-                        <select name="status" class="form-control @error('status') is-invalid @enderror">
+                        <select name="status" class="form-control form-control-sm @error('status') is-invalid @enderror">
                             <option value="a" @if((old('status') == "a") OR (!empty($protocols) AND ($protocols->status == "a")))selected @endif>Ativo</option>
                             <option value="b" @if((old('status') == "b") OR (!empty($protocols) AND ($protocols->status == "b")))selected @endif>Bloqueado</option>
                         </select>
@@ -147,7 +147,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div id="title_fields" class="form-group">
                         <label for="title" id="label_title">Título:</label>
-                        <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" value="{{old('title') ?? $protocols->title ?? ""}}" required>
+                        <input type="text" id="title" name="title" class="form-control form-control-sm @error('title') is-invalid @enderror" value="{{old('title') ?? $protocols->title ?? ""}}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>

@@ -19,7 +19,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div id="note_medication_fields" class="form-group">
                     <label class="form-label" for="note_medication_label">Observação</label>
-                    <textarea class="form-control @error('note_medication') is-invalid @enderror" id="note_medication" name="note_medication" rows="5" required>{{ $medication_groups->note ?? "" }}</textarea>
+                    <textarea class="form-control form-control-sm @error('note_medication') is-invalid @enderror" id="note_medication" name="note_medication" rows="5" required>{{ $medication_groups->note ?? "" }}</textarea>
                     <div class="valid-feedback">sucesso!</div>
                 </div>
             </div>

@@ -55,7 +55,7 @@
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div id="type_fields" class="form-group">
                         <label for="type" id="label_type" class="label_type">Tipo:</label>
-                        <select name="type" class="form-control @error('type') is-invalid @enderror" disabled>
+                        <select name="type" class="form-control form-control-sm @error('type') is-invalid @enderror" disabled>
                             <option value="m" @if((old('type') == "m") OR (!empty($medication_entries) AND ($medication_entries->type == "m")))selected @endif>Manual</option>
                             <option value="a" @if((old('type') == "a") OR (!empty($medication_entries) AND ($medication_entries->type == "a")))selected @endif>Automático</option>
                         </select>
@@ -65,7 +65,7 @@
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div id="receipt_date_fields" class="form-group">
                         <label for="receipt_date" id="label_receipt_date">Data de Recebimento:</label>
-                        <input type="text" id="receipt_date" name="receipt_date" class="form-control @error('receipt_date') is-invalid @enderror" value="@if(!empty(old('receipt_date')))@elseif((!empty($medication_entries)) AND !empty($medication_entries->receipt_date)){{date('d-m-Y', strtotime($medication_entries->receipt_date))}}@else{{ date('d-m-Y')}}@endif" @if(!empty($medication_entries))disabled @endif required>
+                        <input type="text" id="receipt_date" name="receipt_date" class="form-control form-control-sm @error('receipt_date') is-invalid @enderror" value="@if(!empty(old('receipt_date')))@elseif((!empty($medication_entries)) AND !empty($medication_entries->receipt_date)){{date('d-m-Y', strtotime($medication_entries->receipt_date))}}@else{{ date('d-m-Y')}}@endif" @if(!empty($medication_entries))disabled @endif required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
         </div>
         
         <div class="card-body bg-light">
-            <textarea class="form-control @error('text') is-invalid @enderror" id="text" name="text" rows="3" required  @if(!empty($medication_entries) AND ($medication_entries->status != "a"))disabled @endif>{{old('text') ?? $medication_entries->text ?? ""}}</textarea>
+            <textarea class="form-control form-control-sm @error('text') is-invalid @enderror" id="text" name="text" rows="3" required  @if(!empty($medication_entries) AND ($medication_entries->status != "a"))disabled @endif>{{old('text') ?? $medication_entries->text ?? ""}}</textarea>
         </div>
     </div>
 

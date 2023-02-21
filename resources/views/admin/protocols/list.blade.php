@@ -57,14 +57,14 @@
                             <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                 <div id="IdProtocols_campo" class="form-group">
                                     <label for="IdProtocols" id="label_IdProtocols">Código:</label>
-                                    <input type="number" min="1" id="IdProtocols" name="IdProtocols" class="form-control" value="{{ app('request')->input('IdProtocols') }}" maxlength="11" autocomplete="off" />
+                                    <input type="number" min="1" id="IdProtocols" name="IdProtocols" class="form-control form-control-sm" value="{{ app('request')->input('IdProtocols') }}" maxlength="11" autocomplete="off" />
                                 </div>
                             </div>
 
                             <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                 <div id="status_campo" class="form-group">
                                     <label for="status" id="label_status">Status:</label>
-                                    <select name="status" id="status" class="form-control">
+                                    <select name="status" id="status" class="form-control form-control-sm">
                                         <option value="" selected="selected">...</option>
                                         <option value="a" {{ app('request')->input('status') == "a" ? "selected" : ""}}>Ativo</option>
                                         <option value="b" {{ app('request')->input('status') == "b" ? "selected" : ""}}>Bloqueado</option>
@@ -75,12 +75,12 @@
                             <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                 <div id="title_campo" class="form-group">
                                     <label for="title" id="label_title">Titulo</label>
-                                    <input type="text" id="title" name="title" class="form-control" value="{{ app('request')->input('title') }}" maxlength="100" autocomplete="off" />
+                                    <input type="text" id="title" name="title" class="form-control form-control-sm" value="{{ app('request')->input('title') }}" maxlength="100" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
 
-                        <input type="hidden" name="protocols" class="form-control" value="foo"/>
+                        <input type="hidden" name="protocols" class="form-control form-control-sm" value="foo"/>
                         <button class="btn btn-outline-primary me-1 mb-1 mt-2 btn-sm" type="submit">FILTRAR</button>
                         <a href="{{ route('protocols') }}"><button class="btn btn-outline-primary me-1 mb-1 mt-2 btn-sm" type="button">LIMPAR FILTROS</button></a>
                     </form>

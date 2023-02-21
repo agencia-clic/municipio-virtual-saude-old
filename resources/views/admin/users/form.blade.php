@@ -59,25 +59,25 @@
                 <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                     <div id="IdUsers_fields" class="form-group">
                         <label for="IdUsers" id="label_IdUsers">Código:</label>
-                        <input type="text" id="IdUsers" name="IdUsers" class="form-control" value="@if(!empty($users)){{ $users->IdUsers }}@endif" readonly="">
+                        <input type="text" id="IdUsers" name="IdUsers" class="form-control form-control-sm" value="@if(!empty($users)){{ $users->IdUsers }}@endif" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                     <div id="created_at_fields" class="form-group">
                         <label for="created_at" id="label_created_at">Criação:</label>
-                        <input type="text" id="created_at" name="created_at" class="form-control" value="@if(!empty($users)){{ date('d-m-Y H:i', strtotime($users->created_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="created_at" name="created_at" class="form-control form-control-sm" value="@if(!empty($users)){{ date('d-m-Y H:i', strtotime($users->created_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md col-lg-3 col-xl">
                     <div id="updated_at_fields" class="form-group">
                         <label for="updated_at" id="label_updated_at">Última edição:</label>
-                        <input type="text" id="updated_at" name="updated_at" class="form-control" value="@if(!empty($users)){{ date('d-m-Y H:i', strtotime($users->updated_at)) }}@endif" maxlength="19" readonly="">
+                        <input type="text" id="updated_at" name="updated_at" class="form-control form-control-sm" value="@if(!empty($users)){{ date('d-m-Y H:i', strtotime($users->updated_at)) }}@endif" maxlength="19" readonly="">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="status_fields" class="form-group">
                         <label for="status" id="label_status" class="label_status">Status:</label>
-                        <select name="status" class="form-control @error('status') is-invalid @enderror">
+                        <select name="status" class="form-control form-control-sm @error('status') is-invalid @enderror">
                             <option value="a" @if((old('status') == "a") OR (!empty($users) AND ($users->status == "a")))selected @endif>Ativo</option>
                             <option value="b" @if((old('status') == "b") OR (!empty($users) AND ($users->status == "b")))selected @endif>Bloqueado</option>
                         </select>
@@ -88,7 +88,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="visible_fields" class="form-group">
                         <label for="visible" id="label_visible" class="label_visible">Visivel:</label>
-                        <select name="visible" class="form-control @error('visible') is-invalid @enderror">
+                        <select name="visible" class="form-control form-control-sm @error('visible') is-invalid @enderror">
                             <option value="y" @if((old('visible') == "y") OR (!empty($users) AND ($users->visible == "y")))selected @endif>Sim</option>
                             <option value="n" @if((old('visible') == "b") OR (!empty($users) AND ($users->visible == "n")))selected @endif>Não</option>
                         </select>
@@ -117,7 +117,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="name_fields" class="form-group">
                         <label for="name" id="label_name">Nome Razão Social:</label>
-                        <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{old('name') ?? $users->name ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
+                        <input type="text" id="name" name="name" class="form-control form-control-sm @error('name') is-invalid @enderror" value="{{old('name') ?? $users->name ?? ""}}" oninput="this.value = this.value.toUpperCase()" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="email_fields" class="form-group">
                         <label for="email" id="label_email">E-mail:</label>
-                        <input type="text" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{old('email') ?? $users->email ?? ""}}" required>
+                        <input type="text" id="email" name="email" class="form-control form-control-sm @error('email') is-invalid @enderror" value="{{old('email') ?? $users->email ?? ""}}" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="cpf_cnpj_fields" class="form-group">
                         <label for="cpf_cnpj" id="label_cpf_cnpj">CPF/CNPJ:</label>
-                        <input type="text" id="cpf_cnpj" name="cpf_cnpj" class="form-control @error('cpf_cnpj') is-invalid @enderror" value="{{old('cpf_cnpj') ?? $users->cpf_cnpj ?? ""}}" required @if(!empty($users))readonly @endif>
+                        <input type="text" id="cpf_cnpj" name="cpf_cnpj" class="form-control form-control-sm @error('cpf_cnpj') is-invalid @enderror" value="{{old('cpf_cnpj') ?? $users->cpf_cnpj ?? ""}}" required @if(!empty($users))readonly @endif>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="level_fields" class="form-group">
                         <label for="level" id="label_level" class="label_level">Nível:</label>
-                        <select name="level" class="form-control @error('level') is-invalid @enderror" required>
+                        <select name="level" class="form-control form-control-sm @error('level') is-invalid @enderror" required>
                             <option value="u" @if((old('level') == "u") OR (!empty($users) AND ($users->level == "u")))selected @endif>Usuário</option>
                             <option value="a" @if((old('level') == "a") OR (!empty($users) AND ($users->level == "a")))selected @endif>Administrador</option>
 
@@ -158,7 +158,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="cell_fields" class="form-group">
                         <label for="cell" id="label_cell">Celular:</label>
-                        <input type="text" id="cell" name="cell" class="form-control @error('cell') is-invalid @enderror" value="{{ old('cell') ?? $users->cell ?? "" }}" required>
+                        <input type="text" id="cell" name="cell" class="form-control form-control-sm @error('cell') is-invalid @enderror" value="{{ old('cell') ?? $users->cell ?? "" }}" required>
                         <div class="valid-feedback">sucesso!</div>
                         <div class="invalid-feedback">Celular obrigatório!</div>
                     </div>
@@ -167,7 +167,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="phone_fields" class="form-group">
                         <label for="phone" id="label_phone">Telefone:</label>
-                        <input type="text" id="phone" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') ?? $users->phone ?? "" }}">
+                        <input type="text" id="phone" name="phone" class="form-control form-control-sm @error('phone') is-invalid @enderror" value="{{ old('phone') ?? $users->phone ?? "" }}">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -178,7 +178,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="rg_fields" class="form-group">
                         <label for="rg" id="label_rg">RG:</label>
-                        <input type="text" id="rg" name="rg" class="form-control @error('rg') is-invalid @enderror" value="{{ old('rg') ?? $users->rg ?? "" }}" oninput="this.value = this.value.toUpperCase()">
+                        <input type="text" id="rg" name="rg" class="form-control form-control-sm @error('rg') is-invalid @enderror" value="{{ old('rg') ?? $users->rg ?? "" }}" oninput="this.value = this.value.toUpperCase()">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -186,7 +186,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="uf_rg_fields" class="form-group">
                         <label for="uf_rg" id="label_uf_rg">Estado/UF:</label>
-                        <select id="uf_rg" name="uf_rg" class="form-control @error('uf_rg') is-invalid @enderror">
+                        <select id="uf_rg" name="uf_rg" class="form-control form-control-sm @error('uf_rg') is-invalid @enderror">
                             <option value="" selected="selected">...</option>
                             <option value="AC" @if((old('uf_rg') == "AC") OR (!empty($users) AND ($users->uf_rg == "AC")))selected @endif>AC</option>
                             <option value="AL" @if((old('uf_rg') == "AL") OR (!empty($users) AND ($users->uf_rg == "AL")))selected @endif>AL</option>
@@ -223,7 +223,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="date_birth_fields" class="form-group @error('date_birth') is-invalid @enderror">
                         <label for="date_birth" id="label_date_birth">Data Nascimento:</label>
-                        <input type="text" id="date_birth" name="date_birth" class="form-control" value="@if(!empty(old('date_birth'))) {{old('date_birth')}} @elseif(!empty($users->date_birth)){{date('d-m-Y', strtotime($users->date_birth))}}@endif">
+                        <input type="text" id="date_birth" name="date_birth" class="form-control form-control-sm" value="@if(!empty(old('date_birth'))) {{old('date_birth')}} @elseif(!empty($users->date_birth)){{date('d-m-Y', strtotime($users->date_birth))}}@endif">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -293,7 +293,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="crm_fields" class="form-group">
                         <label for="crm" id="label_crm">CRM:</label>
-                        <input type="text" id="crm" name="crm" class="form-control @error('crm') is-invalid @enderror" value="{{old('crm') ?? $users->crm ?? ""}}" {{ app('request')->input('module') == "medical" ? "required" : "" }}>
+                        <input type="text" id="crm" name="crm" class="form-control form-control-sm @error('crm') is-invalid @enderror" value="{{old('crm') ?? $users->crm ?? ""}}" {{ app('request')->input('module') == "medical" ? "required" : "" }}>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -301,7 +301,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="uf_crm_fields" class="form-group">
                         <label for="uf_crm" id="label_uf_crm">Estado/UF:</label>
-                        <select id="uf_crm" name="uf_crm" class="form-control @error('uf_crm') is-invalid @enderror" {{ app('request')->input('module') == "medical" ? "required" : "" }}>
+                        <select id="uf_crm" name="uf_crm" class="form-control form-control-sm @error('uf_crm') is-invalid @enderror" {{ app('request')->input('module') == "medical" ? "required" : "" }}>
                             <option value="" selected="selected">...</option>
                             <option value="AC" @if((old('uf_crm') == "AC") OR (!empty($users) AND ($users->uf_crm == "AC")))selected @endif>AC</option>
                             <option value="AL" @if((old('uf_crm') == "AL") OR (!empty($users) AND ($users->uf_crm == "AL")))selected @endif>AL</option>
@@ -338,7 +338,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="crn_fields" class="form-group">
                         <label for="crn" id="label_crn">CRN</label>
-                        <input type="text" id="crn" name="crn" class="form-control @error('crn') is-invalid @enderror" value="{{old('crn') ?? $users->crn ?? ""}}">
+                        <input type="text" id="crn" name="crn" class="form-control form-control-sm @error('crn') is-invalid @enderror" value="{{old('crn') ?? $users->crn ?? ""}}">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -365,7 +365,7 @@
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div id="password_fields" class="form-group">
                         <label for="password" id="label_password">Senha:</label>
-                        <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror">
+                        <input type="password" id="password" name="password" class="form-control form-control-sm @error('password') is-invalid @enderror">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -373,7 +373,7 @@
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div id="password_confirmation_fields" class="form-group">
                         <label for="password_confirmation" id="label_password_confirmation">Confirme Senha:</label>
-                        <input type="password" id="password_confirmation" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror">
+                        <input type="password" id="password_confirmation" name="password_confirmation" class="form-control form-control-sm @error('password_confirmation') is-invalid @enderror">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -399,7 +399,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="zip_code_fields" class="form-group">
                         <label for="zip_code" id="label_zip_code">CEP:</label>
-                        <input type="text" id="zip_code" name="zip_code" class="form-control" value="{{ old('zip_code') ?? $users->zip_code ?? "" }}" query="true">
+                        <input type="text" id="zip_code" name="zip_code" class="form-control form-control-sm" value="{{ old('zip_code') ?? $users->zip_code ?? "" }}" query="true">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -407,7 +407,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="address_fields" class="form-group">
                         <label for="address" id="label_address">Endereço:</label>
-                        <input type="text" id="address" name="address" class="form-control" value="{{ old('address') ?? $users->address ?? "" }}">
+                        <input type="text" id="address" name="address" class="form-control form-control-sm" value="{{ old('address') ?? $users->address ?? "" }}">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -415,7 +415,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="number_fields" class="form-group">
                         <label for="number" id="label_number">Número:</label>
-                        <input type="text" id="number" name="number" class="form-control" value="{{ old('number') ?? $users->number ?? "" }}">
+                        <input type="text" id="number" name="number" class="form-control form-control-sm" value="{{ old('number') ?? $users->number ?? "" }}">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -425,7 +425,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="district_fields" class="form-group">
                         <label for="district" id="label_district">Bairro:</label>
-                        <input type="text" id="district" name="district" class="form-control" value="{{ old('district') ?? $users->district ?? "" }}">
+                        <input type="text" id="district" name="district" class="form-control form-control-sm" value="{{ old('district') ?? $users->district ?? "" }}">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -433,7 +433,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="city_fields" class="form-group">
                         <label for="city" id="label_city">Cidade:</label>
-                        <input type="text" id="city" name="city" class="form-control" value="{{ old('city') ?? $users->city ?? "" }}">
+                        <input type="text" id="city" name="city" class="form-control form-control-sm" value="{{ old('city') ?? $users->city ?? "" }}">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -441,7 +441,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="uf_fields" class="form-group">
                         <label for="uf" id="label_uf">Estado/UF:</label>
-                        <select id="uf" name="uf" class="form-control @error('uf') is-invalid @enderror">
+                        <select id="uf" name="uf" class="form-control form-control-sm @error('uf') is-invalid @enderror">
                             <option value="" selected="selected">...</option>
                             <option value="AC" @if((old('uf') == "AC") OR (!empty($users) AND ($users->uf == "AC")))selected @endif>AC</option>
                             <option value="AL" @if((old('uf') == "AL") OR (!empty($users) AND ($users->uf == "AL")))selected @endif>AL</option>
@@ -481,7 +481,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="uf_naturalness_fields" class="form-group">
                         <label for="uf_naturalness" id="label_uf_naturalness">Estado/UF Naturalidade:</label>
-                        <select id="uf_naturalness" name="uf_naturalness" class="form-control @error('uf_naturalness') is-invalid @enderror">
+                        <select id="uf_naturalness" name="uf_naturalness" class="form-control form-control-sm @error('uf_naturalness') is-invalid @enderror">
                             <option value="" selected="selected">...</option>
                             <option value="AC" @if((old('uf_naturalness') == "AC") OR (!empty($users) AND ($users->uf_naturalness == "AC")))selected @endif>AC</option>
                             <option value="AL" @if((old('uf_naturalness') == "AL") OR (!empty($users) AND ($users->uf_naturalness == "AL")))selected @endif>AL</option>
@@ -518,7 +518,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl hide" id="naturalness_fields">
                     <div class="form-group">
                         <label for="naturalness" id="label_naturalness">Naturalidade:</label>
-                        <select id="naturalness" name="naturalness" class="form-control">
+                        <select id="naturalness" name="naturalness" class="form-control form-control-sm">
                             <option value="" selected="selected">...</option>
                         </select>
                         <div class="valid-feedback">sucesso!</div>
@@ -528,7 +528,7 @@
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="origin_fields" class="form-group">
                         <label for="origin" id="label_origin">País:</label>
-                        <input type="text" id="origin" name="origin" class="form-control" value="{{ old('origin') ?? $users->origin ?? "" }}">
+                        <input type="text" id="origin" name="origin" class="form-control form-control-sm" value="{{ old('origin') ?? $users->origin ?? "" }}">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>

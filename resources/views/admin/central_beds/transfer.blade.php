@@ -101,7 +101,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div id="note_fields" class="form-group">
                     <label class="form-label" for="note_label"></label>
-                    <textarea class="form-control @error('note') is-invalid @enderror" id="note" name="note" rows="3" placeholder="Motivo">{{ old('note') }}</textarea>
+                    <textarea class="form-control form-control-sm @error('note') is-invalid @enderror" id="note" name="note" rows="3" placeholder="Motivo">{{ old('note') }}</textarea>
                     <div class="valid-feedback">sucesso!</div>
                 </div>
             </div>

@@ -13,7 +13,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <label for="name" id="label_name"><strong>Paciente:</strong></label>
                 <div class="input-group mb-2">
-                    <input type="text" id="name" name="name" class="form-control" oninput="this.value = this.value.toUpperCase()" value="{{ $users->name ?? "" }}">
+                    <input type="text" id="name" name="name" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()" value="{{ $users->name ?? "" }}">
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
             <div class="col-sm-12 col-md col-lg col-xl">
                 <div id="sex_fields" class="form-group">
                     <label for="sex" id="label_sex" class="label_sex">Sexo:</label>
-                    <select name="sex" class="form-control @error('sex') is-invalid @enderror">
+                    <select name="sex" class="form-control form-control-sm @error('sex') is-invalid @enderror">
                         <option value="m" @if((old('sex') == "m") OR (!empty($users) AND ($users->sex == "m")))selected @endif>Masculino</option>
                         <option value="f" @if((old('sex') == "f") OR (!empty($users) AND ($users->sex == "f")))selected @endif>Feminino</option>
                     </select>
@@ -32,21 +32,21 @@
             <div class="col-sm-12 col-md col-lg col-xl">
                 <div id="date_birth_fields" class="form-group">
                     <label for="date_birth" id="label_date_birth">Nascimento</label>
-                    <input class="form-control" id="date_birth" name="date_birth" type="text" value="@if(!empty($users) AND ($users->date_birth)){{ date('d-m-Y', strtotime($users->date_birth)) }} @endif" placeholder="d-m-y"/>
+                    <input class="form-control form-control-sm" id="date_birth" name="date_birth" type="text" value="@if(!empty($users) AND ($users->date_birth)){{ date('d-m-Y', strtotime($users->date_birth)) }} @endif" placeholder="d-m-y"/>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md col-lg col-xl">
                 <label for="cpf_cnpj" id="label_cpf_cnpj"><strong>CPF:</strong></label>
                 <div class="input-group mb-2">
-                    <input type="text" id="cpf_cnpj" name="cpf_cnpj" class="form-control" oninput="this.value = this.value.toUpperCase()" value="{{ old('cell') ?? $users->cpf_cnpj ?? "" }}" disabled>
+                    <input type="text" id="cpf_cnpj" name="cpf_cnpj" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()" value="{{ old('cell') ?? $users->cpf_cnpj ?? "" }}" disabled>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md col-lg col-xl">
                 <label for="rg" id="label_rg"><strong>RG:</strong></label>
                 <div class="input-group mb-2">
-                    <input type="text" id="rg" name="rg" class="form-control" oninput="this.value = this.value.toUpperCase()" {{ old('cell') ?? $users->rg ?? "" }}>
+                    <input type="text" id="rg" name="rg" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()" {{ old('cell') ?? $users->rg ?? "" }}>
                 </div>
             </div>
         </div>
@@ -55,21 +55,21 @@
             <div class="col-sm-12 col-md col-lg col-xl">
                 <label for="prontuario" id="label_prontuario"><strong>Prontuário:</strong></label>
                 <div class="input-group mb-2">
-                    <input type="text" id="prontuario" name="prontuario" class="form-control" oninput="this.value = this.value.toUpperCase()" value="{{ $emergency_services->IdEmergencyServices ?? "" }}" disabled>
+                    <input type="text" id="prontuario" name="prontuario" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()" value="{{ $emergency_services->IdEmergencyServices ?? "" }}" disabled>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md col-lg col-xl">
                 <label for="CNS" id="label_CNS"><strong>CNS:</strong></label>
                 <div class="input-group mb-2">
-                    <input type="text" id="CNS" name="CNS" class="form-control" oninput="this.value = this.value.toUpperCase()">
+                    <input type="text" id="CNS" name="CNS" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
                 </div>
             </div>
 
             <div class="col-sm-12 col-md col-lg col-xl">
                 <div id="breed_fields" class="form-group">
                     <label for="breed" id="label_breed">Raça:</label>
-                    <select id="breed" name="breed" class="form-control @error('breed') is-invalid @enderror">
+                    <select id="breed" name="breed" class="form-control form-control-sm @error('breed') is-invalid @enderror">
                         <option value="" selected="selected">...</option>
                         <option value="B" @if((old('breed') == "B") OR (!empty($users) AND ($users->breed == "B")))selected @endif>BRANCA</option>
                         <option value="N" @if((old('breed') == "N") OR (!empty($users) AND ($users->breed == "N")))selected @endif>NEGRA</option>
@@ -85,7 +85,7 @@
             <div class="col-sm-12 col-md col-lg col-xl">
                 <div id="cell_fields" class="form-group">
                     <label for="cell" id="label_cell">Celular:</label>
-                    <input type="text" id="cell" name="cell" class="form-control @error('cell') is-invalid @enderror" value="{{ old('cell') ?? $users->cell ?? "" }}">
+                    <input type="text" id="cell" name="cell" class="form-control form-control-sm @error('cell') is-invalid @enderror" value="{{ old('cell') ?? $users->cell ?? "" }}">
                     <div class="valid-feedback">sucesso!</div>
                     <div class="invalid-feedback">Celular obrigatório!</div>
                 </div>
@@ -100,7 +100,7 @@
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div id="zip_code_fields" class="form-group">
                     <label for="zip_code" id="label_zip_code">CEP:</label>
-                    <input type="text" id="zip_code" name="zip_code" class="form-control" value="{{ old('zip_code') ?? $users->zip_code ?? "" }}" query="true">
+                    <input type="text" id="zip_code" name="zip_code" class="form-control form-control-sm" value="{{ old('zip_code') ?? $users->zip_code ?? "" }}" query="true">
                     <div class="valid-feedback">sucesso!</div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div id="address_fields" class="form-group">
                     <label for="address" id="label_address">Endereço:</label>
-                    <input type="text" id="address" name="address" class="form-control" value="{{ old('address') ?? $users->address ?? "" }}">
+                    <input type="text" id="address" name="address" class="form-control form-control-sm" value="{{ old('address') ?? $users->address ?? "" }}">
                     <div class="valid-feedback">sucesso!</div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div id="number_fields" class="form-group">
                     <label for="number" id="label_number">Número:</label>
-                    <input type="text" id="number" name="number" class="form-control" value="{{ old('number') ?? $users->number ?? "" }}">
+                    <input type="text" id="number" name="number" class="form-control form-control-sm" value="{{ old('number') ?? $users->number ?? "" }}">
                     <div class="valid-feedback">sucesso!</div>
                 </div>
             </div>
@@ -127,7 +127,7 @@
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div id="complement_fields" class="form-group">
                     <label for="complement" id="label_complement">Complemento:</label>
-                    <input type="text" id="complement" name="complement" class="form-control" value="{{ old('complement') ?? $users->complement ?? "" }}">
+                    <input type="text" id="complement" name="complement" class="form-control form-control-sm" value="{{ old('complement') ?? $users->complement ?? "" }}">
                     <div class="valid-feedback">sucesso!</div>
                 </div>
             </div>
@@ -135,7 +135,7 @@
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div id="district_fields" class="form-group">
                     <label for="district" id="label_district">Bairro:</label>
-                    <input type="text" id="district" name="district" class="form-control" value="{{ old('district') ?? $users->district ?? "" }}">
+                    <input type="text" id="district" name="district" class="form-control form-control-sm" value="{{ old('district') ?? $users->district ?? "" }}">
                     <div class="valid-feedback">sucesso!</div>
                 </div>
             </div>
@@ -143,7 +143,7 @@
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div id="city_fields" class="form-group">
                     <label for="city" id="label_city">Cidade:</label>
-                    <input type="text" id="city" name="city" class="form-control" value="{{ old('city') ?? $users->city ?? "" }}">
+                    <input type="text" id="city" name="city" class="form-control form-control-sm" value="{{ old('city') ?? $users->city ?? "" }}">
                     <div class="valid-feedback">sucesso!</div>
                 </div>
             </div>
@@ -153,7 +153,7 @@
             <div class="col-sm-12 col-md col-lg col-xl">
                 <div id="uf_fields" class="form-group">
                     <label for="uf" id="label_uf">Estado/UF:</label>
-                    <select id="uf" name="uf" class="form-control @error('uf') is-invalid @enderror">
+                    <select id="uf" name="uf" class="form-control form-control-sm @error('uf') is-invalid @enderror">
                         <option value="" selected="selected">...</option>
                         <option value="AC" @if((old('uf') == "AC") OR (!empty($users) AND ($users->uf == "AC")))selected @endif>AC</option>
                         <option value="AL" @if((old('uf') == "AL") OR (!empty($users) AND ($users->uf == "AL")))selected @endif>AL</option>

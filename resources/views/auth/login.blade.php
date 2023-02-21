@@ -16,7 +16,7 @@
 
                     <div class="mb-3">
                         <label for="emailaddress" class="form-label">Email:</label>
-                        <input class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Seu Email">
+                        <input class="form-control form-control-sm @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Seu Email">
     
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -28,7 +28,7 @@
                     <div class="mb-3">
     
                         <label for="password" class="form-label">Senha:</label>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" required placeholder="Digite sua senha">
+                        <input type="password" class="form-control form-control-sm @error('password') is-invalid @enderror" name="password" id="password" required placeholder="Digite sua senha">
     
                         @error('password')
                             <span class="invalid-feedback" role="alert">

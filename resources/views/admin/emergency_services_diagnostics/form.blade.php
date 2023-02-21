@@ -131,21 +131,21 @@
     <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
         <div id="code_filter_fields" class="form-group">
             <label for="code_filter" id="label_code_filter">Código FILTRO:</label>
-            <input type="text" id="code_filter" code_filter="code_filter" class="form-control" oninput="this.value = this.value.toUpperCase()">
+            <input type="text" id="code_filter" code_filter="code_filter" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
         </div>
     </div>
 
     <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
         <div id="title_filter_fields" class="form-group">
             <label for="title_filter" id="label_title_filter">CID10 FILTRO:</label>
-            <input type="text" id="title_filter" name="title_filter" class="form-control" oninput="this.value = this.value.toUpperCase()">
+            <input type="text" id="title_filter" name="title_filter" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
         </div>
     </div>
 
     <div class="col-sm-12 col-md col-lg col-xl">
         <div id="IdCid10_fields" class="form-group">
             <label for="IdCid10" id="label_IdCid10">CID10</label>
-            <select id="IdCid10" name="IdCid10" class="form-control" url-query="{{ route('cid10.form.json') }}">
+            <select id="IdCid10" name="IdCid10" class="form-control form-control-sm" url-query="{{ route('cid10.form.json') }}">
                 <option value="{{ $emergency_services_diagnostics->IdCid10 ?? "" }}">...</option>
             </select>
         </div>              

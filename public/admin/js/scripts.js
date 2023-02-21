@@ -115,7 +115,7 @@ function modal_call(a, url) {
         modal_info("Tela de Atendimento", '', `
             <div id="room_call_fields" class="form-group">
                 <label for="room_call" id="label_room_call" class="label_room_call">Status:</label>
-                <select id="room_call" class="form-control">${html}</select>
+                <select id="room_call" class="form-control form-control-sm">${html}</select>
             </div>
         `, 'bg-primary', `<button class="btn btn-primary" id="save-call" type="button" data-bs-dismiss="modal">Salvar</button>`)
 
@@ -228,7 +228,7 @@ $(document).on('click', '.modal-print-option', function(e){
     modal_info($(this).attr('title'), '', `
         <div id="modal_print_fields" class="form-group mt-0">
             <label for="modal_print" id="label_modal_print" class="label_modal_print">Tipo:</label>
-            <select id="modal_print" class="form-control">${html}</select>
+            <select id="modal_print" class="form-control form-control-sm">${html}</select>
         </div>
     `, 'bg-primary', `<button class="btn btn-primary" id="save-call" onclick="redirect_print('${$(this).attr('data-url')}')" type="button" data-bs-dismiss="modal">Avançar</button>`)
 })

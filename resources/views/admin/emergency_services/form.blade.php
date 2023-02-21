@@ -82,7 +82,7 @@
                             <div class="col-sm-6 col-md col-lg col-xl">
                                 <div id="status_fields" class="form-group">
                                     <label for="status" id="label_status" class="label_status">Status:</label>
-                                    <select name="status" class="form-control @error('status') is-invalid @enderror">
+                                    <select name="status" class="form-control form-control-sm @error('status') is-invalid @enderror">
                                         <option value="a" @if((old('status') == "a") OR (!empty($emergency_services) AND ($emergency_services->status == "a")))selected @endif>Ativo</option>
                                         <option value="c" @if((old('status') == "c") OR (!empty($emergency_services) AND ($emergency_services->status == "c")))selected @endif>Cancelar</option>
                                     </select>
@@ -92,7 +92,7 @@
                             <div class="col-sm-12 col-md col-lg col-xl">
                                 <div id="identified_patient_fields" class="form-group">
                                     <label for="identified_patient" id="label_identified_patient" class="label_identified_patient">Paciente Identificado:</label>
-                                    <select name="identified_patient" id="identified_patient" class="form-control @error('identified_patient') is-invalid @enderror" @if(!empty($emergency_services)) disabled @endif>
+                                    <select name="identified_patient" id="identified_patient" class="form-control form-control-sm @error('identified_patient') is-invalid @enderror" @if(!empty($emergency_services)) disabled @endif>
                                         <option value="y" @if((old('identified_patient') == "y") OR (!empty($emergency_services) AND ($emergency_services->identified_patient == "y")))selected @endif>Sim</option>
                                         <option value="n" @if((old('identified_patient') == "n") OR (!empty($emergency_services) AND ($emergency_services->identified_patient == "n")))selected @endif>Não</option>
                                     </select>
@@ -120,7 +120,7 @@
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div id="users_description_fields" class="form-group">
                                     <label class="form-label" for="text_label">Descrição do Passiente:</label>
-                                    <textarea class="form-control @error('users_description') is-invalid @enderror" id="users_description" name="users_description" rows="3">{{old('text') ?? $emergency_services->users_description ?? ""}}</textarea>
+                                    <textarea class="form-control form-control-sm @error('users_description') is-invalid @enderror" id="users_description" name="users_description" rows="3">{{old('text') ?? $emergency_services->users_description ?? ""}}</textarea>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -130,14 +130,14 @@
                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                 <div id="users_date_birth_identified_fields" class="form-group">
                                     <label for="users_date_birth_identified" id="label_users_date_birth_identified">Idade Aparente:</label>
-                                    <input type="number" id="users_date_birth_identified" name="users_date_birth_identified" class="form-control" value="@if(!empty($emergency_services)){{ $emergency_services->users_date_birth_identified }}@endif">
+                                    <input type="number" id="users_date_birth_identified" name="users_date_birth_identified" class="form-control form-control-sm" value="@if(!empty($emergency_services)){{ $emergency_services->users_date_birth_identified }}@endif">
                                 </div>
                             </div>
                         
                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                 <div id="users_sex_fields" class="form-group">
                                     <label for="users_sex" id="label_users_sex">Sexo:</label>
-                                    <select id="users_sex" name="users_sex" class="form-control @error('users_sex') is-invalid @enderror">
+                                    <select id="users_sex" name="users_sex" class="form-control form-control-sm @error('users_sex') is-invalid @enderror">
                                         <option value="" selected="selected">...</option>
                                         <option value="m" @if((old('users_sex') == "m") OR (!empty($emergency_services) AND ($emergency_services->users_sex == "m")))selected @endif>MASCULINO</option>
                                         <option value="f" @if((old('users_sex') == "f") OR (!empty($emergency_services) AND ($emergency_services->users_sex == "f")))selected @endif>FEMININO</option>
@@ -169,35 +169,35 @@
                                 <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                     <div id="user_name_fields" class="form-group">
                                         <label for="user_name" id="label_user_name">FILTRO: Nome:</label>
-                                        <input type="text" id="user_name" name="user_name" class="form-control" maxlength="50" autocomplete="off">    
+                                        <input type="text" id="user_name" name="user_name" class="form-control form-control-sm" maxlength="50" autocomplete="off">    
                                     </div>
                                 </div>
                                 
                                 <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                     <div id="user_cpf_cnpj_fields" class="form-group">
                                         <label for="user_cpf_cnpj" id="label_user_cpf_cnpj">FILTRO: CPF:</label>
-                                        <input type="text" id="user_cpf_cnpj" name="user_cpf_cnpj" class="form-control" maxlength="14" autocomplete="off">    
+                                        <input type="text" id="user_cpf_cnpj" name="user_cpf_cnpj" class="form-control form-control-sm" maxlength="14" autocomplete="off">    
                                     </div>
                                 </div>
 
                                 <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                     <div id="user_mother_fields" class="form-group">
                                         <label for="user_mother" id="label_user_mother">FILTRO: Mãe:</label>
-                                        <input type="text" id="user_mother" name="user_mother" class="form-control" maxlength="50" autocomplete="off">    
+                                        <input type="text" id="user_mother" name="user_mother" class="form-control form-control-sm" maxlength="50" autocomplete="off">    
                                     </div>
                                 </div>
 
                                 <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                     <div id="user_date_birth_fields" class="form-group">
                                         <label for="user_date_birth" id="label_user_date_birth">FILTRO: Data Nascimento:</label>
-                                        <input type="text" id="user_date_birth" name="user_date_birth" class="form-control" maxlength="15" autocomplete="off">    
+                                        <input type="text" id="user_date_birth" name="user_date_birth" class="form-control form-control-sm" maxlength="15" autocomplete="off">    
                                     </div>
                                 </div>
                         
                                 <div class="col-sm-12 col-md-2 col-lg-2 col-xl-1 mt-2">
                                     <div id="user_button_fields" class="form-group">
                                         <label for="user_button" id="label_user_button"></label>
-                                        <button type="button" class="form-control btn btn-outline-secondary query_users_patient" title="Buscar" url="{{ route('users.form.query') }}">
+                                        <button type="button" class="form-control btn btn-outline-secondary btn-sm query_users_patient" title="Buscar" url="{{ route('users.form.query') }}">
                                             <span class="fas fa-search" data-fa-transform="shrink-3 down-2"></span>
                                         </button>
                                     </div>
@@ -206,7 +206,7 @@
                                 <div class="col-sm-12 col-md-2 col-lg-2 col-xl-1 mt-2">
                                     <div id="user_button_fields" class="form-group">
                                         <label for="user_button" id="label_user_button"></label>
-                                        <button type="button" class="form-control btn btn-outline-secondary" url="{{ route('users_patients.form') }}" iframe-title="Inserir Paciente" title="Novo Registro" data-iframe>
+                                        <button type="button" class="form-control btn btn-outline-secondary btn-sm" url="{{ route('users_patients.form') }}" iframe-title="Inserir Paciente" title="Novo Registro" data-iframe>
                                             <span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span>
                                         </button>
                                     </div>
@@ -216,7 +216,7 @@
                             <div class="col-sm-12 col-md-2 col-lg-2 col-xl-1 mt-2">
                                 <div id="user_button_fields" class="form-group">
                                     <label for="user_button" id="label_user_button"></label>
-                                    <button type="button" class="form-control btn btn-outline-secondary edit-patient-users" url="{{ route('users_patients.form') }}" iframe-title="Editar Paciente" title="Editar">
+                                    <button type="button" class="form-control btn btn-outline-secondary btn-sm edit-patient-users" url="{{ route('users_patients.form') }}" iframe-title="Editar Paciente" title="Editar">
                                         <span class="far fa-edit" data-fa-transform="shrink-3 down-2"></span>
                                     </button>
                                 </div>
@@ -225,7 +225,7 @@
                             <div class="col-sm-12 col-md col-lg col-xl">
                                 <div id="IdUsers_fields" class="form-group">
                                     <label for="IdUsers" id="label_IdUsers">Paciente</label>
-                                    <select id="IdUsers" name="IdUsers" class="form-control @error('IdUsers') is-invalid @enderror" url-query="{{ route('users.query.json') }}">
+                                    <select id="IdUsers" name="IdUsers" class="form-control form-control-sm @error('IdUsers') is-invalid @enderror" url-query="{{ route('users.query.json') }}">
                                         <option value="{{old('IdUsers') ?? $emergency_services->IdUsers ?? ""}}">...</option>
                                     </select>
                                 </div>              
@@ -293,7 +293,7 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="provenance_fields" class="form-group">
                                     <label for="provenance" id="label_provenance">Procedencia:</label>
-                                    <select id="provenance" name="provenance" class="form-control @error('provenance') is-invalid @enderror">
+                                    <select id="provenance" name="provenance" class="form-control form-control-sm @error('provenance') is-invalid @enderror">
                                         <option value="liv" @if((old('provenance') == "liv") OR (!empty($emergency_services) AND ($emergency_services->provenance == "liv")))selected @endif>Livre Demanda</option>
                                         <option value="agen" @if((old('provenance') == "agen") OR (!empty($emergency_services) AND ($emergency_services->provenance == "agen")))selected @endif>Agente Penitenciário</option>
                                         <option value="amb" @if((old('provenance') == "amb") OR (!empty($emergency_services) AND ($emergency_services->provenance == "amb")))selected @endif>Ambulância</option>
@@ -313,7 +313,7 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="types_fields" class="form-group">
                                     <label for="types" id="label_types">Atendimento:</label>
-                                    <select id="types" name="types" class="form-control @error('types') is-invalid @enderror" required>
+                                    <select id="types" name="types" class="form-control form-control-sm @error('types') is-invalid @enderror" required>
                                         <option value="acol" @if((old('types') == "acol") OR (!empty($emergency_services) AND ($emergency_services->types == "acol")))selected @endif>Acolhimento</option>
 
                                         @if((!empty($emergency_services)) AND $emergency_services->types == 'pp')
@@ -339,7 +339,7 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="character_fields" class="form-group">
                                     <label for="character" id="label_character">Caráter do Atendimento:</label>
-                                    <select id="character" name="character" class="form-control @error('character') is-invalid @enderror">
+                                    <select id="character" name="character" class="form-control form-control-sm @error('character') is-invalid @enderror">
                                         <option value="ele" @if((old('character') == "ele") OR (!empty($emergency_services) AND ($emergency_services->character == "ele")))selected @endif>Eletivo</option>
                                         <option value="urg" @if((old('character') == "urg") OR (!empty($emergency_services) AND ($emergency_services->character == "urg")))selected @endif>Urgência</option>
                                         <option value="trab" @if((old('character') == "trab") OR (!empty($emergency_services) AND ($emergency_services->character == "trab")))selected @endif>Acidente no local de trabalho ou a serviço da empresa</option>
@@ -356,7 +356,7 @@
                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                 <div id="forwarding_fields" class="form-group">
                                     <label for="forwarding" id="label_forwarding" class="label_forwarding">Encaminhamento:</label>
-                                    <select name="forwarding" id="forwarding" class="form-control @error('forwarding') is-invalid @enderror" required>
+                                    <select name="forwarding" id="forwarding" class="form-control form-control-sm @error('forwarding') is-invalid @enderror" required>
                                         <option value="n" @if((old('forwarding') == "n") OR (!empty($emergency_services) AND ($emergency_services->forwarding == "n")))selected @endif>Não</option>
                                         <option value="y" @if((old('forwarding') == "y") OR (!empty($emergency_services) AND ($emergency_services->forwarding == "y")))selected @endif>Sim</option>
                                     </select>
@@ -366,7 +366,7 @@
                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                 <div id="accident_work_fields" class="form-group">
                                     <label for="accident_work" id="label_accident_work" class="label_accident_work">Acidente Trabalho:</label>
-                                    <select name="accident_work" class="form-control @error('accident_work') is-invalid @enderror">
+                                    <select name="accident_work" class="form-control form-control-sm @error('accident_work') is-invalid @enderror">
                                         <option value="n" @if((old('accident_work') == "n") OR (!empty($emergency_services) AND ($emergency_services->accident_work == "n")))selected @endif>Não</option>
                                         <option value="y" @if((old('accident_work') == "y") OR (!empty($emergency_services) AND ($emergency_services->accident_work == "y")))selected @endif>Sim</option>
                                     </select>
@@ -378,7 +378,7 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="forwarding_uf_fields" class="form-group">
                                     <label for="forwarding_uf" id="label_forwarding_uf">Estado/UF:</label>
-                                    <select id="forwarding_uf" name="forwarding_uf" class="form-control @error('forwarding_uf') is-invalid @enderror" {{ app('request')->input('module') == "medical" ? "required" : "" }}>
+                                    <select id="forwarding_uf" name="forwarding_uf" class="form-control form-control-sm @error('forwarding_uf') is-invalid @enderror" {{ app('request')->input('module') == "medical" ? "required" : "" }}>
                                         <option value="" selected="selected">...</option>
                                         <option value="AC" @if((old('forwarding_uf') == "AC") OR (!empty($emergency_services) AND ($emergency_services->forwarding_uf == "AC")))selected @endif>AC</option>
                                         <option value="AL" @if((old('forwarding_uf') == "AL") OR (!empty($emergency_services) AND ($emergency_services->forwarding_uf == "AL")))selected @endif>AL</option>
@@ -415,7 +415,7 @@
                             <div class="col-sm-12 col-md col-lg col-xl hide" id="forwarding_county_fields">
                                 <div class="form-group">
                                     <label for="forwarding_county" id="label_forwarding_county">Municipio:</label>
-                                    <select id="forwarding_county" name="forwarding_county" class="form-control">
+                                    <select id="forwarding_county" name="forwarding_county" class="form-control form-control-sm">
                                         <option value="" selected="selected">...</option>
                                     </select>
                                     <div class="valid-feedback">sucesso!</div>
@@ -425,7 +425,7 @@
                             <div class="col-sm-12 col-md col-lg col-xl">
                                 <div id="forwarding_number_fields" class="form-group">
                                     <label for="forwarding_number" id="label_forwarding_number">N° Solicitação:</label>
-                                    <input type="text" id="forwarding_number" name="forwarding_number" class="form-control @error('forwarding_number') is-invalid @enderror" value="{{old('forwarding_number') ?? $emergency_services->forwarding_number ?? ""}}">
+                                    <input type="text" id="forwarding_number" name="forwarding_number" class="form-control form-control-sm @error('forwarding_number') is-invalid @enderror" value="{{old('forwarding_number') ?? $emergency_services->forwarding_number ?? ""}}">
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -446,7 +446,7 @@
                     </div>
                     
                     <div class="card-body bg-light">
-                        <textarea class="form-control @error('note') is-invalid @enderror" id="note" name="note" rows="3" placeholder="Observação">{{old('text') ?? $emergency_services->note ?? ""}}</textarea>
+                        <textarea class="form-control form-control-sm @error('note') is-invalid @enderror" id="note" name="note" rows="3" placeholder="Observação">{{old('text') ?? $emergency_services->note ?? ""}}</textarea>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -472,19 +472,19 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="escort_name_fields" class="form-group">
                                     <label for="escort_name" id="label_escort_name">Nome do Acompanhante:</label>
-                                    <input type="text" id="escort_name" name="escort_name" class="form-control" value="@if(!empty($emergency_services)){{ $emergency_services->escort_name }}@endif">
+                                    <input type="text" id="escort_name" name="escort_name" class="form-control form-control-sm" value="@if(!empty($emergency_services)){{ $emergency_services->escort_name }}@endif">
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="kinship_fields" class="form-group">
                                     <label for="kinship" id="label_kinship">Parentesco:</label>
-                                    <input type="text" id="kinship" name="kinship" class="form-control" value="@if(!empty($emergency_services)){{ $emergency_services->kinship }}@endif">
+                                    <input type="text" id="kinship" name="kinship" class="form-control form-control-sm" value="@if(!empty($emergency_services)){{ $emergency_services->kinship }}@endif">
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="escort_phone_fields" class="form-group">
                                     <label for="escort_phone" id="label_escort_phone">Telefone:</label>
-                                    <input type="text" id="escort_phone" name="escort_phone" class="form-control" value="@if(!empty($emergency_services)){{ $emergency_services->escort_phone }}@endif">
+                                    <input type="text" id="escort_phone" name="escort_phone" class="form-control form-control-sm" value="@if(!empty($emergency_services)){{ $emergency_services->escort_phone }}@endif">
                                 </div>
                             </div>
                         </div>

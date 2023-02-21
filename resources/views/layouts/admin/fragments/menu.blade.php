@@ -238,7 +238,7 @@
         <a class="nav-link pe-0 ps-2" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="avatar avatar-xl">
                 <div class="avatar-name rounded-circle">
-                    <span>{{ $mask->AvatarShortName(Auth::user()->name) }}</span>
+                    <span>{{ Mask::AvatarShortName(Auth::user()->name) }}</span>
                 </div>
                 <!--<img class="rounded-circle" src="https://sendlook-producao.s3.sa-east-1.amazonaws.com/pattern/usuario-sem-image.png" alt="" />-->
             </div>

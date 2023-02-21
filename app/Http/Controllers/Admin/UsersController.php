@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask2;
 use Illuminate\Support\Str;
 use DB;
 
@@ -25,7 +24,6 @@ class UsersController extends Controller
     {
         $this->middleware('auth');
         $this->users = new User();
-        $this->mask = new Mask2();
     }
 
     /**
@@ -38,7 +36,6 @@ class UsersController extends Controller
         $users = $this->users->list($request);
         return view('admin.users.list', [
             'title' => " Usuários | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'users' => $users
         ]);
     }
@@ -114,7 +111,6 @@ class UsersController extends Controller
         
         return view('admin.users.form', [
             'title' => " Usuários | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'users' => $users
         ]);
     }
@@ -285,7 +281,16 @@ class UsersController extends Controller
 
         if(!empty($users['data'])):
             foreach ($users['data'] as $val):
-                $data[] = array('IdUsers' => $val->IdUsers, 'name' => $val->name, 'cns' => $val->cns, 'cpf_cnpj' => $this->mask->cpf_cnpj($val->cpf_cnpj), 'mother' => $val->mother, 'email' => $val->email, 'phone' => $this->mask->phone($val->phone), 'cell' => $this->mask->phone($val->cell), 'date_birth' => $this->mask->birth($val->date_birth), 'zip_code' => $val->zip_code, 'address' => $val->address, 'number' => $val->number, 'complement' => $val->complement, 'district' => $val->district, 'city' => $val->city, 'uf' => $val->uf);
+
+                /* Format cpf/cnpj */
+                $cpf_cnpj = NULL;
+                if(strlen($users->cpf_cnpj) == 11):
+                    $cpf_cnpj = Mask::default($users->cpf_cnpj, '###.###.###-##');
+                elseif(strlen($users->cpf_cnpj) == 14):
+                    $cpf_cnpj = Mask::default($users->cpf_cnpj, '##.###.###/####-##');
+                endif;
+
+                $data[] = array('IdUsers' => $val->IdUsers, 'name' => $val->name, 'cns' => $val->cns, 'cpf_cnpj' => $cpf_cnpj, 'mother' => $val->mother, 'email' => $val->email, 'phone' => Mask::default($val->phone, '####-####'), 'cell' => Mask::default($val->cell, '(##) # ####-####'), 'date_birth' => Mask::birth($val->date_birth), 'zip_code' => $val->zip_code, 'address' => $val->address, 'number' => $val->number, 'complement' => $val->complement, 'district' => $val->district, 'city' => $val->city, 'uf' => $val->uf);
             endforeach;
         endif;
 
@@ -315,9 +320,17 @@ class UsersController extends Controller
 
         if(!empty($request->input('current'))):
 
+            /* Format cpf/cnpj */
+            $cpf_cnpj = NULL;
+            if(strlen($users['cpf_cnpj']) == 11):
+                $cpf_cnpj = Mask::default($users['cpf_cnpj'], '###.###.###-##');
+            elseif(strlen($users['cpf_cnpj']) == 14):
+                $cpf_cnpj = Mask::default($users['cpf_cnpj'], '##.###.###/####-##');
+            endif;
+
             $users = $users->first()->toArray();
-            $users['cpf_cnpj'] = $this->mask->cpf_cnpj($users['cpf_cnpj']);
-            $users['date_birth'] = $this->mask->birth($users['date_birth']);
+            $users['cpf_cnpj'] = $cpf_cnpj;
+            $users['date_birth'] = Mask::birth($users['date_birth']);
 
             return json_encode($users);
         endif;

@@ -70,14 +70,14 @@
                             <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2">
                                 <div id="IdServiceUnits_campo" class="form-group">
                                     <label for="IdServiceUnits" id="label_IdServiceUnits">Código:</label>
-                                    <input type="number" min="1" id="IdServiceUnits" name="IdServiceUnits" class="form-control" value="{{ app('request')->input('IdServiceUnits') }}" maxlength="11" autocomplete="off" />
+                                    <input type="number" min="1" id="IdServiceUnits" name="IdServiceUnits" class="form-control form-control-sm" value="{{ app('request')->input('IdServiceUnits') }}" maxlength="11" autocomplete="off" />
                                 </div>
                             </div>
 
                             <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2">
                                 <div id="status_campo" class="form-group">
                                     <label for="status" id="label_status">Status:</label>
-                                    <select name="status" id="status" class="form-control">
+                                    <select name="status" id="status" class="form-control form-control-sm">
                                         <option value="" selected="selected">...</option>
                                         <option value="a" {{ app('request')->input('status') == "a" ? "selected" : ""}}>Ativo</option>
                                         <option value="b" {{ app('request')->input('status') == "b" ? "selected" : ""}}>Bloqueado</option>
@@ -88,19 +88,19 @@
                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
                                 <div id="name_campo" class="form-group">
                                     <label for="name" id="label_name">Nome/Razão Social</label>
-                                    <input type="text" id="name" name="name" class="form-control" value="{{ app('request')->input('name') }}" maxlength="100" autocomplete="off" />
+                                    <input type="text" id="name" name="name" class="form-control form-control-sm" value="{{ app('request')->input('name') }}" maxlength="100" autocomplete="off" />
                                 </div>
                             </div>
 
                             <div class="col-sm-6 col-md-6 col-lg-2 col-xl-4">	
                                 <div id="email_campo" class="form-group">
                                     <label for="email" id="label_email">E-mail:</label>
-                                    <input type="text" id="email" name="email" class="form-control" value="{{ app('request')->input('email') }}" maxlength="100" autocomplete="off" />
+                                    <input type="text" id="email" name="email" class="form-control form-control-sm" value="{{ app('request')->input('email') }}" maxlength="100" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
 
-                        <input type="hidden" name="service_units" class="form-control" value="foo"/>
+                        <input type="hidden" name="service_units" class="form-control form-control-sm" value="foo"/>
                         <button class="btn btn-outline-primary me-1 mb-1 mt-2 btn-sm" type="submit">FILTRAR</button>
 
                     </form>

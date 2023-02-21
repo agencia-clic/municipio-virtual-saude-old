@@ -13,7 +13,7 @@
     <div class="card-body bg-light">
         <div class="row">
             <div class="form-group">
-                <select name="IdServiceUnits" class="form-control @error('IdServiceUnits') is-invalid @enderror" required>
+                <select name="IdServiceUnits" class="form-control form-control-sm @error('IdServiceUnits') is-invalid @enderror" required>
                     <option value="">...</option>
                     @if(!empty($service_units))
                         @foreach($service_units as $val)

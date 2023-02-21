@@ -544,7 +544,7 @@
 
                                         <div id="medical_opinion_fields" class="form-group">
                                             <label class="form-label" for="medical_opinion_label">Parecer Médico</label>
-                                            <textarea class="form-control @error('medical_opinion') is-invalid @enderror" id="medical_opinion" name="medical_opinion" rows="8" @if($emergency_services->status != "a") disabled @endif>{{$emergency_services_conducts->medical_opinion ?? ""}}</textarea>
+                                            <textarea class="form-control form-control-sm @error('medical_opinion') is-invalid @enderror" id="medical_opinion" name="medical_opinion" rows="8" @if($emergency_services->status != "a") disabled @endif>{{$emergency_services_conducts->medical_opinion ?? ""}}</textarea>
                                             <div class="valid-feedback">sucesso!</div>
                                         </div>
                                     </div>
@@ -639,7 +639,7 @@
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
                                                         <div id="note_observation_fields" class="form-group">
                                                             <label class="form-label" for="note_observation_label">Observação</label>
-                                                            <textarea class="form-control @error('note_observation') is-invalid @enderror" id="note_observation" name="note_observation" rows="3">{{ $emergency_services_observations->note_observation ?? "" }}</textarea>
+                                                            <textarea class="form-control form-control-sm @error('note_observation') is-invalid @enderror" id="note_observation" name="note_observation" rows="3">{{ $emergency_services_observations->note_observation ?? "" }}</textarea>
                                                             <div class="valid-feedback">sucesso!</div>
                                                         </div>
                                                     </div>
@@ -666,7 +666,7 @@
                                         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                             <div id="type_patient_discharge_fields" class="form-group">
                                                 <label for="type_patient_discharge" id="label_type_patient_discharge" class="label_type_patient_discharge">Tipo:</label>
-                                                <select name="type_patient_discharge" class="form-control @error('type_patient_discharge') is-invalid @enderror" @if($emergency_services->status != "a") disabled @endif>
+                                                <select name="type_patient_discharge" class="form-control form-control-sm @error('type_patient_discharge') is-invalid @enderror" @if($emergency_services->status != "a") disabled @endif>
                                                     <option value="m" @if((old('type_patient_discharge') == "m") OR (!empty($emergency_services_conducts) AND ($emergency_services_conducts->type_patient_discharge == "m")))selected @endif>Melhorado</option>
                                                     <option value="ap" @if((old('type_patient_discharge') == "ap") OR (!empty($emergency_services_conducts) AND ($emergency_services_conducts->type_patient_discharge == "ap")))selected @endif>A pedido</option>
                                                     <option value="c" @if((old('type_patient_discharge') == "c") OR (!empty($emergency_services_conducts) AND ($emergency_services_conducts->type_patient_discharge == "c")))selected @endif>Curado</option>
@@ -699,7 +699,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                             <div id="note_patient_discharge_fields" class="form-group">
                                                 <label class="form-label" for="note_patient_discharge_label">Motivo</label>
-                                                <textarea class="form-control @error('note_patient_discharge') is-invalid @enderror" id="note_patient_discharge" name="note_patient_discharge" rows="3" @if($emergency_services->status != "a") disabled @endif>{{$emergency_services_conducts->note_patient_discharge ?? "" }}</textarea>
+                                                <textarea class="form-control form-control-sm @error('note_patient_discharge') is-invalid @enderror" id="note_patient_discharge" name="note_patient_discharge" rows="3" @if($emergency_services->status != "a") disabled @endif>{{$emergency_services_conducts->note_patient_discharge ?? "" }}</textarea>
                                                 <div class="valid-feedback">sucesso!</div>
                                             </div>
                                         </div>
@@ -855,7 +855,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3">
                                             <div id="note_comparison_statement_fields" class="form-group">
                                                 <label for="note_comparison_statement" id="label_note_comparison_statement">Motivo:</label>
-                                                <textarea class="form-control @error('note_comparison_statement') is-invalid @enderror" id="note_comparison_statement" name="note_comparison_statement" rows="3" placeholder="Motivo" @if($emergency_services->status != "a") disabled @endif>{{old('note_comparison_statement') ?? $emergency_services_conducts->note_comparison_statement ?? ""}}</textarea>
+                                                <textarea class="form-control form-control-sm @error('note_comparison_statement') is-invalid @enderror" id="note_comparison_statement" name="note_comparison_statement" rows="3" placeholder="Motivo" @if($emergency_services->status != "a") disabled @endif>{{old('note_comparison_statement') ?? $emergency_services_conducts->note_comparison_statement ?? ""}}</textarea>
                                                 <div class="valid-feedback">sucesso!</div>
                                             </div>
                                         </div>
@@ -903,14 +903,14 @@
                                         <div class="col-sm-12 col-md col-lg col-xl">
                                             <div id="number_days_medical_certificate_fields" class="form-group">
                                                 <label for="number_days_medical_certificate" id="label_number_days_medical_certificate">Número de Dias:</label>
-                                                <input type="number" id="number_days_medical_certificate" name="number_days_medical_certificate" class="form-control" value="@if(!empty($emergency_services_conducts)){{ $emergency_services_conducts->number_days_medical_certificate }}@endif" @if($emergency_services->status != "a") disabled @endif>
+                                                <input type="number" id="number_days_medical_certificate" name="number_days_medical_certificate" class="form-control form-control-sm" value="@if(!empty($emergency_services_conducts)){{ $emergency_services_conducts->number_days_medical_certificate }}@endif" @if($emergency_services->status != "a") disabled @endif>
                                             </div>
                                         </div>
                                         
                                         <div class="col-sm-12 col-md col-lg col-xl">
                                             <div id="period_medical_certificate_fields" class="form-group">
                                                 <label for="period_medical_certificate" id="label_period_medical_certificate" class="label_period_medical_certificate">Períodos:</label>
-                                                <select name="period_medical_certificate" class="form-control @error('period_medical_certificate') is-invalid @enderror" @if($emergency_services->status != "a") disabled @endif>
+                                                <select name="period_medical_certificate" class="form-control form-control-sm @error('period_medical_certificate') is-invalid @enderror" @if($emergency_services->status != "a") disabled @endif>
                                                     <option value="">...</option>
                                                     <option value="m" @if((old('period_medical_certificate') == "m") OR (!empty($emergency_services_conducts) AND($emergency_services_conducts->period_medical_certificate == "m")))selected @endif>Manhã</option>
                                                     <option value="t" @if((old('period_medical_certificate') == "t") OR (!empty($emergency_services_conducts) AND ($emergency_services_conducts->period_medical_certificate == "t")))selected @endif>Tarde</option>
@@ -924,21 +924,21 @@
                                         <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                             <div id="code_filter_fields" class="form-group">
                                                 <label for="code_filter" id="label_code_filter">Código FILTRO:</label>
-                                                <input type="text" id="code_filter" code_filter="code_filter" class="form-control" oninput="this.value = this.value.toUpperCase()" @if($emergency_services->status != "a") disabled @endif>
+                                                <input type="text" id="code_filter" code_filter="code_filter" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()" @if($emergency_services->status != "a") disabled @endif>
                                             </div>
                                         </div>
                                     
                                         <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                             <div id="title_filter_fields" class="form-group">
                                                 <label for="title_filter" id="label_title_filter">CID10 FILTRO:</label>
-                                                <input type="text" id="title_filter" name="title_filter" class="form-control" oninput="this.value = this.value.toUpperCase()" @if($emergency_services->status != "a") disabled @endif>
+                                                <input type="text" id="title_filter" name="title_filter" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()" @if($emergency_services->status != "a") disabled @endif>
                                             </div>
                                         </div>
                                     
                                         <div class="col-sm-12 col-md col-lg col-xl">
                                             <div id="IdCid10MedicalCertificate_fields" class="form-group">
                                                 <label for="IdCid10MedicalCertificate" id="label_IdCid10MedicalCertificate">CID10</label>
-                                                <select id="IdCid10MedicalCertificate" name="IdCid10MedicalCertificate" class="form-control" url-query="{{ route('cid10.form.json') }}" @if($emergency_services->status != "a") disabled @endif>
+                                                <select id="IdCid10MedicalCertificate" name="IdCid10MedicalCertificate" class="form-control form-control-sm" url-query="{{ route('cid10.form.json') }}" @if($emergency_services->status != "a") disabled @endif>
                                                     <option value="{{ $emergency_services_conducts->IdCid10MedicalCertificate ?? "" }}">...</option>
                                                 </select>
                                             </div>              
@@ -992,7 +992,7 @@
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div id="medical-report_fields" class="form-group">
                                     <label class="form-label" for="medical-report_label">Laudo Médico</label>
-                                    <textarea class="form-control @error('medical-report') is-invalid @enderror" id="medical_report" name="medical_report" rows="8" @if($emergency_services->status != "a") disabled @endif>{{ $emergency_services_conducts->medical_report ?? ""}}</textarea>
+                                    <textarea class="form-control form-control-sm @error('medical-report') is-invalid @enderror" id="medical_report" name="medical_report" rows="8" @if($emergency_services->status != "a") disabled @endif>{{ $emergency_services_conducts->medical_report ?? ""}}</textarea>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -1030,7 +1030,7 @@
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                     <div id="IdServiceUnitsUnitTransfer_fields" class="form-group">
                                         <label for="IdServiceUnitsUnitTransfer" id="label_IdServiceUnitsUnitTransfer" class="label_IdServiceUnitsUnitTransfer">Unidades:</label>
-                                        <select name="IdServiceUnitsUnitTransfer" class="form-control @error('IdServiceUnitsUnitTransfer') is-invalid @enderror" required>
+                                        <select name="IdServiceUnitsUnitTransfer" class="form-control form-control-sm @error('IdServiceUnitsUnitTransfer') is-invalid @enderror" required>
                                             @foreach($service_units as $index => $val)
                                                 <option value="{{ $val->IdServiceUnits }}" @if(old('IdServiceUnitsUnitTransfer') == $val->IdServiceUnits OR (!empty($emergency_services_conducts) AND ($val->IdServiceUnits == $emergency_services_conducts->IdServiceUnitsUnitTransfer)))selected @endif>{{$val->name}}</option>
                                             @endforeach
@@ -1041,7 +1041,7 @@
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3">
                                     <div id="unit_transfer_reason_reason_fields" class="form-group">
                                         <label for="unit_transfer_reason_reason" id="label_unit_transfer_reason_reason">Motivo:</label>
-                                        <textarea class="form-control @error('unit_transfer_reason_reason') is-invalid @enderror" id="unit_transfer_reason_reason" name="unit_transfer_reason_reason" rows="3" placeholder="Motivo">{{old('unit_transfer_reason_reason') ?? $emergency_services_conducts->unit_transfer_reason ?? ""}}</textarea>
+                                        <textarea class="form-control form-control-sm @error('unit_transfer_reason_reason') is-invalid @enderror" id="unit_transfer_reason_reason" name="unit_transfer_reason_reason" rows="3" placeholder="Motivo">{{old('unit_transfer_reason_reason') ?? $emergency_services_conducts->unit_transfer_reason ?? ""}}</textarea>
                                         <div class="valid-feedback">sucesso!</div>
                                     </div>
                                 </div>

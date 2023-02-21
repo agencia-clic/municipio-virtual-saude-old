@@ -154,7 +154,7 @@
                     </div>
                     
                     <div class="card-body bg-light">
-                        <textarea class="form-control @error('anamnesis') is-invalid @enderror" id="anamnesis" name="anamnesis" rows="3" placeholder="Anamnese / Exame Físico" required>{{old('anamnesis') ?? $medical_care->anamnesis ?? ""}}</textarea>
+                        <textarea class="form-control form-control-sm @error('anamnesis') is-invalid @enderror" id="anamnesis" name="anamnesis" rows="3" placeholder="Anamnese / Exame Físico" required>{{old('anamnesis') ?? $medical_care->anamnesis ?? ""}}</textarea>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
@@ -189,7 +189,7 @@
                     </div>
                     
                     <div class="card-body bg-light">
-                        <textarea class="form-control @error('guidelines') is-invalid @enderror" id="guidelines" name="guidelines" rows="3" placeholder="Observação">{{old('guidelines') ?? $medical_care->guidelines ?? ""}}</textarea>
+                        <textarea class="form-control form-control-sm @error('guidelines') is-invalid @enderror" id="guidelines" name="guidelines" rows="3" placeholder="Observação">{{old('guidelines') ?? $medical_care->guidelines ?? ""}}</textarea>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>

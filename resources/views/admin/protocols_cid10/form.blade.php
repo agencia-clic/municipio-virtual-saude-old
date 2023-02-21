@@ -5,7 +5,7 @@
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div id="IdCid10_fields" class="form-group">
             <label for="IdCid10" id="label_IdCid10" class="label_IdCid10">CID10:</label>
-            <select name="IdCid10" class="form-control @error('IdCid10') is-invalid @enderror" required>
+            <select name="IdCid10" class="form-control form-control-sm @error('IdCid10') is-invalid @enderror" required>
                 <option value="">...</option>
                 @if(!empty($cid10))
                     @foreach($cid10 as $val)

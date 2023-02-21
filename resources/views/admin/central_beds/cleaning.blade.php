@@ -44,7 +44,7 @@
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div id="note_fields" class="form-group">
             <label class="form-label" for="note_label">Observação</label>
-            <textarea class="form-control" id="note" name="note" rows="3" placeholder="Observação"></textarea>
+            <textarea class="form-control form-control-sm" id="note" name="note" rows="3" placeholder="Observação"></textarea>
             <div class="valid-feedback">sucesso!</div>
         </div>
     </div>

@@ -16,8 +16,9 @@ class CreateServiceUnitsTable extends Migration
         Schema::create('service_units', function (Blueprint $table) {
             $table->id("IdServiceUnits");
             $table->string("name");
-            $table->string("code");
             $table->string("email");
+            $table->string("code");
+            $table->string("acronym");
             $table->enum('status', ['a','b']);
             $table->integer("IdUsers");
             $table->string('phone', 15);
