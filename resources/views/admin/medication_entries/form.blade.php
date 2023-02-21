@@ -90,7 +90,7 @@
 
             @if((!empty($medication_entries) AND ($medication_entries->status == "a")) OR (empty($medication_entries)))
                 <div class="col-12 mt-2">
-                    <button class="btn btn-primary" type="button" title="Medicamentos" iframe-form="{{ route('medication_entries_registrations.form', ['IdMedicationEntries' => base64_encode($medication_entries->IdMedicationEntries)]) }}" iframe-create="{{ route('medication_entries_registrations.form.create', ['IdMedicationEntries' => base64_encode($medication_entries->IdMedicationEntries)]) }}">Inserir</button>
+                     <button class="btn btn-primary btn-sm" type="Medicamentos" iframe-form="{{ route('medication_entries_registrations.form', ['IdMedicationEntries' => base64_encode($medication_entries->IdMedicationEntries)]) }}" iframe-create="{{ route('medication_entries_registrations.form.create', ['IdMedicationEntries' => base64_encode($medication_entries->IdMedicationEntries)]) }}">Inserir</button>
                 </div>
             @endif
         </div>

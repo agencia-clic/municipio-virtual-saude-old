@@ -197,7 +197,7 @@
             <div data-iframe="{{ route('rooms_beds', ['IdRooms' => base64_encode($rooms->IdRooms)]) }}"></div>
             
             <div class="col-12 mt-2">
-                <button class="btn btn-primary" type="button" title="Leitos" iframe-form="{{ route('rooms_beds.form', ['IdRooms' => base64_encode($rooms->IdRooms)]) }}" iframe-create="{{ route('rooms_beds.form.create', ['IdRooms' => base64_encode($rooms->IdRooms)]) }}">Inserir</button>
+                 <button class="btn btn-primary btn-sm" type="Leitos" iframe-form="{{ route('rooms_beds.form', ['IdRooms' => base64_encode($rooms->IdRooms)]) }}" iframe-create="{{ route('rooms_beds.form.create', ['IdRooms' => base64_encode($rooms->IdRooms)]) }}">Inserir</button>
             </div>
         </div>
     </div>

@@ -114,7 +114,7 @@
 
                             <div class="col-sm-2 col-md-2 col-lg-1 mt-4">
                                 <div class="btn-group mb-2" role="group">
-                                    <button class="btn btn-primary" type="button" title="Unidade" iframe-form="{{ route('medication_units.form_modal') }}" iframe-create="{{ route('medication_units.form.create_modal') }}"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span></button>                                   
+                                     <button class="btn btn-primary btn-sm" type="Unidade" iframe-form="{{ route('medication_units.form_modal') }}" iframe-create="{{ route('medication_units.form.create_modal') }}"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span></button>                                   
                                 </div>
                             </div>  
                         </div>
@@ -140,7 +140,7 @@
 
                             <div class="col-sm-2 col-md-2 col-lg-1 mt-4">
                                 <div class="btn-group mb-2" role="group">
-                                    <button class="btn btn-primary" type="button" title="Via de Administração" iframe-form="{{ route('medication_administrations.form_modal') }}" iframe-create="{{ route('medication_administrations.form.create_modal') }}"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span></button>                                   
+                                     <button class="btn btn-primary btn-sm" type="Via de Administração" iframe-form="{{ route('medication_administrations.form_modal') }}" iframe-create="{{ route('medication_administrations.form.create_modal') }}"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span></button>                                   
                                 </div>
                             </div>  
                         </div>
@@ -166,7 +166,7 @@
 
                             <div class="col-sm-2 col-md-2 col-lg-1 mt-4">
                                 <div class="btn-group mb-2" role="group">
-                                    <button class="btn btn-primary" type="button" title="Diluição" iframe-form="{{ route('medication_dilutions.form_modal') }}" iframe-create="{{ route('medication_dilutions.form.create_modal') }}"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span></button>                                   
+                                     <button class="btn btn-primary btn-sm" type="Diluição" iframe-form="{{ route('medication_dilutions.form_modal') }}" iframe-create="{{ route('medication_dilutions.form.create_modal') }}"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span></button>                                   
                                 </div>
                             </div>  
                         </div>

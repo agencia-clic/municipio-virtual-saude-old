@@ -248,7 +248,7 @@
             <div data-iframe="{{ route('users_service_units', ['IdUsers' => base64_encode($users->IdUsers)]) }}"></div>
             
             <div class="col-12 mt-2">
-                <button class="btn btn-primary" type="button" title="Unidade" iframe-form="{{ route('users_service_units.form', ['IdUsers' => base64_encode($users->IdUsers)]) }}" iframe-create="{{ route('users_service_units.form.create', ['IdUsers' => base64_encode($users->IdUsers)]) }}">Inserir</button>
+                 <button class="btn btn-primary btn-sm" type="Unidade" iframe-form="{{ route('users_service_units.form', ['IdUsers' => base64_encode($users->IdUsers)]) }}" iframe-create="{{ route('users_service_units.form.create', ['IdUsers' => base64_encode($users->IdUsers)]) }}">Inserir</button>
             </div>
         </div>
     </div>
@@ -270,7 +270,7 @@
             <div data-iframe="{{ route('users_medical_specialties', ['IdUsers' => base64_encode($users->IdUsers)]) }}"></div>
             
             <div class="col-12 mt-2">
-                <button class="btn btn-primary" type="button" title="Especialidades (<strong>CBO</strong>)" iframe-form="{{ route('users_medical_specialties.form', ['IdUsers' => base64_encode($users->IdUsers)]) }}" iframe-create="{{ route('users_medical_specialties.form.create', ['IdUsers' => base64_encode($users->IdUsers)]) }}">Inserir</button>
+                 <button class="btn btn-primary btn-sm" type="Especialidades (<strong>CBO</strong>)" iframe-form="{{ route('users_medical_specialties.form', ['IdUsers' => base64_encode($users->IdUsers)]) }}" iframe-create="{{ route('users_medical_specialties.form.create', ['IdUsers' => base64_encode($users->IdUsers)]) }}">Inserir</button>
             </div>
         </div>
     </div>

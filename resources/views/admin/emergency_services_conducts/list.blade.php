@@ -282,10 +282,10 @@
                                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
 
                                                 @if($emergency_services->status == "a")
-                                                    <button class="btn btn-primary" type="button" title="Dados Vitais" iframe-form="{{ route('emergency_services_vital_data.form', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" iframe-create="{{ route('emergency_services_vital_data.form.create', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}"><span class="fas fa-plus"></span></button>
+                                                     <button class="btn btn-primary btn-sm" type="Dados Vitais" iframe-form="{{ route('emergency_services_vital_data.form', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" iframe-create="{{ route('emergency_services_vital_data.form.create', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}"><span class="fas fa-plus"></span></button>
                                                 @endif
 
-                                                <button class="btn btn-primary" type="button" title="Imprimir" data-redirect="{{ route('emergency_services_vital_data.export', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" target="_blanck"><span class="fas fa-print"></span></button>
+                                                 <button class="btn btn-primary btn-sm" type="Imprimir" data-redirect="{{ route('emergency_services_vital_data.export', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" target="_blanck"><span class="fas fa-print"></span></button>
                                             </div>
                                         </div>
                                         
@@ -446,7 +446,7 @@
                                                                 <button class="btn btn-primary diagnostics-button" type="button"  title="Encaminhar Paciente" iframe-form="{{ route('emergency_services_forward.form', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" iframe-create="{{ route('emergency_services_forward.form.create', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}"><span class="fas fa-plus"></span></button>
                                                             @endif
 
-                                                            <button class="btn btn-primary" type="button" title="Imprimir" data-redirect="{{ route('emergency_services_forward.export', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" target="_blanck"><span class="fas fa-print"></span></button>
+                                                             <button class="btn btn-primary btn-sm" type="Imprimir" data-redirect="{{ route('emergency_services_forward.export', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" target="_blanck"><span class="fas fa-print"></span></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -533,7 +533,7 @@
                                                                     <button class="btn btn-primary save_form" type="button"><span class="fas fa-save"></span></button>
                                                                 @endif
 
-                                                                <button class="btn btn-primary" type="button" title="Imprimir" data-redirect="{{ route('emergency_services_conducts.medication.option.export', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" target="_blanck"><span class="fas fa-print"></span></button>
+                                                                 <button class="btn btn-primary btn-sm" type="Imprimir" data-redirect="{{ route('emergency_services_conducts.medication.option.export', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" target="_blanck"><span class="fas fa-print"></span></button>
                                                             </div>
                                                         </div>
                                                         
@@ -821,7 +821,7 @@
                                                                 <button class="btn btn-primary save_form" type="button"><span class="fas fa-save"></span></button>
                                                             @endif
 
-                                                            <button class="btn btn-primary" type="button" title="Imprimir" data-redirect="{{ route('emergency_services_conducts.medication.declaration.certificate.export', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" target="_blanck"><span class="fas fa-print"></span></button>
+                                                             <button class="btn btn-primary btn-sm" type="Imprimir" data-redirect="{{ route('emergency_services_conducts.medication.declaration.certificate.export', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" target="_blanck"><span class="fas fa-print"></span></button>
                                                         </div>
                                                     </div>
                                                     
@@ -884,7 +884,7 @@
                                                                 <button class="btn btn-primary save_form" type="button"><span class="fas fa-save"></span></button>
                                                             @endif
 
-                                                            <button class="btn btn-primary" type="button" title="Imprimir" data-redirect="{{ route('emergency_services_conducts.medication.certificate.export', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" target="_blanck"><span class="fas fa-print"></span></button>
+                                                             <button class="btn btn-primary btn-sm" type="Imprimir" data-redirect="{{ route('emergency_services_conducts.medication.certificate.export', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" target="_blanck"><span class="fas fa-print"></span></button>
                                                         </div>
                                                     </div>
                                                     
@@ -979,7 +979,7 @@
                                                     <button class="btn btn-primary save_form" type="button"><span class="fas fa-save"></span></button>
                                                 @endif
 
-                                                <button class="btn btn-primary" type="button" title="Imprimir" data-redirect="{{ route('emergency_services_conducts.medication.medical.report.export', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" target="_blanck"><span class="fas fa-print"></span></button>
+                                                 <button class="btn btn-primary btn-sm" type="Imprimir" data-redirect="{{ route('emergency_services_conducts.medication.medical.report.export', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" target="_blanck"><span class="fas fa-print"></span></button>
                                             </div>
                                         </div>
                                         

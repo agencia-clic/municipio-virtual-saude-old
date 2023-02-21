@@ -16,7 +16,6 @@ class ServiceUnitsForwardingController extends Controller
 {
     protected $service_units_forwarding;
     protected $service_units;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -28,7 +27,6 @@ class ServiceUnitsForwardingController extends Controller
         $this->middleware('auth');
         $this->service_units_forwarding = new ServiceUnitsForwarding();
         $this->service_units = new ServiceUnits();
-        $this->mask = new Mask();
     }
 
     /**
@@ -42,7 +40,6 @@ class ServiceUnitsForwardingController extends Controller
         $service_units_forwarding = $this->service_units_forwarding->list($IdServiceUnits);
 
         return view('admin.service_units_forwarding.list', [
-            'mask' => $this->mask,
             'service_units_forwarding' => $service_units_forwarding
         ]);
     }

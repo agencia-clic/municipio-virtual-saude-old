@@ -28,9 +28,9 @@ class ServiceUnitsForwarding extends Model
 
     public function list($IdServiceUnits)
     {
-        $service_units_forwarding = ServiceUnitsForwarding::select('service_units_forwarding.*', 'service_units.name as units')->join('service_units', 'service_units_forwarding.IdServiceUnitsReceive', '=', 'service_units.IdServiceUnits')->where('service_units_forwarding.IdServiceUnits', $IdServiceUnits);
+        $service_units_forwarding = ServiceUnitsForwarding::select('service_units_forwarding.*', 'service_units.name as units', 'service_units.acronym')->join('service_units', 'service_units_forwarding.IdServiceUnitsReceive', '=', 'service_units.IdServiceUnits')->where('service_units_forwarding.IdServiceUnits', $IdServiceUnits);
 
-        return array("data" => $service_units_forwarding->paginate(env('PAGE_NUMBER')), "count" => $service_units_forwarding->count());
+        return $service_units_forwarding->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

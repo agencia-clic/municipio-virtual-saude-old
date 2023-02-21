@@ -59,3 +59,9 @@ Route::get('/users-service-units/form/{IdUsers}/{IdUsersServiceUnits?}', [App\Ht
 Route::post('/users-service-units/create/{IdUsers}', [App\Http\Controllers\Admin\UsersServiceUnitsController::class, 'store'])->name('users_service_units.form.create');
 Route::post('/users-service-units/update/{IdUsers}/{IdUsersServiceUnits}', [App\Http\Controllers\Admin\UsersServiceUnitsController::class, 'update'])->name('users_service_units.form.update');
 Route::post('/users-service-units/delete/{IdUsersServiceUnits}', [App\Http\Controllers\Admin\UsersServiceUnitsController::class, 'destroy'])->name('users_service_units.form.delete');
+
+// service units forwarding
+Route::get('/service-units-forwarding/{IdServiceUnits}', [App\Http\Controllers\Admin\ServiceUnitsForwardingController::class, 'index'])->name('service_units_forwarding');
+Route::get('/service-units-forwarding/form/{IdServiceUnits}/{IdServiceUnitsForwarding?}', [App\Http\Controllers\Admin\ServiceUnitsForwardingController::class, 'show'])->name('service_units_forwarding.form');
+Route::post('/service-units-forwarding/create/{IdServiceUnits}', [App\Http\Controllers\Admin\ServiceUnitsForwardingController::class, 'store'])->name('service_units_forwarding.form.create');
+Route::post('/service-units-forwarding/delete/{IdServiceUnitsForwarding}', [App\Http\Controllers\Admin\ServiceUnitsForwardingController::class, 'destroy'])->name('service_units_forwarding.form.delete');

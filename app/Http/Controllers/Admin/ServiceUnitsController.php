@@ -13,7 +13,6 @@ use DB;
 class ServiceUnitsController extends Controller
 {
     protected $service_units;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -24,7 +23,6 @@ class ServiceUnitsController extends Controller
     {
         $this->middleware('auth');
         $this->service_units = new ServiceUnits();
-        $this->mask = new Mask();
     }
 
     /**
@@ -37,8 +35,8 @@ class ServiceUnitsController extends Controller
         $service_units = $this->service_units->list($request);
 
         return view('admin.service_units.list', [
+            'title' => " Unidades | ".env('APP_NAME'),
             'service_units' => $service_units,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -74,7 +72,7 @@ class ServiceUnitsController extends Controller
         ServiceUnits::create([
             'name' => $data['name'],
             'code' => $data['code'],
-            'acronym' => $data['code'],
+            'acronym' => $data['acronym'],
             'IdUsers' => $data['IdUsers'],
             'email' => $data['email'],
             'status' => $data['status'],
@@ -102,8 +100,7 @@ class ServiceUnitsController extends Controller
         $service_units = $this->service_units->list_current(base64_decode($IdServiceUnits));
 
         return view('admin.service_units.form', [
-            'title' => " Usuários | ".env('APP_NAME'),
-            'mask' => $this->mask,
+            'title' => " Unidades | ".env('APP_NAME'),
             'service_units' => $service_units
         ]);
     }
@@ -123,6 +120,7 @@ class ServiceUnitsController extends Controller
         $validator = Validator::make($data, [
             'code' => ['required', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
+            'acronym' => ['required', 'string', 'max:255'],
             'email' => "required|email|unique:service_units,email,{$user->IdServiceUnits},IdServiceUnits",
             'IdUsers' => ['required', 'string', 'max:11'],
             'phone' => ['required', 'string', 'max:15'],
@@ -139,6 +137,7 @@ class ServiceUnitsController extends Controller
         endif;
 
         $user->name = $data['name'];
+        $user->acronym = $data['acronym'];
         $user->code = $data['code'];
         $user->email = $data['email'];
         $user->IdUsers = $data['IdUsers'];

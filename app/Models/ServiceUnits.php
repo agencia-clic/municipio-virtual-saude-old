@@ -21,6 +21,7 @@ class ServiceUnits extends Model
     protected $fillable = [
         'name',
         'code',
+        'acronym',
         'IdUsers',
         'email',
         'status',
@@ -55,7 +56,7 @@ class ServiceUnits extends Model
             $service_units = $service_units->where('email', $filter['email']);
         endif;
 
-        return array("data" => $service_units->paginate(env('PAGE_NUMBER')), "count" => $service_units->count());
+        return $service_units->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

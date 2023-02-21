@@ -101,7 +101,7 @@
             <div data-iframe="{{ route('protocols_cid10', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}"></div>
             
             <div class="col-12 mt-2">
-                <button class="btn btn-primary" type="button" title="CID10" iframe-form="{{ route('protocols_cid10.form', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}" iframe-create="{{ route('protocols_cid10.form.create', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}">Inserir</button>
+                 <button class="btn btn-primary btn-sm" type="CID10" iframe-form="{{ route('protocols_cid10.form', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}" iframe-create="{{ route('protocols_cid10.form.create', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}">Inserir</button>
             </div>
         </div>
     </div>
@@ -123,7 +123,7 @@
             <div data-iframe="{{ route('protocols_medication', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}"></div>
             
             <div class="col-12 mt-2">
-                <button class="btn btn-primary" type="button" title="Medicamentos" iframe-form="{{ route('protocols_medication.form', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}" iframe-create="{{ route('protocols_medication.form.create', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}">Inserir</button>
+                 <button class="btn btn-primary btn-sm" type="Medicamentos" iframe-form="{{ route('protocols_medication.form', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}" iframe-create="{{ route('protocols_medication.form.create', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}">Inserir</button>
             </div>
         </div>
     </div>

@@ -19,6 +19,20 @@ class CreateUsersServiceUnitsTable extends Migration
             $table->integer('IdServiceUnits');
             $table->timestamps();
         });
+
+        // make users service unit defull
+        if(env('APP_ENV') == 'local'):
+            DB::table('service_units')->insert([
+                [
+                    'IdUsers' => 2,
+                    'IdServiceUnits' => 1,
+                ],
+                [
+                    'IdUsers' => 2,
+                    'IdServiceUnits' => 2,
+                ],
+            ]);
+        endif;
     }
 
     /**

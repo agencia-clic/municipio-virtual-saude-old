@@ -236,3 +236,9 @@ $(document).on('click', '.modal-print-option', function(e){
 function redirect_print(url) {
     window.open(url+'?type='+$('#modal_print').val(), '_blank');
 }
+
+$('input').on('input', function() {
+    if (!$(this).is('[data-no-uppercase]')) {
+      this.value = this.value.toUpperCase();
+    }
+});

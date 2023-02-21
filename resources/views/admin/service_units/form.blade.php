@@ -98,7 +98,7 @@
             <div data-iframe="{{ route('service_units_forwarding', ['IdServiceUnits' => base64_encode($service_units->IdServiceUnits)]) }}"></div>
             
             <div class="col-12 mt-2">
-                <button class="btn btn-primary" type="button" title="Unidade" iframe-form="{{ route('service_units_forwarding.form', ['IdServiceUnits' => base64_encode($service_units->IdServiceUnits)]) }}" iframe-create="{{ route('service_units_forwarding.form.create', ['IdServiceUnits' => base64_encode($service_units->IdServiceUnits)]) }}">Inserir</button>
+                <button class="btn btn-primary btn-sm" type="button" title="Unidade" iframe-form="{{ route('service_units_forwarding.form', ['IdServiceUnits' => base64_encode($service_units->IdServiceUnits)]) }}" iframe-create="{{ route('service_units_forwarding.form.create', ['IdServiceUnits' => base64_encode($service_units->IdServiceUnits)]) }}">Inserir</button>
             </div>
         </div>
     </div>
@@ -223,13 +223,21 @@
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
+
+                <div class="col-sm-12 col-md col-lg col-xl">
+                    <div id="acronym_fields" class="form-group">
+                        <label for="acronym" id="label_acronym">Sigla:</label>
+                        <input type="text" id="acronym" name="acronym" class="form-control form-control-sm @error('acronym') is-invalid @enderror" value="{{old('acronym') ?? $service_units->acronym ?? ""}}" required>
+                        <div class="valid-feedback">sucesso!</div>
+                    </div>
+                </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-12 col-md col-lg col-xl">
                     <div id="email_fields" class="form-group">
                         <label for="email" id="label_email">E-mail:</label>
-                        <input type="email" id="email" name="email" class="form-control form-control-sm @error('email') is-invalid @enderror" value="{{old('email') ?? $service_units->email ?? ""}}" required>
+                        <input type="email" id="email" name="email" class="form-control form-control-sm @error('email') is-invalid @enderror" value="{{old('email') ?? $service_units->email ?? ""}}" data-no-uppercase="true" required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>

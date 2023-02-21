@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Unidades</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $service_units['count'] }} de {{ $service_units['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($service_units->firstItem())
+            <span class="font-medium">{{ $service_units->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $service_units->lastItem() }}</span>
+        @else
+            {{ $service_units->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $service_units->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -114,7 +125,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 mb-0 border overflow-hidden">
 
-                @if(!empty($service_units['data']->total()) AND ($service_units['data']->total() > 0))
+                @if(!empty($service_units->total()) AND ($service_units->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 white-space-nowrap">Name</th>
@@ -128,12 +139,12 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($service_units['data'] as $val)
+                        @foreach($service_units as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdServiceUnits}}-table">
                                 <td class="border name white-space-nowrap py-2">
                                     <div class="d-flex d-flex align-items-center">
                                         <div class="avatar avatar-xl me-2">
-                                            <div class="avatar-name rounded-circle"><span>{{ $mask->AvatarShortName($val->name) }}</span></div>
+                                            <div class="avatar-name rounded-circle"><span>{{ $val->acronym }}</span></div>
                                         </div>
                                         <div class="flex-1">
                                             <h5 class="mb-0 fs--1">{{ $val->name }}</h5>
@@ -143,7 +154,8 @@
                                 <td class="border email py-2 text-center">{{ $val->code }}</td>
                                 <td class="border email py-2 text-center">{{ $val->responsible }}</td>
                                 <td class="border email py-2 text-center">{{ $val->email }}</td>
-                                <td class="border phone white-space-nowrap py-2 text-center">{{ $mask->phone($val->phone) }}</td>
+
+                                <td class="border phone white-space-nowrap py-2 text-center">{{ Mask::default($val->phone, '(##) ####-####') }}</td>
 
                                 <td class="border phone white-space-nowrap py-2 text-center">
                                     @if($val->status == "a")
@@ -193,7 +205,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $service_units['data']->appends(app('request')->all())->links() }}
+    {{ $service_units->appends(app('request')->all())->links() }}
     
 </div>
 
