@@ -41,7 +41,7 @@ class Protocols extends Model
             $protocols = $protocols->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $protocols->paginate(env('PAGE_NUMBER')), "count" => $protocols->count());
+        return $protocols->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

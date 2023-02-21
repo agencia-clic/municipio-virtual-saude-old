@@ -43,7 +43,7 @@ class Cid10 extends Model
             $cid10 = $cid10->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $cid10->paginate(env('PAGE_NUMBER')), "count" => $cid10->count());
+        return $cid10->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

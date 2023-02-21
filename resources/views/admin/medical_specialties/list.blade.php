@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Especialidades (<strong>CBO</strong>)</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $medical_specialties['count'] }} de {{ $medical_specialties['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($medical_specialties->firstItem())
+            <span class="font-medium">{{ $medical_specialties->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $medical_specialties->lastItem() }}</span>
+        @else
+            {{ $medical_specialties->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $medical_specialties->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -94,7 +105,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 mb-0 border overflow-hidden">
 
-                @if(!empty($medical_specialties['data']->total()) AND ($medical_specialties['data']->total() > 0))
+                @if(!empty($medical_specialties->total()) AND ($medical_specialties->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 white-space-nowrap text-center" width="5%">Código</th>
@@ -105,7 +116,7 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($medical_specialties['data'] as $val)
+                        @foreach($medical_specialties as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdMedicalSpecialties}}-table">
                                 <td class="border email py-2 text-center" width="5%"><strong>{{ $val->code }}</strong></td>
                                 <td class="border email py-2">{{ $val->title }}</td>
@@ -157,7 +168,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $medical_specialties['data']->appends(app('request')->all())->links() }}
+    {{ $medical_specialties->appends(app('request')->all())->links() }}
     
 </div>
 

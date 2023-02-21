@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Mask;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\Controller;
@@ -284,10 +285,10 @@ class UsersController extends Controller
 
                 /* Format cpf/cnpj */
                 $cpf_cnpj = NULL;
-                if(strlen($users->cpf_cnpj) == 11):
-                    $cpf_cnpj = Mask::default($users->cpf_cnpj, '###.###.###-##');
-                elseif(strlen($users->cpf_cnpj) == 14):
-                    $cpf_cnpj = Mask::default($users->cpf_cnpj, '##.###.###/####-##');
+                if(strlen($val->cpf_cnpj) == 11):
+                    $cpf_cnpj = Mask::default($val->cpf_cnpj, '###.###.###-##');
+                elseif(strlen($val->cpf_cnpj) == 14):
+                    $cpf_cnpj = Mask::default($val->cpf_cnpj, '##.###.###/####-##');
                 endif;
 
                 $data[] = array('IdUsers' => $val->IdUsers, 'name' => $val->name, 'cns' => $val->cns, 'cpf_cnpj' => $cpf_cnpj, 'mother' => $val->mother, 'email' => $val->email, 'phone' => Mask::default($val->phone, '####-####'), 'cell' => Mask::default($val->cell, '(##) # ####-####'), 'date_birth' => Mask::birth($val->date_birth), 'zip_code' => $val->zip_code, 'address' => $val->address, 'number' => $val->number, 'complement' => $val->complement, 'district' => $val->district, 'city' => $val->city, 'uf' => $val->uf);

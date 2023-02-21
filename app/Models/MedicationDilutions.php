@@ -41,7 +41,7 @@ class MedicationDilutions extends Model
             $medication_dilutions = $medication_dilutions->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $medication_dilutions->paginate(env('PAGE_NUMBER')), "count" => $medication_dilutions->count());
+        return $medication_dilutions->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

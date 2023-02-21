@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\MedicalSpecialties;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class MedicalSpecialtiesController extends Controller
 {
     protected $medical_specialties;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -23,7 +21,6 @@ class MedicalSpecialtiesController extends Controller
     {
         $this->middleware('auth');
         $this->medical_specialties = new MedicalSpecialties();
-        $this->mask = new Mask();
     }
 
     /**
@@ -37,7 +34,6 @@ class MedicalSpecialtiesController extends Controller
 
         return view('admin.medical_specialties.list', [
             'medical_specialties' => $medical_specialties,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -83,7 +79,6 @@ class MedicalSpecialtiesController extends Controller
 
         return view('admin.medical_specialties.form', [
             'title' => " Especialidades Medicas | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'medical_specialties' => $medical_specialties
         ]);
     }

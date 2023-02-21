@@ -127,9 +127,6 @@ class EmergencyServicesController extends Controller
             $user->save();
         endif;
 
-        //broadcast
-        channelEmergencyServices::dispatch(auth()->user()->units_current()->IdServiceUnits, $emergency_services->IdEmergencyServices);
-
         //modal
         session()->flash('modal', json_encode(['title' => "Sucesso", 'description' => 'Registro criado com sucesso.', 'color' => 'bg-primary']));
         return redirect()->route('emergency_services.form');
@@ -196,9 +193,6 @@ class EmergencyServicesController extends Controller
         $emergency_services->escort_phone = $data['escort_phone'];
         
         $emergency_services->save();
-
-        //broadcast
-        channelEmergencyServices::dispatch(auth()->user()->units_current()->IdServiceUnits, $id);
         
         session()->flash('modal', json_encode(['title' => "Sucesso", 'description' => 'Registro editado com sucesso.', 'color' => 'bg-primary']));
         return redirect()->route('emergency_services');
@@ -213,9 +207,6 @@ class EmergencyServicesController extends Controller
     public function destroy(Request $request, $id)
     {
         $id = base64_decode($id);
-
-        //broadcast
-        channelEmergencyServices::dispatch(auth()->user()->units_current()->IdServiceUnits, $id);
         
         $emergency_services = EmergencyServices::find($id);
         $emergency_services->status = "c";

@@ -31,7 +31,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="email_fields" class="form-group">
                         <label for="email" id="label_email">E-mail:</label>
-                        <input type="text" id="email" name="email" class="form-control form-control-sm @error('email') is-invalid @enderror" value="{{old('email') ?? $users->email ?? ""}}">
+                        <input type="text" id="email" name="email" class="form-control form-control-sm @error('email') is-invalid @enderror" value="{{old('email') ?? $users->email ?? ""}}" data-no-uppercase="true">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>

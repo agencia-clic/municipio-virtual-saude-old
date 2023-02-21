@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Materials;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class MaterialsController extends Controller
 {
     protected $materials;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -23,7 +21,6 @@ class MaterialsController extends Controller
     {
         $this->middleware('auth');
         $this->materials = new Materials();
-        $this->mask = new Mask();
     }
 
     /**
@@ -37,7 +34,6 @@ class MaterialsController extends Controller
 
         return view('admin.materials.list', [
             'materials' => $materials,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -81,7 +77,6 @@ class MaterialsController extends Controller
         $materials = $this->materials->list_current(base64_decode($IdMaterials));
 
         return view('admin.materials.form', [
-            'mask' => $this->mask,
             'materials' => $materials
         ]);
     }
@@ -94,9 +89,7 @@ class MaterialsController extends Controller
      */
     public function show_modal($IdMaterials = null)
     {
-        return view('admin.materials.form_modal', [
-            'mask' => $this->mask,
-        ]);
+        return view('admin.materials.form_modal');
     }
 
     /**

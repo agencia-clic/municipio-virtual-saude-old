@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Procedimentos</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $procedures['count'] }} de {{ $procedures['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($procedures->firstItem())
+            <span class="font-medium">{{ $procedures->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $procedures->lastItem() }}</span>
+        @else
+            {{ $procedures->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $procedures->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -94,7 +105,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 border mb-0 overflow-hidden">
 
-                @if(!empty($procedures['data']->total()) AND ($procedures['data']->total() > 0))
+                @if(!empty($procedures->total()) AND ($procedures->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 white-space-nowrap text-center" width="5%">Código</th>
@@ -105,7 +116,7 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($procedures['data'] as $val)
+                        @foreach($procedures as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdProcedures}}-table">
                                 <td class="border email py-2 text-center" width="5%">{{ $val->code }}</td>
                                 <td class="border email py-2">{{ $val->title }}</td>
@@ -162,7 +173,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $procedures['data']->appends(app('request')->all())->links() }}
+    {{ $procedures->appends(app('request')->all())->links() }}
     
 </div>
 
