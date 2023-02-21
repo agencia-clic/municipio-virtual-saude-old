@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\MedicationInfusao;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class MedicationInfusaoController extends Controller
 {
     protected $medication_infusao;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -23,7 +21,6 @@ class MedicationInfusaoController extends Controller
     {
         $this->middleware('auth');
         $this->medication_infusao = new MedicationInfusao();
-        $this->mask = new Mask();
     }
 
     /**
@@ -37,7 +34,6 @@ class MedicationInfusaoController extends Controller
 
         return view('admin.medication_infusao.list', [
             'medication_infusao' => $medication_infusao,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -108,7 +104,6 @@ class MedicationInfusaoController extends Controller
 
         return view('admin.medication_infusao.form', [
             'title' => " Classificações Medicamentos | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'medication_infusao' => $medication_infusao
         ]);
     }
@@ -122,7 +117,6 @@ class MedicationInfusaoController extends Controller
     public function show_modal($IdMedicationInfusao = null)
     {
         return view('admin.medication_infusao.form_modal', [
-            'mask' => $this->mask,
         ]);
     }
 

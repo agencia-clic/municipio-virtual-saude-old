@@ -43,7 +43,7 @@ class Procedures extends Model
             $procedures->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $procedures->paginate(env('PAGE_NUMBER')), "count" => $procedures->count());
+        return  $procedures->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

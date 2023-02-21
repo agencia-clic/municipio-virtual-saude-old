@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\MedicationActivePrinciples;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class MedicationActivePrinciplesController extends Controller
 {
     protected $medication_active_principles;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -23,7 +21,6 @@ class MedicationActivePrinciplesController extends Controller
     {
         $this->middleware('auth');
         $this->medication_active_principles = new MedicationActivePrinciples();
-        $this->mask = new Mask();
     }
 
     /**
@@ -37,7 +34,6 @@ class MedicationActivePrinciplesController extends Controller
 
         return view('admin.medication_active_principles.list', [
             'medication_active_principles' => $medication_active_principles,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -107,7 +103,6 @@ class MedicationActivePrinciplesController extends Controller
         $medication_active_principles = $this->medication_active_principles->list_current(base64_decode($IdMedicationActivePrinciples));
 
         return view('admin.medication_active_principles.form', [
-            'mask' => $this->mask,
             'medication_active_principles' => $medication_active_principles
         ]);
     }
@@ -121,7 +116,6 @@ class MedicationActivePrinciplesController extends Controller
     public function show_modal($IdMedicationActivePrinciples = null)
     {
         return view('admin.medication_active_principles.form_modal', [
-            'mask' => $this->mask,
         ]);
     }
 

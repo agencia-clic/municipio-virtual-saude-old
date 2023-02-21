@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Protocols;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class ProtocolsController extends Controller
 {
     protected $protocols;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -23,7 +21,6 @@ class ProtocolsController extends Controller
     {
         $this->middleware('auth');
         $this->protocols = new Protocols();
-        $this->mask = new Mask();
     }
 
     /**
@@ -38,7 +35,6 @@ class ProtocolsController extends Controller
         return view('admin.protocols.list', [
             'title' => " Protocolos | ".env('APP_NAME'),
             'protocols' => $protocols,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -82,7 +78,6 @@ class ProtocolsController extends Controller
 
         return view('admin.protocols.form', [
             'title' => " Protocolos | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'protocols' => $protocols
         ]);
     }

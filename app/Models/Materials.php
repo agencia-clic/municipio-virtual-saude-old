@@ -46,7 +46,7 @@ class Materials extends Model
             $materials = $materials->where('code', $filter['code']);
         endif;
 
-        return array("data" => $materials->paginate(env('PAGE_NUMBER')), "count" => $materials->count());
+        return $materials->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

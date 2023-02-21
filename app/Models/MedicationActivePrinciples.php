@@ -41,7 +41,7 @@ class MedicationActivePrinciples extends Model
             $medication_active_principles = $medication_active_principles->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $medication_active_principles->paginate(env('PAGE_NUMBER')), "count" => $medication_active_principles->count());
+        return $medication_active_principles->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

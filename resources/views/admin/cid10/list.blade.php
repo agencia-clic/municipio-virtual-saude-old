@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">CID10</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $cid10['count'] }} de {{ $cid10['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($cid10->firstItem())
+            <span class="font-medium">{{ $cid10->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $cid10->lastItem() }}</span>
+        @else
+            {{ $cid10->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $cid10->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -94,7 +105,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 border mb-0 overflow-hidden">
 
-                @if(!empty($cid10['data']->total()) AND ($cid10['data']->total() > 0))
+                @if(!empty($cid10->total()) AND ($cid10->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 white-space-nowrap text-center" width="5%">Código</th>
@@ -105,7 +116,7 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($cid10['data'] as $val)
+                        @foreach($cid10 as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdCid10}}-table">
                                 <td class="border email py-2 text-center" width="5%">{{ $val->code }}</td>
                                 <td class="border email py-2">{{ $val->title }}</td>
@@ -162,7 +173,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $cid10['data']->appends(app('request')->all())->links() }}
+    {{ $cid10->appends(app('request')->all())->links() }}
     
 </div>
 

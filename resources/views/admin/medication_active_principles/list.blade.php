@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Princípios Ativos</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $medication_active_principles['count'] }} de {{ $medication_active_principles['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($medication_active_principles->firstItem())
+            <span class="font-medium">{{ $medication_active_principles->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $medication_active_principles->lastItem() }}</span>
+        @else
+            {{ $medication_active_principles->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $medication_active_principles->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -94,7 +105,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
 
-                @if(!empty($medication_active_principles['data']->total()) AND ($medication_active_principles['data']->total() > 0))
+                @if(!empty($medication_active_principles->total()) AND ($medication_active_principles->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 white-space-nowrap">Titulo</th>
@@ -104,7 +115,7 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($medication_active_principles['data'] as $val)
+                        @foreach($medication_active_principles as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdMedicationActivePrinciples}}-table">
                                 
                                 <td class="border email py-2">{{ $val->title }}</td>
@@ -156,7 +167,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $medication_active_principles['data']->appends(app('request')->all())->links() }}
+    {{ $medication_active_principles->appends(app('request')->all())->links() }}
     
 </div>
 

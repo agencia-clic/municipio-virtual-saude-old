@@ -6,13 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Procedures;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class ProceduresController extends Controller
 {
     protected $procedures;
-    protected $mask;
+
 
     /**
      * Create a new controller instance.
@@ -23,7 +22,6 @@ class ProceduresController extends Controller
     {
         $this->middleware('auth');
         $this->procedures = new Procedures();
-        $this->mask = new Mask();
     }
 
     /**
@@ -36,7 +34,6 @@ class ProceduresController extends Controller
         $procedures = $this->procedures->list($request);
         return view('admin.procedures.list', [
             'procedures' => $procedures,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -82,7 +79,6 @@ class ProceduresController extends Controller
 
         return view('admin.procedures.form', [
             'title' => " Classificações Medicamentos | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'procedures' => $procedures
         ]);
     }

@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Infusão Medicamentos</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $medication_infusao['count'] }} de {{ $medication_infusao['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($medication_infusao->firstItem())
+            <span class="font-medium">{{ $medication_infusao->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $medication_infusao->lastItem() }}</span>
+        @else
+            {{ $medication_infusao->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $medication_infusao->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -94,7 +105,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 mb-0 border overflow-hidden">
 
-                @if(!empty($medication_infusao['data']->total()) AND ($medication_infusao['data']->total() > 0))
+                @if(!empty($medication_infusao->total()) AND ($medication_infusao->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 white-space-nowrap">Titulo</th>
@@ -104,7 +115,7 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($medication_infusao['data'] as $val)
+                        @foreach($medication_infusao as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdMedicationInfusao}}-table">
                                 
                                 <td class="border email py-2">{{ $val->title }}</td>
@@ -156,7 +167,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $medication_infusao['data']->appends(app('request')->all())->links() }}
+    {{ $medication_infusao->appends(app('request')->all())->links() }}
     
 </div>
 

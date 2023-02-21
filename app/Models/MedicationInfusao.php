@@ -42,7 +42,7 @@ class MedicationInfusao extends Model
             $medication_infusao = $medication_infusao->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $medication_infusao->paginate(env('PAGE_NUMBER')), "count" => $medication_infusao->count());
+        return $medication_infusao->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

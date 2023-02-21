@@ -6,13 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Cid10;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class Cid10Controller extends Controller
 {
     protected $cid10;
-    protected $mask;
+
 
     /**
      * Create a new controller instance.
@@ -23,7 +22,6 @@ class Cid10Controller extends Controller
     {
         $this->middleware('auth');
         $this->cid10 = new Cid10();
-        $this->mask = new Mask();
     }
 
     /**
@@ -36,7 +34,6 @@ class Cid10Controller extends Controller
         $cid10 = $this->cid10->list($request);
         return view('admin.cid10.list', [
             'cid10' => $cid10,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -82,7 +79,6 @@ class Cid10Controller extends Controller
 
         return view('admin.cid10.form', [
             'title' => " Classificações Medicamentos | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'cid10' => $cid10
         ]);
     }

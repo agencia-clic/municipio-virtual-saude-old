@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-
 use Laravel\Sanctum\HasApiTokens;
 use DB;
 
@@ -41,7 +40,7 @@ class MedicationAdministrations extends Model
             $medication_administrations = $medication_administrations->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $medication_administrations->paginate(env('PAGE_NUMBER')), "count" => $medication_administrations->count());
+        return $medication_administrations->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)
