@@ -22,6 +22,7 @@ class MedicalSpecialties extends Model
         'title',
         'code',
         'status',
+        'service',
     ];
 
     protected $primaryKey = 'IdMedicalSpecialties';
@@ -42,7 +43,7 @@ class MedicalSpecialties extends Model
             $medical_specialties = $medical_specialties->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $medical_specialties->paginate(env('PAGE_NUMBER')), "count" => $medical_specialties->count());
+        return $medical_specialties->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

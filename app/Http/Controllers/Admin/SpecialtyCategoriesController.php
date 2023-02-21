@@ -53,7 +53,7 @@ class SpecialtyCategoriesController extends Controller
 
         $validator = Validator::make($data, [
             'title' => ['required', 'string', 'max:255'],
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
 
         if($validator->fails()):
@@ -81,7 +81,7 @@ class SpecialtyCategoriesController extends Controller
 
         $validator = Validator::make($data, [
             'title' => ['required', 'string', 'max:255'],
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
 
         if($validator->fails()):
@@ -140,7 +140,7 @@ class SpecialtyCategoriesController extends Controller
 
         $validator = Validator::make($data, [
             'title' => ['required', 'string', 'max:255'],
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
         
         if($validator->fails()):

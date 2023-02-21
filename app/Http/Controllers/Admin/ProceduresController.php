@@ -53,7 +53,7 @@ class ProceduresController extends Controller
         $validator = Validator::make($data, [
             'title' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255', 'unique:procedures'],
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
 
         if($validator->fails()):
@@ -102,7 +102,7 @@ class ProceduresController extends Controller
         $validator = Validator::make($data, [
             'title' => ['required', 'string', 'max:255'],
             'code' => "required|unique:procedures,code,{$procedures->IdProcedures},IdProcedures",
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
         
         if($validator->fails()):

@@ -18,6 +18,7 @@ class CreateMedicalSpecialtiesTable extends Migration
             $table->enum('status', ['a', 'b']);
             $table->string('code');
             $table->string('title');
+            $table->enum('service', ['y', 'n'])->default('n');
             $table->timestamps();
         });
     }

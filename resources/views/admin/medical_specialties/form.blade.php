@@ -112,6 +112,15 @@
                     </div>
                 </div>
 
+                <div class="col-sm-12 col-md col-lg col-xl">
+                    <div id="service_fields" class="form-group">
+                        <label for="service" id="label_service" class="label_service">Atendimento:</label>
+                        <select name="service" class="form-control form-control-sm @error('service') is-invalid @enderror">
+                            <option value="n" @if((old('service') == "n") OR (!empty($medical_specialties) AND ($medical_specialties->service == "n")))selected @endif>Não</option>
+                            <option value="y" @if((old('service') == "y") OR (!empty($medical_specialties) AND ($medical_specialties->status == "y")))selected @endif>Sim</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
         </div>

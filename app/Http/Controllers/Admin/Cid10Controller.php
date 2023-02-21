@@ -53,7 +53,7 @@ class Cid10Controller extends Controller
         $validator = Validator::make($data, [
             'title' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255', 'unique:cid10'],
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
 
         if($validator->fails()):
@@ -102,7 +102,7 @@ class Cid10Controller extends Controller
         $validator = Validator::make($data, [
             'title' => ['required', 'string', 'max:255'],
             'code' => "required|unique:cid10,code,{$cid10->IdCid10},IdCid10",
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
         
         if($validator->fails()):

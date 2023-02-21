@@ -233,7 +233,7 @@ class ScreeningsController extends Controller
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
         
         if($validator->fails()):

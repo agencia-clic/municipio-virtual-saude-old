@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="form-check form-switch">
-                <input class="form-check-input ms-0" id="mode-fluid" type="checkbox" data-theme-control="isFluid" />
+                <input class="form-check-input ms-0" id="mode-fluid" type="checkbox" data-theme-control="isFluid" checked/>
             </div>
         </div>
         <hr />        

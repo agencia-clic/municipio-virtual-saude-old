@@ -78,7 +78,7 @@ class EmergencyServicesController extends Controller
             'accident_work' => ['required', 'string', 'max:255'],
             'identified_patient' => ['required', 'string', 'max:255'],
             'types' => ['required', 'string', 'max:255'],
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
 
         if($validator->fails()):
@@ -170,7 +170,7 @@ class EmergencyServicesController extends Controller
             'character' => ['required', 'string', 'max:255'],
             'forwarding' => ['required', 'string', 'max:255'],
             'accident_work' => ['required', 'string', 'max:255'],
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
         
         if($validator->fails()):

@@ -68,7 +68,7 @@ class MedicinesController extends Controller
             'title' => ['required', 'string'],
             'IdMedicationAdministrations' => ['required'],
             'IdMedicationUnits' => ['required', 'string', 'max:11'],
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
 
         if($validator->fails()):
@@ -123,7 +123,7 @@ class MedicinesController extends Controller
             'title' => ['required', 'string'],
             'IdMedicationAdministrations' => ['required'],
             'IdMedicationUnits' => ['required', 'string', 'max:11'],
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
         
         if($validator->fails()):

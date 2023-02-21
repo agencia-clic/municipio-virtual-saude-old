@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\MedicalSpecialties;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class MedicalSpecialtiesController extends Controller
 {
     protected $medical_specialties;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -23,7 +21,6 @@ class MedicalSpecialtiesController extends Controller
     {
         $this->middleware('auth');
         $this->medical_specialties = new MedicalSpecialties();
-        $this->mask = new Mask();
     }
 
     /**
@@ -37,7 +34,6 @@ class MedicalSpecialtiesController extends Controller
 
         return view('admin.medical_specialties.list', [
             'medical_specialties' => $medical_specialties,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -54,7 +50,8 @@ class MedicalSpecialtiesController extends Controller
         $validator = Validator::make($data, [
             'title' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255'],
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
+            'service' => ['required', 'string', 'max:1', 'in:y,n'],
         ]);
 
         if($validator->fails()):
@@ -65,6 +62,7 @@ class MedicalSpecialtiesController extends Controller
             'title' => $data['title'],
             'code' => $data['code'],
             'status' => $data['status'],
+            'service' => $data['service'],
         ]);
 
         session()->flash('modal', json_encode(['title' => "Sucesso", 'description' => 'Registro criado com sucesso.', 'color' => 'bg-primary']));
@@ -83,7 +81,6 @@ class MedicalSpecialtiesController extends Controller
 
         return view('admin.medical_specialties.form', [
             'title' => " Especialidades Medicas | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'medical_specialties' => $medical_specialties
         ]);
     }
@@ -103,7 +100,8 @@ class MedicalSpecialtiesController extends Controller
         $validator = Validator::make($data, [
             'title' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255'],
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
+            'service' => ['required', 'string', 'max:1', 'in:y,n'],
         ]);
         
         if($validator->fails()):
@@ -113,6 +111,7 @@ class MedicalSpecialtiesController extends Controller
         $user->title = $data['title'];
         $user->code = $request->input('code');
         $user->status = $data['status'];
+        $user->service = $data['service'];
         
         $user->save();
 

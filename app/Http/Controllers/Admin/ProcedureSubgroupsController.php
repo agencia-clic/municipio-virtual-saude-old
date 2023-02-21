@@ -64,7 +64,7 @@ class ProcedureSubgroupsController extends Controller
         $validator = Validator::make($data, [
             'title' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255', 'unique:procedure_subgroups'],
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
 
         if($validator->fails()):
@@ -113,7 +113,7 @@ class ProcedureSubgroupsController extends Controller
         $validator = Validator::make($data, [
             'title' => ['required', 'string', 'max:255'],
             'code' => "required|unique:procedure_subgroups,code,{$procedure_subgroups->IdProcedureSubgroups},IdProcedureSubgroups",
-            'status' => ['required', 'string', 'max:1'],
+            'status' => ['required', 'string', 'max:1', 'in:a,b'],
         ]);
         
         if($validator->fails()):
