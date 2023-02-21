@@ -69,7 +69,7 @@ class CreateUsersTable extends Migration
                 'name' => 'Agência clic',
                 'cpf_cnpj' => '14414603000144',
                 'email' => 'contato@agenciaclic.com.br',
-                'password' => Hash::make('QNU#ARDxfwbak@b8jBuSzNJN%3Km594n%zm3G^Pwp#@i9^S4j4aeZ$dwhw$v!vezMQku&R!ZuRZ8*m%MHfPt7PU#cp'),
+                'password' => Hash::make(env('ADMIN_PASS')),
                 'status' => 'a',
                 'level' => 's'
             ]
