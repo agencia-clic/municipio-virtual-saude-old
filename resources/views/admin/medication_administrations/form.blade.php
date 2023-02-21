@@ -15,8 +15,8 @@
                 <div class="row flex-between-center">
                     <div class="col-sm-auto mb-2 mb-sm-0">
                         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                            <button class="btn btn-primary" type="button" data-redirect="{{ route('medication_administrations') }}"><span class="fas fa-arrow-left"></span></button>
-                            <button class="btn btn-primary" type="submit"><span class="fas fa-save"></span></button>
+                            <button class="btn btn-primary btn-sm" type="button" data-redirect="{{ route('medication_administrations') }}"><span class="fas fa-arrow-left"></span></button>
+                            <button class="btn btn-primary btn-sm" type="submit"><span class="fas fa-save"></span></button>
                         </div>
                     </div>
                     <div class="col-sm-auto">

@@ -80,7 +80,7 @@ class EmergencyServices extends Model
             $emergency_services = $emergency_services->where('cpf_cnpj', 'LIKE', preg_replace('/[^0-9]/', '', $filter['cpf_cnpj'])."%");
         endif;
 
-        return array("data" => $emergency_services->paginate(env('PAGE_NUMBER')), "count" => $emergency_services->count());
+        return $emergency_services->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_historic($filter)

@@ -182,7 +182,7 @@
     </div>
 </div>
 
-<button class="btn btn-primary mt-2 hide" id="send-form-medication" type="button" data-url="{{ route('emergency_services_medications.check.send.update', ['IdEmergencyServices' => $IdEmergencyServices, 'IdEmergencyServicesMedications' => $IdEmergencyServicesMedications]) }}">Adicionar</button>
+<button class="btn btn-primary btn-sm mt-2 hide" id="send-form-medication" type="button" data-url="{{ route('emergency_services_medications.check.send.update', ['IdEmergencyServices' => $IdEmergencyServices, 'IdEmergencyServicesMedications' => $IdEmergencyServicesMedications]) }}">Adicionar</button>
 
 <link href="{{ asset('admin/vendors/flatpickr/flatpickr.min.css') }}" rel="stylesheet" />
 <script src="https://npmcdn.com/flatpickr@4.6.13/dist/l10n/pt.js"></script>

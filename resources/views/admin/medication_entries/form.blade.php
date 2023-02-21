@@ -15,10 +15,10 @@
                 <div class="row flex-between-center">
                     <div class="col-sm-auto mb-2 mb-sm-0">
                         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                            <button class="btn btn-primary" type="button" data-redirect="{{ route('medication_entries') }}"><span class="fas fa-arrow-left"></span></button>
+                            <button class="btn btn-primary btn-sm" type="button" data-redirect="{{ route('medication_entries') }}"><span class="fas fa-arrow-left"></span></button>
 
                             @if((!empty($medication_entries) AND ($medication_entries->status == "a")) OR (empty($medication_entries)))
-                                <button class="btn btn-primary" type="submit"><span class="fas fa-save"></span></button>
+                                <button class="btn btn-primary btn-sm" type="submit"><span class="fas fa-save"></span></button>
                             @endif
                         </div>
                     </div>
@@ -90,7 +90,7 @@
 
             @if((!empty($medication_entries) AND ($medication_entries->status == "a")) OR (empty($medication_entries)))
                 <div class="col-12 mt-2">
-                     <button class="btn btn-primary btn-sm" type="Medicamentos" iframe-form="{{ route('medication_entries_registrations.form', ['IdMedicationEntries' => base64_encode($medication_entries->IdMedicationEntries)]) }}" iframe-create="{{ route('medication_entries_registrations.form.create', ['IdMedicationEntries' => base64_encode($medication_entries->IdMedicationEntries)]) }}">Inserir</button>
+                     <button class="btn btn-primary btn-sm btn-sm" type="Medicamentos" iframe-form="{{ route('medication_entries_registrations.form', ['IdMedicationEntries' => base64_encode($medication_entries->IdMedicationEntries)]) }}" iframe-create="{{ route('medication_entries_registrations.form.create', ['IdMedicationEntries' => base64_encode($medication_entries->IdMedicationEntries)]) }}">Inserir</button>
                 </div>
             @endif
         </div>

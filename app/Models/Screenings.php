@@ -74,7 +74,7 @@ class Screenings extends Model
             $screenings = $screenings->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $screenings->paginate(env('PAGE_NUMBER')), "count" => $screenings->count());
+        return $screenings->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

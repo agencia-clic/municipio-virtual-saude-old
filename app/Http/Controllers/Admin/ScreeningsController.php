@@ -11,12 +11,9 @@ use App\Models\EmergencyServices;
 use App\Models\ServiceUnits;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use App\Models\MedicalSpecialties;
 use App\Models\EmergencyServicesVitalData;
-use App\Models\Flowcharts;
 use App\Models\FlowchartsUsers;
-use App\Models\FlowchartsServiceUnits;
 use App\Models\MedicalCareRaffles;
 use App\Models\User;
 use DB;
@@ -25,8 +22,6 @@ class ScreeningsController extends Controller
 {
     protected $screenings;
     protected $emergency_services;
-    protected $mask;
-    protected $flowcharts;
     protected $medical_specialties;
     protected $users;
 
@@ -40,8 +35,6 @@ class ScreeningsController extends Controller
         $this->middleware('auth');
         $this->screenings = new Screenings();
         $this->emergency_services = new EmergencyServices();
-        $this->mask = new Mask();
-        $this->flowcharts = new Flowcharts();
         $this->medical_specialties = new MedicalSpecialties();
         $this->users = new User();
     }
@@ -60,7 +53,6 @@ class ScreeningsController extends Controller
         return view('admin.screenings.list', [
             'title' => " Atendimentos Triagem | ".env('APP_NAME'),
             'emergency_services' => $this->emergency_services->list($data),
-            'mask' => $this->mask,
         ]);
     }
 
@@ -77,7 +69,6 @@ class ScreeningsController extends Controller
 
         return view('admin.screenings.table', [
             'emergency_services' => $this->emergency_services->list($data),
-            'mask' => $this->mask,
         ]);
     }
 
@@ -96,7 +87,6 @@ class ScreeningsController extends Controller
             'title' => " Atendimentos Triagem | ".env('APP_NAME'),
             'screenings' => $this->screenings->list($data),
             'emergency_services' => $emergency_services,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -177,9 +167,6 @@ class ScreeningsController extends Controller
         $data['IdUsersResponsible'] = auth()->user()->IdUsers;
         $this->create($data, $request);
 
-        //broadcast
-        channelScreenings::dispatch(auth()->user()->units_current()->IdServiceUnits);
-
         session()->flash('modal', json_encode(['title' => "Sucesso", 'description' => 'Registro criado com sucesso.', 'color' => 'bg-primary']));
         return redirect()->route('screenings');
     }
@@ -200,22 +187,13 @@ class ScreeningsController extends Controller
         $emergency_services = EmergencyServices::find($emergency_services->IdEmergencyServices);
         $emergency_services->IdUsersResponsibleScreenings = auth()->user()->IdUsers;
         $emergency_services->save();
-        
-        //broadcast
-        channelScreenings::dispatch(auth()->user()->units_current()->IdServiceUnits);
 
         $screenings = $this->screenings->list_current(base64_decode($IdScreenings));
 
-        //select from units
-        $flowcharts = Flowcharts::join('flowcharts_service_units', 'flowcharts.IdFlowcharts', 'flowcharts_service_units.IdFlowcharts')->
-        where('flowcharts_service_units.IdServiceUnits', auth()->user()->units_current()->IdServiceUnits)->where('flowcharts_service_units.status', 'a')->get();
-
         return view('admin.screenings.form', [
             'title' => " Atendimentos | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'emergency_services' => $emergency_services,
             'users' => $this->users->list_current($emergency_services->IdUsers),
-            "flowcharts" => $flowcharts,
             'screenings' => $screenings
         ]);
     }
@@ -261,9 +239,6 @@ class ScreeningsController extends Controller
         
         $screenings->save();
 
-        //broadcast
-        channelScreenings::dispatch(auth()->user()->units_current()->IdServiceUnits);
-
         session()->flash('modal', json_encode(['title' => "Sucesso", 'description' => 'Registro editado com sucesso.', 'color' => 'bg-primary']));
         return redirect()->route('screenings.welcome', ['IdEmergencyServices' => $IdEmergencyServices]);
     }
@@ -306,55 +281,5 @@ class ScreeningsController extends Controller
             'complaints' => $request->input('complaints'),
             'classification' => $data['classification'],
         ]);
-
-        $this->lottery($data['IdEmergencyServices'], $data['classification'], $data['IdFlowcharts']);
-    }
-
-    private function lottery($IdEmergencyServices, $classification, $IdFlowcharts)
-    {
-        $weight = array();
-        $flowcharts_users = FlowchartsUsers::where('status', 'a')->where('IdFlowcharts', $IdFlowcharts)->where('IdServiceUnits', auth()->user()->units_current()->IdServiceUnits)->get();
-
-        if(!empty($flowcharts_users)):
-
-            foreach($flowcharts_users as $val_users):
-
-                //para os que tem 0 atendimento
-                $medical_care_raffles_count =  MedicalCareRaffles::where('IdUsers', $val_users->IdUsers)->where('status', 'a')->where('IdServiceUnits', auth()->user()->units_current()->IdServiceUnits)->count();
-                if($medical_care_raffles_count == 0):
-                    MedicalCareRaffles::where('IdEmergencyServices', $IdEmergencyServices)->update(['status' => 'b']);
-                    MedicalCareRaffles::create([
-                        'status' => 'a',
-                        'IdUsers' => $val_users->IdUsers,
-                        'IdServiceUnits' => auth()->user()->units_current()->IdServiceUnits,
-                        'IdEmergencyServices' => $IdEmergencyServices
-                    ]);
-                    return 0;
-                endif;
-
-                //count classification
-                $medical_care_raffles_count_classification = MedicalCareRaffles::where('medical_care_raffles.IdUsers', $val_users->IdUsers)->where('medical_care_raffles.status', 'a')->join('screenings', 'medical_care_raffles.IdEmergencyServices', '=', 'screenings.IdEmergencyServices')->where('screenings.classification', $classification)->
-                where('medical_care_raffles.IdServiceUnits', auth()->user()->units_current()->IdServiceUnits)->whereRaw("screenings.IdScreenings = (select max(`IdScreenings`) from screenings WHERE IdEmergencyServices={$IdEmergencyServices})")->count();
-
-                $weight[$val_users->IdUsers] = $medical_care_raffles_count_classification;
-
-            endforeach;
-
-            if(!empty($weight)):
-                foreach ($weight as $key => $value):
-                    if($value == min($weight)):
-                        MedicalCareRaffles::where('IdEmergencyServices', $IdEmergencyServices)->update(['status' => 'b']);
-                        MedicalCareRaffles::create([
-                            'status' => 'a',
-                            'IdUsers' => $key,
-                            'IdServiceUnits' => auth()->user()->units_current()->IdServiceUnits,
-                            'IdEmergencyServices' => $IdEmergencyServices
-                        ]);
-                        return 0;
-                    endif;
-                endforeach;
-            endif;
-            
-        endif;
     }
 }

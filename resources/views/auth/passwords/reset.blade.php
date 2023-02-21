@@ -69,7 +69,7 @@
                             </div>
 
                             <div class="mb-3 mb-0 text-center">
-                                <button class="btn btn-primary" type="submit"> {{ __('Enviar') }} </button>
+                                <button class="btn btn-primary btn-sm" type="submit"> {{ __('Enviar') }} </button>
                             </div>
 
                         </form>

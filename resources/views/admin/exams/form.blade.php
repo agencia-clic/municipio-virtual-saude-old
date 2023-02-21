@@ -106,7 +106,7 @@
             <div class="btn btn-secondary">Voltar</div>
         </a>
 
-        <button class="btn btn-primary" type="submit">@if(empty($exams))Inserir @else Editar @endif</button>
+        <button class="btn btn-primary btn-sm" type="submit">@if(empty($exams))Inserir @else Editar @endif</button>
     </div>
 
     <!-- actions - end -->

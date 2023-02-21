@@ -24,7 +24,7 @@ function modal_info(a,b, c, d, button = '', p = "", e = "",) {
 
                 <div class="modal-footer">
                     ${button}
-                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Fechar</button>
+                    <button class="btn btn-secondary btn-sm" type="button" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@ function modal_create(a,b,r,c='primary', d=60, button = `<button class="btn btn-
                         <div class="p-4 mb-2 pb-0">${b}</div>
                     </div>
                     <div class="modal-footer mt-2">
-                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Fechar</button>
+                        <button class="btn btn-secondary btn-sm" type="button" data-bs-dismiss="modal">Fechar</button>
                         ${button}
                     </div>
                 </form>
@@ -88,7 +88,7 @@ function modal_iframe(a, url, button) {
                 
                 <div class="modal-footer mt-2">
                     ${button}
-                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Fechar</button>
+                    <button class="btn btn-secondary btn-sm" type="button" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>

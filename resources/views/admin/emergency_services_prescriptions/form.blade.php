@@ -4,7 +4,7 @@
     <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
         <label for="title_medication_prescription_filter" id="label_title_medication_prescription_filter"><strong>Título FILTRO:</strong></label>
         <div class="input-group mb-2">
-            <button class="btn btn-primary input-group-text button-medication-save" type="button" url="{{ route('medication_prescription.save') }}"><span class="fas fa-edit"></span></button>
+            <button class="btn btn-primary btn-sm input-group-text button-medication-save" type="button" url="{{ route('medication_prescription.save') }}"><span class="fas fa-edit"></span></button>
             <input type="text" id="title_medication_prescription_filter" name="title_medication_prescription_filter" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()">
         </div>
     </div>

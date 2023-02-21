@@ -1,6 +1,6 @@
 window.medication_edite_check = function(title, url){
     request(url, {}, function(res){
-        modal_create(title, res, "", 'primary', 70, `<button class="btn btn-primary" onclick="update_medication_check()" type="button">Salvar</button>`)
+        modal_create(title, res, "", 'primary', 70, `<button class="btn btn-primary btn-sm" onclick="update_medication_check()" type="button">Salvar</button>`)
     })
 }
 

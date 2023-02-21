@@ -34,7 +34,7 @@
 
                 <div class="col-sm-auto mb-2 mb-sm-0">
                     <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                        <button class="btn btn-primary" type="button" id="save-medication-check" data-url="{{ route('emergency_services_medications.save.check', ['IdEmergencyServices' => base64_encode($medication_groups->IdEmergencyServices), 'IdMedicationGroups' => base64_encode($medication_groups->IdMedicationGroups)]) }}"><span class="fas fa-save"></span></button>
+                        <button class="btn btn-primary btn-sm" type="button" id="save-medication-check" data-url="{{ route('emergency_services_medications.save.check', ['IdEmergencyServices' => base64_encode($medication_groups->IdEmergencyServices), 'IdMedicationGroups' => base64_encode($medication_groups->IdMedicationGroups)]) }}"><span class="fas fa-save"></span></button>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
         <div data-iframe="{{ route('emergency_services_materials', ['IdEmergencyServices' => $IdEmergencyServices]) }}"></div>
 
         <div class="col-12 mt-2">
-            <button class="btn btn-primary materials-create" type="button" onclick="window.parent.materials_create('Materiais', '{{ route('emergency_services_materials.form', ['IdEmergencyServices' => $IdEmergencyServices]) }}', '{{ route('emergency_services_materials.form.create', ['IdEmergencyServices' => $IdEmergencyServices]) }}')">Inserir</button>
+            <button class="btn btn-primary btn-sm materials-create" type="button" onclick="window.parent.materials_create('Materiais', '{{ route('emergency_services_materials.form', ['IdEmergencyServices' => $IdEmergencyServices]) }}', '{{ route('emergency_services_materials.form.create', ['IdEmergencyServices' => $IdEmergencyServices]) }}')">Inserir</button>
         </div>
     </div>
 </div>

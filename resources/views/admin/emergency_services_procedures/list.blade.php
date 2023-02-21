@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        <button class="btn btn-primary mt-2 hide" id="send-form" type="button" onclick="save_procedures()" data-url="{{ route('emergency_services_procedures.form.create', ['IdEmergencyServices' => $IdEmergencyServices, 'IdProceduresGroups' => $IdProceduresGroups]) }}">Adicionar</button>
+        <button class="btn btn-primary btn-sm mt-2 hide" id="send-form" type="button" onclick="save_procedures()" data-url="{{ route('emergency_services_procedures.form.create', ['IdEmergencyServices' => $IdEmergencyServices, 'IdProceduresGroups' => $IdProceduresGroups]) }}">Adicionar</button>
     </div>
 </div>
 

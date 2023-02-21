@@ -6,8 +6,19 @@
 
 <!-- actions - start -->
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Acolhimentos</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $emergency_services['count'] }} de {{ $emergency_services['data']->total() }} registros</span>
+    <span class="h4 text-800">Acolhimentos Triagens</span>
+    <span class="badge bg-primary">
+        @if ($emergency_services->firstItem())
+            <span class="font-medium">{{ $emergency_services->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $emergency_services->lastItem() }}</span>
+        @else
+            {{ $emergency_services->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $emergency_services->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -16,8 +27,8 @@
             <div class="row flex-between-center">
                 <div class="col-sm-auto mb-2 mb-sm-0">
                     <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                        <button class="btn btn-primary" title="Filtros" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2"><span class="fas fa-search"></span></button>
-                        <button class="btn btn-primary collapsed" type="button" title="Limpar Filtros" data-redirect="{{ route('screenings') }}"><span class="fas fa-times"></span></button>
+                        <button class="btn btn-primary btn-sm" title="Filtros" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2"><span class="fas fa-search"></span></button>
+                        <button class="btn btn-primary btn-sm collapsed" type="button" title="Limpar Filtros" data-redirect="{{ route('screenings') }}"><span class="fas fa-times"></span></button>
                     </div>
                 </div>
                 <div class="col-sm-auto">

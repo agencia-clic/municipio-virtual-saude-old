@@ -1,7 +1,7 @@
 
 window.materials_create = function(title, url, url_create){
     request(url, {}, function(res){
-        modal_create(title, res, "", 'primary', 50, `<button class="btn btn-primary materials-save" onclick="save_materials('${url_create}')" type="button">Salvar</button>`)
+        modal_create(title, res, "", 'primary', 50, `<button class="btn btn-primary btn-sm materials-save" onclick="save_materials('${url_create}')" type="button">Salvar</button>`)
     })
 }
 

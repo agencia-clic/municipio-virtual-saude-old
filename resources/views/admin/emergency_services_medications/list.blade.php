@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <button class="btn btn-primary mt-2 hide" id="send-form" type="button" onclick="save_medicines()" data-url="{{ route('emergency_services_medications.form.create', ['IdEmergencyServices' => $IdEmergencyServices, 'IdMedicationGroups' => $IdMedicationGroups]) }}">Adicionar</button>
+        <button class="btn btn-primary btn-sm mt-2 hide" id="send-form" type="button" onclick="save_medicines()" data-url="{{ route('emergency_services_medications.form.create', ['IdEmergencyServices' => $IdEmergencyServices, 'IdMedicationGroups' => $IdMedicationGroups]) }}">Adicionar</button>
     </div>
 </div>
 

@@ -12,7 +12,7 @@ $(".query_users_patient").on('click', function(e){
 $(".edit-patient-users").on('click', function(e){
     let IdUsers = $('#IdUsers').val();
     if(IdUsers){
-        modal_iframe($(this).attr('iframe-title'), `${$(this).attr('url')}/${btoa(IdUsers)}`, `<button class="btn btn-primary submit-form-iframe" type="button">Editar</button>`)
+        modal_iframe($(this).attr('iframe-title'), `${$(this).attr('url')}/${btoa(IdUsers)}`, `<button class="btn btn-primary btn-sm submit-form-iframe" type="button">Editar</button>`)
     }else{
         modal_info("Atenção", "","Selecione um paciente.", "bg-warning")
     }

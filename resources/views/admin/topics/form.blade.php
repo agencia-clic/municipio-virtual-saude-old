@@ -88,7 +88,7 @@
             <div data-iframe="{{ route('topics_checks', ['IdTopics' => base64_encode($topics->IdTopics)]) }}"></div>
             
             <div class="col-12 mt-2">
-                 <button class="btn btn-primary btn-sm" type="Tópicos Checks" iframe-form="{{ route('topics_checks.form', ['IdTopics' => base64_encode($topics->IdTopics)]) }}" iframe-create="{{ route('topics_checks.form.create', ['IdTopics' => base64_encode($topics->IdTopics)]) }}">Inserir</button>
+                 <button class="btn btn-primary btn-sm btn-sm" type="Tópicos Checks" iframe-form="{{ route('topics_checks.form', ['IdTopics' => base64_encode($topics->IdTopics)]) }}" iframe-create="{{ route('topics_checks.form.create', ['IdTopics' => base64_encode($topics->IdTopics)]) }}">Inserir</button>
             </div>
         </div>
     </div>
@@ -145,7 +145,7 @@
             <div class="btn btn-secondary">Voltar</div>
         </a>
 
-        <button class="btn btn-primary" type="submit">@if(empty($topics))Inserir @else Editar @endif</button>
+        <button class="btn btn-primary btn-sm" type="submit">@if(empty($topics))Inserir @else Editar @endif</button>
     </div>
 
     <!-- actions - end -->

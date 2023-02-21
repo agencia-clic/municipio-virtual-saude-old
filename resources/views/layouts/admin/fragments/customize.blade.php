@@ -3,7 +3,7 @@
         <div class="z-index-1 py-1 light">
             <div class="d-flex justify-content-between align-items-center mb-1">
                 <h5 class="text-white mb-0 me-2"><span class="fas fa-palette me-2 fs-0"></span>Configurações</h5>
-                <button class="btn btn-primary btn-sm rounded-pill mt-0 mb-0" data-theme-control="reset" style="font-size:12px"> <span class="fas fa-redo-alt me-1" data-fa-transform="shrink-3"></span>Reiniciar</button>
+                <button class="btn btn-primary btn-sm btn-sm rounded-pill mt-0 mb-0" data-theme-control="reset" style="font-size:12px"> <span class="fas fa-redo-alt me-1" data-fa-transform="shrink-3"></span>Reiniciar</button>
             </div>
             <p class="mb-0 fs--1 text-white opacity-75"> Defina seu próprio estilo personalizado</p>
         </div>

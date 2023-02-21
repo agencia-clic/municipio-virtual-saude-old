@@ -32,6 +32,6 @@ class CreateUsersDiseasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_diseases');
+        Schema::dropIfExists('users_diseases');
     }
 }

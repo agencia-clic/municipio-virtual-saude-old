@@ -15,8 +15,8 @@
                 <div class="row flex-between-center">
                     <div class="col-sm-auto mb-2 mb-sm-0">
                         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                            <button class="btn btn-primary" type="button" data-redirect="{{ route('protocols') }}"><span class="fas fa-arrow-left"></span></button>
-                            <button class="btn btn-primary" type="submit"><span class="fas fa-save"></span></button>
+                            <button class="btn btn-primary btn-sm" type="button" data-redirect="{{ route('protocols') }}"><span class="fas fa-arrow-left"></span></button>
+                            <button class="btn btn-primary btn-sm" type="submit"><span class="fas fa-save"></span></button>
                         </div>
                     </div>
                     <div class="col-sm-auto">
@@ -101,7 +101,7 @@
             <div data-iframe="{{ route('protocols_cid10', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}"></div>
             
             <div class="col-12 mt-2">
-                 <button class="btn btn-primary btn-sm" type="CID10" iframe-form="{{ route('protocols_cid10.form', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}" iframe-create="{{ route('protocols_cid10.form.create', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}">Inserir</button>
+                 <button class="btn btn-primary btn-sm btn-sm" type="CID10" iframe-form="{{ route('protocols_cid10.form', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}" iframe-create="{{ route('protocols_cid10.form.create', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}">Inserir</button>
             </div>
         </div>
     </div>
@@ -123,7 +123,7 @@
             <div data-iframe="{{ route('protocols_medication', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}"></div>
             
             <div class="col-12 mt-2">
-                 <button class="btn btn-primary btn-sm" type="Medicamentos" iframe-form="{{ route('protocols_medication.form', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}" iframe-create="{{ route('protocols_medication.form.create', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}">Inserir</button>
+                 <button class="btn btn-primary btn-sm btn-sm" type="Medicamentos" iframe-form="{{ route('protocols_medication.form', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}" iframe-create="{{ route('protocols_medication.form.create', ['IdProtocols' => base64_encode($protocols->IdProtocols)]) }}">Inserir</button>
             </div>
         </div>
     </div>
@@ -165,7 +165,7 @@
             <div class="btn btn-secondary">Voltar</div>
         </a>
 
-        <button class="btn btn-primary" type="submit">@if(empty($protocols))Inserir @else Editar @endif</button>
+        <button class="btn btn-primary btn-sm" type="submit">@if(empty($protocols))Inserir @else Editar @endif</button>
     </div>
 
     <!-- actions - end -->

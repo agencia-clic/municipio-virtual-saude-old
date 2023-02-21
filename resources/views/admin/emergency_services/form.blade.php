@@ -20,8 +20,8 @@
                     <div class="row flex-between-center">
                         <div class="col-sm-auto mb-2 mb-sm-0">
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                <button class="btn btn-primary" type="button" data-redirect="{{ route('emergency_services.form') }}"><span class="fas fa-plus"></span></button>
-                                <button class="btn btn-primary" type="submit"><span class="fas fa-save"></span></button>
+                                <button class="btn btn-primary btn-sm" type="button" data-redirect="{{ route('emergency_services.form') }}"><span class="fas fa-plus"></span></button>
+                                <button class="btn btn-primary btn-sm" type="submit"><span class="fas fa-save"></span></button>
                             </div>
                         </div>
                         <div class="col-sm-auto">
@@ -251,7 +251,7 @@
                         <div data-iframe="{{ route('users_diseases', ['type' => "a"]) }}"></div>
                         
                         <div class="col-12 mt-2">
-                            <button class="btn btn-primary" type="button"  title="Alergias Doenças" iframe-form="{{ route('users_diseases.form', ['type' => "a"]) }}" iframe-create="{{ route('users_diseases.form.create', ['type' => "a"]) }}">Inserir</button>
+                            <button class="btn btn-primary btn-sm" type="button"  title="Alergias Doenças" iframe-form="{{ route('users_diseases.form', ['type' => "a"]) }}" iframe-create="{{ route('users_diseases.form.create', ['type' => "a"]) }}">Inserir</button>
                         </div>
                     </div>
                 </div>
@@ -271,7 +271,7 @@
                         <div data-iframe="{{ route('users_diseases', ['type' => "b"]) }}"></div>
                         
                         <div class="col-12 mt-2">
-                            <button class="btn btn-primary" type="button"  title="Antecedentes" iframe-form="{{ route('users_diseases.form', ['type' => "b"]) }}" iframe-create="{{ route('users_diseases.form.create', ['type' => "b"]) }}">Inserir</button>
+                            <button class="btn btn-primary btn-sm" type="button"  title="Antecedentes" iframe-form="{{ route('users_diseases.form', ['type' => "b"]) }}" iframe-create="{{ route('users_diseases.form.create', ['type' => "b"]) }}">Inserir</button>
                         </div>
                     </div>
                 </div>

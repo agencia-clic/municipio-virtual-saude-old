@@ -117,7 +117,7 @@ function modal_call(a, url) {
                 <label for="room_call" id="label_room_call" class="label_room_call">Status:</label>
                 <select id="room_call" class="form-control form-control-sm">${html}</select>
             </div>
-        `, 'bg-primary', `<button class="btn btn-primary" id="save-call" type="button" data-bs-dismiss="modal">Salvar</button>`)
+        `, 'bg-primary', `<button class="btn btn-primary btn-sm" id="save-call" type="button" data-bs-dismiss="modal">Salvar</button>`)
 
     })
 }
@@ -230,7 +230,7 @@ $(document).on('click', '.modal-print-option', function(e){
             <label for="modal_print" id="label_modal_print" class="label_modal_print">Tipo:</label>
             <select id="modal_print" class="form-control form-control-sm">${html}</select>
         </div>
-    `, 'bg-primary', `<button class="btn btn-primary" id="save-call" onclick="redirect_print('${$(this).attr('data-url')}')" type="button" data-bs-dismiss="modal">Avançar</button>`)
+    `, 'bg-primary', `<button class="btn btn-primary btn-sm" id="save-call" onclick="redirect_print('${$(this).attr('data-url')}')" type="button" data-bs-dismiss="modal">Avançar</button>`)
 })
 
 function redirect_print(url) {

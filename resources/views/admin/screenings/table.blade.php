@@ -3,7 +3,7 @@
     <div class="table-responsive scrollbar">
         <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden border">
 
-            @if(!empty($emergency_services['data']->total()) AND ($emergency_services['data']->total() > 0))
+            @if(!empty($emergency_services->total()) AND ($emergency_services->total() > 0))
                 <thead class="bg-200 text-900">
                     <tr>
                         <th class="sort pe-1 text-center" width="3%"></th>
@@ -17,7 +17,7 @@
                 </thead>
                 <tbody class="list list-table" id="table-customers-body">
     
-                    @foreach($emergency_services['data'] as $val)
+                    @foreach($emergency_services as $val)
                         <tr class="btn-reveal-trigger" id="{{$val->IdEmergencyServices}}-table">
 
                             <td class="border phone py-2 text-center">
@@ -62,20 +62,10 @@
 
                             <td class="border phone white-space-nowrap py-2 text-center">
                                 <strong>{{ $val->users_screenings_name }}<strong>
-                                @if(!empty($val->users_screenings_name) AND ($minutes = $mask->dataDifference(date('Y-m-d H:i:s'), $val->updated_at, "m") > 15))
-                                    • <span class="badge rounded-pill badge-soft-warning">Atenção:
-                                        @php $minutes = $mask->dataDifference(date('Y-m-d H:i:s'), $val->updated_at, "m") @endphp
-                                        @if($minutes <= 59)
-                                            {{ $minutes }} Minutos
-                                        @else
-                                            {{ $mask->dataDifference(date('Y-m-d H:i:s'), $val->updated_at, "h") }} H/M
-                                        @endif
-                                    </span>
-                                @endif
                             </td>
 
                             <td class="border phone white-space-nowrap py-2 text-center">
-                                <strong>{{ $mask->birth($val->users_date_birth) }}</strong>
+                                <strong>{{ Mask::birth($val->users_date_birth) }}</strong>
                             </td>
 
                             <td class="border phone white-space-nowrap py-2 text-center">
@@ -95,7 +85,7 @@
                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="customer-dropdown-2">
                                         <div class="bg-white py-2">
 
-                                            @if((!empty($val->users_screenings_name) AND ($mask->dataDifference(date('Y-m-d H:i:s'), $val->updated_at, "m") >= 15)) OR (empty($val->users_screenings_name) OR $val->IdUsersResponsibleScreenings == auth()->user()->IdUsers))
+                                            {{-- @if((!empty($val->users_screenings_name) AND ($mask->dataDifference(date('Y-m-d H:i:s'), $val->updated_at, "m") >= 15)) OR (empty($val->users_screenings_name) OR $val->IdUsersResponsibleScreenings == auth()->user()->IdUsers))
                                                 <!-- wellcome -->
                                                 <a class="dropdown-item fw-bold" href="{{ route('screenings.form', ['action' => 'acol', 'IdEmergencyServices' => base64_encode($val->IdEmergencyServices)]) }}" moda-alert="Atenção, Tem certeza que deseja iniciar esse processo ?"><span class="fas fa-user-plus me-1"></span><span> Acolher</span></a>
                                                 <div class="dropdown-divider"></div>
@@ -103,7 +93,7 @@
                                                 <!-- call -->
                                                 <a class="dropdown-item fw-bold call-save-attendance" href="{{ route('call.list', ['IdEmergencyServices' => base64_encode($val->IdEmergencyServices), 'IdUsers' => base64_encode($val->IdUsers)]) }}"><span class="fas fa-bell me-1"></span><span> Chamar Paciente</span></a>
                                                 <div class="dropdown-divider"></div>
-                                            @endif
+                                            @endif --}}
 
                                             <!-- cancel -->
                                             <a class="dropdown-item fw-bold cancel-emergency_services" href="{{route('emergency_services.form.delete', ['IdEmergencyServices' => base64_encode($val->IdEmergencyServices)])}}" data-id="{{ $val->IdEmergencyServices }}" data-title="CANCELAR"><span class="fas fa-user-alt-slash me-1"></span><span> Cancelar</span></a>
@@ -129,4 +119,4 @@
 <!-- table -- end -->
 
 <!-- paginations -- start -->
-{{ $emergency_services['data']->appends(app('request')->all())->links() }}
+{{ $emergency_services->appends(app('request')->all())->links() }}

@@ -17,8 +17,8 @@
                 <div class="row flex-between-center">
                     <div class="col-sm-auto mb-2 mb-sm-0">
                         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                            <button class="btn btn-primary" type="button" data-redirect="{{ route('medical_care', ['IdFlowcharts' => $IdFlowcharts]) }}"><span class="fas fa-arrow-left"></span></button>
-                            <button class="btn btn-primary" type="submit"><span class="fas fa-save"></span></button>
+                            <button class="btn btn-primary btn-sm" type="button" data-redirect="{{ route('medical_care', ['IdFlowcharts' => $IdFlowcharts]) }}"><span class="fas fa-arrow-left"></span></button>
+                            <button class="btn btn-primary btn-sm" type="submit"><span class="fas fa-save"></span></button>
                         </div>
                     </div>
                     <div class="col-sm-auto">
@@ -173,7 +173,7 @@
                         <div data-iframe="{{ route('emergency_services_diagnostics', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}"></div>
                         
                         <div class="col-12 mt-2">
-                            <button class="btn btn-primary diagnostics-button" type="button"  title="Diagnósticos" iframe-form="{{ route('emergency_services_diagnostics.form', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" iframe-create="{{ route('emergency_services_diagnostics.form.create', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}">Inserir</button>
+                            <button class="btn btn-primary btn-sm diagnostics-button" type="button"  title="Diagnósticos" iframe-form="{{ route('emergency_services_diagnostics.form', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" iframe-create="{{ route('emergency_services_diagnostics.form.create', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}">Inserir</button>
                         </div>
                     </div>
                 </div>
@@ -324,7 +324,7 @@
                         <div data-iframe="{{ route('users_diseases', ['type' => "a", 'IdUsers' => base64_encode($emergency_services->IdUsers)]) }}"></div>
                         
                         <div class="col-12 mt-2">
-                            <button class="btn btn-primary" type="button"  title="Alergias Doenças" iframe-form="{{ route('users_diseases.form', ['type' => "a", 'IdUsers' => base64_encode($emergency_services->IdUsers)]) }}" iframe-create="{{ route('users_diseases.form.create', ['type' => "a", 'IdUsers' => base64_encode($emergency_services->IdUsers)]) }}">Inserir</button>
+                            <button class="btn btn-primary btn-sm" type="button"  title="Alergias Doenças" iframe-form="{{ route('users_diseases.form', ['type' => "a", 'IdUsers' => base64_encode($emergency_services->IdUsers)]) }}" iframe-create="{{ route('users_diseases.form.create', ['type' => "a", 'IdUsers' => base64_encode($emergency_services->IdUsers)]) }}">Inserir</button>
                         </div>
                     </div>
                 </div>
@@ -342,7 +342,7 @@
                         <div data-iframe="{{ route('users_diseases', ['type' => "b", 'IdUsers' => base64_encode($emergency_services->IdUsers)]) }}"></div>
                         
                         <div class="col-12 mt-2">
-                            <button class="btn btn-primary" type="button"  title="Antecedentes" iframe-form="{{ route('users_diseases.form', ['type' => "b", 'IdUsers' => base64_encode($emergency_services->IdUsers)]) }}" iframe-create="{{ route('users_diseases.form.create', ['type' => "b", 'IdUsers' => base64_encode($emergency_services->IdUsers)]) }}">Inserir</button>
+                            <button class="btn btn-primary btn-sm" type="button"  title="Antecedentes" iframe-form="{{ route('users_diseases.form', ['type' => "b", 'IdUsers' => base64_encode($emergency_services->IdUsers)]) }}" iframe-create="{{ route('users_diseases.form.create', ['type' => "b", 'IdUsers' => base64_encode($emergency_services->IdUsers)]) }}">Inserir</button>
                         </div>
                     </div>
                 </div>
@@ -364,7 +364,7 @@
                         <div data-iframe="{{ route('emergency_services_files', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}"></div>
                         
                         <div class="col-12 mt-2">
-                            <button class="btn btn-primary" type="button" iframe-title="Novo Arquivo" url="{{ route('emergency_services_files.form', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" title="Arquivos" data-iframe>Inserir</button>
+                            <button class="btn btn-primary btn-sm" type="button" iframe-title="Novo Arquivo" url="{{ route('emergency_services_files.form', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" title="Arquivos" data-iframe>Inserir</button>
                         </div>
                     </div>
                 </div>
