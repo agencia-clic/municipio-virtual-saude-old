@@ -1,8 +1,0 @@
-<?php
-
-Route::get('/emergency-services-forward-internal/{IdEmergencyServices}', [App\Http\Controllers\Admin\EmergencyServicesForwardInternalController::class, 'index'])->name('emergency_services_forward_internal');
-Route::get('/emergency-services-forward-internal/form/{IdEmergencyServices}/{IdEmergencyServicesInternal?}', [App\Http\Controllers\Admin\EmergencyServicesForwardInternalController::class, 'show'])->name('emergency_services_forward_internal.form');
-Route::post('/emergency-services-forward-internal/create/{IdEmergencyServices}', [App\Http\Controllers\Admin\EmergencyServicesForwardInternalController::class, 'store'])->name('emergency_services_forward_internal.form.create');
-Route::post('/emergency-services-forward-internal/update/{IdEmergencyServices}/{IdEmergencyServicesInternal}', [App\Http\Controllers\Admin\EmergencyServicesForwardInternalController::class, 'update'])->name('emergency_services_forward_internal.form.update');
-Route::post('/emergency-services-forward-internal/delete/{IdEmergencyServicesInternal}', [App\Http\Controllers\Admin\EmergencyServicesForwardInternalController::class, 'destroy'])->name('emergency_services_forward_internal.form.delete');
-Route::get('/emergency-services-forward-internal/export/{IdEmergencyServices}/{IdEmergencyServicesInternal?}', [App\Http\Controllers\Admin\EmergencyServicesForwardInternalController::class, 'export_pdf'])->name('emergency_services_forward_internal.export');

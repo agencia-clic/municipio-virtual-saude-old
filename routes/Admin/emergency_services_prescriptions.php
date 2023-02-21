@@ -1,7 +1,0 @@
-<?php
-Route::get('/emergency-services-prescriptions/{IdEmergencyServices}', [App\Http\Controllers\Admin\EmergencyServicesPrescriptionsController::class, 'index'])->name('emergency_services_prescriptions');
-Route::get('/emergency-services-prescriptions/form/{IdEmergencyServices}/{IdEmergencyServicesPrescriptions?}', [App\Http\Controllers\Admin\EmergencyServicesPrescriptionsController::class, 'show'])->name('emergency_services_prescriptions.form');
-Route::post('/emergency-services-prescriptions/create/{IdEmergencyServices}', [App\Http\Controllers\Admin\EmergencyServicesPrescriptionsController::class, 'store'])->name('emergency_services_prescriptions.form.create');
-Route::post('/emergency-services-prescriptions/update/{IdEmergencyServices}/{IdEmergencyServicesPrescriptions}', [App\Http\Controllers\Admin\EmergencyServicesPrescriptionsController::class, 'update'])->name('emergency_services_prescriptions.form.update');
-Route::post('/emergency-services-prescriptions/delete/{IdEmergencyServicesPrescriptions}', [App\Http\Controllers\Admin\EmergencyServicesPrescriptionsController::class, 'destroy'])->name('emergency_services_prescriptions.form.delete');
-Route::get('/emergency-services-prescriptions/export/{IdEmergencyServices}/{IdEmergencyServicesPrescriptions?}', [App\Http\Controllers\Admin\EmergencyServicesPrescriptionsController::class, 'export_pdf'])->name('emergency_services_prescriptions.export');
