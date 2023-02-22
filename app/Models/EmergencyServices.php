@@ -160,7 +160,7 @@ class EmergencyServices extends Model
 
     public function call()
     {
-        return $this->hasOne(Call::class, 'IdEmergencyServices')->select('call.*', 'users.name as responsible')->leftjoin('users', 'call.IdUsersResponsible', '=', 'users.IdUsers')->get();
+        return $this->hasOne(Call::class, 'IdEmergencyServices')->select('call.*', 'users.name as responsible')->leftJoin('users', 'call.IdUsersResponsible', '=', 'users.IdUsers')->latest()->first();
     }
 
     public function diagnostics()

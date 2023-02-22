@@ -49,12 +49,7 @@
                                         <h5 class="mb-0 fs--1">{{ $val->users_name }} @if(!empty($val->last_screenings())) (<strong>Reclassificar</strong>) @endif</h5>
 
                                         @if(!empty($call = $val->call()))
-                                            @foreach($call as $key => $value)
-                                                @if($key != 0)
-                                                    <strong>•</strong>
-                                                @endif
-                                                <span class="badge badge-soft-warning" title="Horario de Chamada">{{ $value->responsible }} {{ $value->created_at->format('H:i') }}</span> 
-                                            @endforeach
+                                            <span class="badge badge-soft-warning" title="Última chamada">{{ $call->responsible }} {{ $call->created_at->format('H:i') }}</span> 
                                         @endif
                                     </div>
                                 </div>
@@ -85,15 +80,13 @@
                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="customer-dropdown-2">
                                         <div class="bg-white py-2">
 
-                                            {{-- @if((!empty($val->users_screenings_name) AND ($mask->dataDifference(date('Y-m-d H:i:s'), $val->updated_at, "m") >= 15)) OR (empty($val->users_screenings_name) OR $val->IdUsersResponsibleScreenings == auth()->user()->IdUsers))
-                                                <!-- wellcome -->
-                                                <a class="dropdown-item fw-bold" href="{{ route('screenings.form', ['action' => 'acol', 'IdEmergencyServices' => base64_encode($val->IdEmergencyServices)]) }}" moda-alert="Atenção, Tem certeza que deseja iniciar esse processo ?"><span class="fas fa-user-plus me-1"></span><span> Acolher</span></a>
-                                                <div class="dropdown-divider"></div>
+                                            <!-- wellcome -->
+                                            <a class="dropdown-item fw-bold" href="{{ route('screenings.form', ['action' => 'acol', 'IdEmergencyServices' => base64_encode($val->IdEmergencyServices)]) }}" moda-alert="Atenção, Tem certeza que deseja iniciar esse processo ?"><span class="fas fa-user-plus me-1"></span><span> Acolher</span></a>
+                                            <div class="dropdown-divider"></div>
 
-                                                <!-- call -->
-                                                <a class="dropdown-item fw-bold call-save-attendance" href="{{ route('call.list', ['IdEmergencyServices' => base64_encode($val->IdEmergencyServices), 'IdUsers' => base64_encode($val->IdUsers)]) }}"><span class="fas fa-bell me-1"></span><span> Chamar Paciente</span></a>
-                                                <div class="dropdown-divider"></div>
-                                            @endif --}}
+                                            <!-- call -->
+                                            <a class="dropdown-item fw-bold call-save-attendance" href="{{ route('call.list', ['IdEmergencyServices' => base64_encode($val->IdEmergencyServices), 'IdUsers' => base64_encode($val->IdUsers)]) }}"><span class="fas fa-bell me-1"></span><span> Chamar Paciente</span></a>
+                                            <div class="dropdown-divider"></div>
 
                                             <!-- cancel -->
                                             <a class="dropdown-item fw-bold cancel-emergency_services" href="{{route('emergency_services.form.delete', ['IdEmergencyServices' => base64_encode($val->IdEmergencyServices)])}}" data-id="{{ $val->IdEmergencyServices }}" data-title="CANCELAR"><span class="fas fa-user-alt-slash me-1"></span><span> Cancelar</span></a>
