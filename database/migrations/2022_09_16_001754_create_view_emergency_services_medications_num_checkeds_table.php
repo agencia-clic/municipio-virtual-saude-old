@@ -23,6 +23,8 @@ class CreateViewEmergencyServicesMedicationsNumCheckedsTable extends Migration
      */
     private function createView(): string
     {
+        $this->down();
+
         return "
         CREATE VIEW view_emergency_services_medications_num_checkeds AS 
         SELECT
@@ -45,6 +47,6 @@ class CreateViewEmergencyServicesMedicationsNumCheckedsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('view_emergency_services_medications_num_checkeds');
+        \DB::statement('DROP VIEW IF EXISTS view_emergency_services_medications_num_checkeds');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
+use App\Models\Admin\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -14,6 +14,7 @@ use Tests\TestCase;
 
 class ResetsPasswordTest extends TestCase
 {
+    use DatabaseMigrations, RefreshDatabase;
 
     /**
      * Displays the reset password request form.
@@ -22,7 +23,8 @@ class ResetsPasswordTest extends TestCase
      */
     public function testDisplaysPasswordResetRequestForm()
     {
-        $response = $this->get('password/reset');
+        $response = $this->get('adm/password/reset');
+
         $response->assertStatus(200);
     }
 
@@ -37,7 +39,7 @@ class ResetsPasswordTest extends TestCase
 
         $this->expectsNotification($user, ResetPassword::class);
 
-        $response = $this->post('password/email', ['email' => $user->email]);
+        $response = $this->post('adm/password/email', ['email' => $user->email]);
 
         $response->assertStatus(302);
     }
@@ -51,7 +53,7 @@ class ResetsPasswordTest extends TestCase
     {
         $this->doesntExpectJobs(ResetPassword::class);
 
-        $this->post('password/email', ['email' => 'invalid@email.com']);
+        $this->post('adm/password/email', ['email' => 'invalid@email.com']);
     }
 
     /**
@@ -61,7 +63,8 @@ class ResetsPasswordTest extends TestCase
      */
     public function testDisplaysPasswordResetForm()
     {
-        $response = $this->get('/password/reset/token');
+        $response = $this->get('/adm/password/reset/token');
+
         $response->assertStatus(200);
     }
 

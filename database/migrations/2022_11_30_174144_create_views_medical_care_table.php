@@ -13,6 +13,8 @@ class CreateViewsMedicalCareTable extends Migration
      */
     public function up()
     {
+        $this->down();
+
         \DB::unprepared("
             CREATE VIEW views_medical_care AS
 
@@ -59,6 +61,6 @@ class CreateViewsMedicalCareTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('views_medical_care');
+        \DB::statement('DROP VIEW IF EXISTS views_medical_care');
     }
 }
