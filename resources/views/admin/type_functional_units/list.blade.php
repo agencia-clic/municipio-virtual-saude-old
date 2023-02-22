@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Tipos de Unidades Funcionais</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $type_functional_units['count'] }} de {{ $type_functional_units['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($type_functional_units->firstItem())
+            <span class="font-medium">{{ $type_functional_units->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $type_functional_units->lastItem() }}</span>
+        @else
+            {{ $type_functional_units->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $type_functional_units->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -94,7 +105,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
 
-                @if(!empty($type_functional_units['data']->total()) AND ($type_functional_units['data']->total() > 0))
+                @if(!empty($type_functional_units->total()) AND ($type_functional_units->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 white-space-nowrap">Titulo</th>
@@ -104,7 +115,7 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($type_functional_units['data'] as $val)
+                        @foreach($type_functional_units as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdTypeFunctionalUnits}}-table">
                                 
                                 <td class="border email py-2"><strong>{{ $val->title }}</strong></td>
@@ -156,7 +167,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $type_functional_units['data']->appends(app('request')->all())->links() }}
+    {{ $type_functional_units->appends(app('request')->all())->links() }}
     
 </div>
 

@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Procedimentos</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $procedures_groups['count'] }} de {{ $procedures_groups['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($procedures_groups->firstItem())
+            <span class="font-medium">{{ $procedures_groups->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $procedures_groups->lastItem() }}</span>
+        @else
+            {{ $procedures_groups->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $procedures_groups->total() }}</span>
+        {!! __('registros') !!}
+    </span>    
 </div>
 
 <div class="col-12 mb-2">
@@ -100,7 +111,7 @@
     <div class="table-responsive scrollbar mt-2">
         <table class="table table-sm table-striped fs--1 mb-0 border overflow-hidden border">
 
-            @if(!empty($procedures_groups['data']->total()) AND ($procedures_groups['data']->total() > 0))
+            @if(!empty($procedures_groups->total()) AND ($procedures_groups->total() > 0))
                 <thead class="bg-200 text-900">
                     <tr>
                         <th class="sort pe-1 white-space-nowrap text-left">Paciente</th>
@@ -122,7 +133,7 @@
                 </thead>
                 <tbody class="list list-table" id="table-customers-body">
 
-                    @foreach($procedures_groups['data'] as $val)
+                    @foreach($procedures_groups as $val)
 
                         <tr class="btn-reveal-trigger" id="{{$val->IdProceduresGroups}}-table">
 
@@ -190,7 +201,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $procedures_groups['data']->appends(app('request')->all())->links() }}
+    {{ $procedures_groups->appends(app('request')->all())->links() }}
         
 </div>
 @endsection

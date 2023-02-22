@@ -49,7 +49,7 @@ class Rooms extends Model
             $rooms = $rooms->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $rooms->paginate(env('PAGE_NUMBER')), "count" => $rooms->count());
+        return $rooms->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

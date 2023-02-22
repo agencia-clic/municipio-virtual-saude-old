@@ -43,7 +43,7 @@ class EmergencyServicesProcedures extends Model
 
         $emergency_services_procedures = $emergency_services_procedures->where('IdProceduresGroups', $IdProceduresGroups);
 
-        return array("data" => $emergency_services_procedures->paginate(env('PAGE_NUMBER')), "count" => $emergency_services_procedures->count());
+        return $emergency_services_procedures->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

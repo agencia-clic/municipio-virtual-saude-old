@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\CallPanel;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class CallPanelController extends Controller
 {
     protected $call_panel;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -23,7 +21,6 @@ class CallPanelController extends Controller
     {
         $this->middleware('auth');
         $this->call_panel = new CallPanel();
-        $this->mask = new Mask();
     }
 
     /**
@@ -36,7 +33,6 @@ class CallPanelController extends Controller
         $call_panel = $this->call_panel->list($request);
         return view('admin.call_panel.list', [
             'call_panel' => $call_panel,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -81,7 +77,6 @@ class CallPanelController extends Controller
 
         return view('admin.call_panel.form', [
             'title' => " Classificações Medicamentos | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'call_panel' => $call_panel
         ]);
     }

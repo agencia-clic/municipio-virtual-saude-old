@@ -9,12 +9,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use App\Helpers\Mask;
 
 class UsersPatientsController extends Controller
 {
     protected $users;
-    protected $mask;
     protected $_users;
 
     /**
@@ -26,7 +24,6 @@ class UsersPatientsController extends Controller
     {
         $this->middleware('auth');
         $this->users = new UsersPatients();
-        $this->mask = new Mask();
     }
 
     /**
@@ -41,7 +38,6 @@ class UsersPatientsController extends Controller
 
         return view('admin.users_patients.list', [
             'title' => " Usuários | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'users' => $this->users->list($data),
         ]);
     }
@@ -130,7 +126,6 @@ class UsersPatientsController extends Controller
         return view('admin.users_patients.form', [
             'title' => " Usuários | ".env('APP_NAME'),
             'layout' => ['menu' => true, 'header' => true],
-            'mask' => $this->mask,
             'users' => $users
         ]);
     }

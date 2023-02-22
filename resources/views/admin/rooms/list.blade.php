@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Quartos</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $rooms['count'] }} de {{ $rooms['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($rooms->firstItem())
+            <span class="font-medium">{{ $rooms->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $rooms->lastItem() }}</span>
+        @else
+            {{ $rooms->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $rooms->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -93,7 +104,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
 
-                @if(!empty($rooms['data']->total()) AND ($rooms['data']->total() > 0))
+                @if(!empty($rooms->total()) AND ($rooms->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 white-space-nowrap">Titulo</th>
@@ -106,7 +117,7 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($rooms['data'] as $val)
+                        @foreach($rooms as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdRooms}}-table">
                                 
                                 <td class="border email py-2"><strong>{{ $val->title }}</strong></td>
@@ -169,7 +180,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $rooms['data']->appends(app('request')->all())->links() }}
+    {{ $rooms->appends(app('request')->all())->links() }}
     
 </div>
 

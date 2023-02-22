@@ -42,7 +42,7 @@ class Accommodations extends Model
             $accommodations = $accommodations->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $accommodations->paginate(env('PAGE_NUMBER')), "count" => $accommodations->count());
+        return $accommodations->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

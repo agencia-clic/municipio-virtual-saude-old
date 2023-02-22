@@ -7,7 +7,19 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Entradas Medicamentos</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $medication_entries['count'] }} de {{ $medication_entries['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($medication_entries->firstItem())
+            <span class="font-medium">{{ $medication_entries->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $medication_entries->lastItem() }}</span>
+        @else
+            {{ $medication_entries->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $medication_entries->total() }}</span>
+        {!! __('registros') !!}
+    </span>
+
 </div>
 
 <div class="col-12 mb-2">
@@ -94,7 +106,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 border mb-0 overflow-hidden">
 
-                @if(!empty($medication_entries['data']->total()) AND ($medication_entries['data']->total() > 0))
+                @if(!empty($medication_entries->total()) AND ($medication_entries->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 text-left" width="1%"></th>
@@ -106,7 +118,7 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($medication_entries['data'] as $val)
+                        @foreach($medication_entries as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdMedicationEntries}}-table">
 
                                 <td class="border name text-left py-2">
@@ -187,7 +199,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $medication_entries['data']->appends(app('request')->all())->links() }}
+    {{ $medication_entries->appends(app('request')->all())->links() }}
     
 </div>
 

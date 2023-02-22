@@ -7,7 +7,19 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Painel de Chamada</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $call_panel['count'] }} de {{ $call_panel['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($call_panel->firstItem())
+            <span class="font-medium">{{ $call_panel->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $call_panel->lastItem() }}</span>
+        @else
+            {{ $call_panel->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $call_panel->total() }}</span>
+        {!! __('registros') !!}
+    </span>
+
 </div>
 
 <div class="col-12 mb-2">
@@ -94,7 +106,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 border mb-0 overflow-hidden">
 
-                @if(!empty($call_panel['data']->total()) AND ($call_panel['data']->total() > 0))
+                @if(!empty($call_panel->total()) AND ($call_panel->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 text-left" width="5%">Código</th>
@@ -105,7 +117,7 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($call_panel['data'] as $val)
+                        @foreach($call_panel as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdCallPanel}}-table">
                                 
                                 <td class="border name white-space-nowrap py-2">
@@ -170,7 +182,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $call_panel['data']->appends(app('request')->all())->links() }}
+    {{ $call_panel->appends(app('request')->all())->links() }}
     
 </div>
 

@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Unidades Funcionais</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $functional_units['count'] }} de {{ $functional_units['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($functional_units->firstItem())
+            <span class="font-medium">{{ $functional_units->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $functional_units->lastItem() }}</span>
+        @else
+            {{ $functional_units->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $functional_units->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -94,7 +105,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
 
-                @if(!empty($functional_units['data']->total()) AND ($functional_units['data']->total() > 0))
+                @if(!empty($functional_units->total()) AND ($functional_units->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 white-space-nowrap">Titulo</th>
@@ -108,7 +119,7 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($functional_units['data'] as $val)
+                        @foreach($functional_units as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdFunctionalUnits}}-table">
                                 
                                 <td class="border email py-2"><strong>{{ $val->title }}</strong></td>
@@ -164,7 +175,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $functional_units['data']->appends(app('request')->all())->links() }}
+    {{ $functional_units->appends(app('request')->all())->links() }}
     
 </div>
 

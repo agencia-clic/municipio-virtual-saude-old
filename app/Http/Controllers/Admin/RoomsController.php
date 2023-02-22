@@ -8,13 +8,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Accommodations;
 use App\Models\FunctionalUnits;
-use App\Helpers\Mask;
 use DB;
 
 class RoomsController extends Controller
 {
     protected $rooms;
-    protected $mask;
     protected $functional_units;
     protected $accommodations;
 
@@ -27,7 +25,6 @@ class RoomsController extends Controller
     {
         $this->middleware('auth');
         $this->rooms = new Rooms();
-        $this->mask = new Mask();
         $this->functional_units = new FunctionalUnits();
         $this->accommodations = new Accommodations();
     }
@@ -43,7 +40,6 @@ class RoomsController extends Controller
 
         return view('admin.rooms.list', [
             'rooms' => $rooms,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -92,7 +88,6 @@ class RoomsController extends Controller
     {
         $rooms = $this->rooms->list_current(base64_decode($IdRooms));
         return view('admin.rooms.form', [
-            'mask' => $this->mask,
             'functional_units' => $this->functional_units->list_select(),
             'accommodations' => $this->accommodations->list_select(),
             'rooms' => $rooms

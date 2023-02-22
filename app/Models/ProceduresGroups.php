@@ -31,7 +31,7 @@ class ProceduresGroups extends Model
         leftjoin('users as users_responsible', 'procedures_groups.IdUsersResponsible', '=', 'users_responsible.IdUsers')->
         where('procedures_groups.IdEmergencyServices', $IdEmergencyServices);
 
-        return array("data" => $procedures_groups->paginate(env('PAGE_NUMBER')), "count" => $procedures_groups->count());
+        return $procedures_groups->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_run($data)
@@ -62,7 +62,7 @@ class ProceduresGroups extends Model
             $procedures_groups  = $procedures_groups->where('users_patient.cpf_cnpj', 'LIKE', "{$data['cpf_cnpj']}%");
         endif;
 
-        return array("data" => $procedures_groups->paginate(env('PAGE_NUMBER')), "count" => $procedures_groups->count());
+        return $procedures_groups->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

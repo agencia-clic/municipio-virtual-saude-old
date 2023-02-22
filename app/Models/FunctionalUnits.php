@@ -50,7 +50,7 @@ class FunctionalUnits extends Model
             $functional_units = $functional_units->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $functional_units->paginate(env('PAGE_NUMBER')), "count" => $functional_units->count());
+        return $functional_units->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

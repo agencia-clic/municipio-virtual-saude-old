@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Acomodações</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $accommodations['count'] }} de {{ $accommodations['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($accommodations->firstItem())
+            <span class="font-medium">{{ $accommodations->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $accommodations->lastItem() }}</span>
+        @else
+            {{ $accommodations->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $accommodations->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -94,7 +105,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
 
-                @if(!empty($accommodations['data']->total()) AND ($accommodations['data']->total() > 0))
+                @if(!empty($accommodations->total()) AND ($accommodations->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 white-space-nowrap">Titulo</th>
@@ -104,7 +115,7 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($accommodations['data'] as $val)
+                        @foreach($accommodations as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdAccommodations}}-table">
                                 
                                 <td class="border email py-2"><strong>{{ $val->title }}</strong></td>
@@ -156,7 +167,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $accommodations['data']->appends(app('request')->all())->links() }}
+    {{ $accommodations->appends(app('request')->all())->links() }}
     
 </div>
 

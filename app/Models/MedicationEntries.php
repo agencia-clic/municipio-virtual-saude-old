@@ -46,7 +46,7 @@ class MedicationEntries extends Model
             $medication_entries = $medication_entries->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $medication_entries->paginate(env('PAGE_NUMBER')), "count" => $medication_entries->count());
+        return $medication_entries->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

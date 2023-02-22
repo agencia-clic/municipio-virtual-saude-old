@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Beds;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class BedsController extends Controller
 {
     protected $beds;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -23,7 +21,6 @@ class BedsController extends Controller
     {
         $this->middleware('auth');
         $this->beds = new Beds();
-        $this->mask = new Mask();
     }
 
     /**
@@ -37,7 +34,6 @@ class BedsController extends Controller
 
         return view('admin.beds.list', [
             'beds' => $beds,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -81,7 +77,6 @@ class BedsController extends Controller
         $beds = $this->beds->list_current(base64_decode($IdBeds));
 
         return view('admin.beds.form', [
-            'mask' => $this->mask,
             'beds' => $beds
         ]);
     }
@@ -94,9 +89,7 @@ class BedsController extends Controller
      */
     public function show_modal($IdBeds = null)
     {
-        return view('admin.beds.form_modal', [
-            'mask' => $this->mask,
-        ]);
+        return view('admin.beds.form_modal');
     }
 
     /**

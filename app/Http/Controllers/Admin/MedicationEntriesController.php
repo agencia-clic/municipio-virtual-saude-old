@@ -8,13 +8,11 @@ use App\Models\MedicationEntriesRegistrations;
 use App\Models\Medicines;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class MedicationEntriesController extends Controller
 {
     protected $medication_entries;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -25,7 +23,6 @@ class MedicationEntriesController extends Controller
     {
         $this->middleware('auth');
         $this->medication_entries = new MedicationEntries();
-        $this->mask = new Mask();
     }
 
     /**
@@ -38,7 +35,6 @@ class MedicationEntriesController extends Controller
         $medication_entries = $this->medication_entries->list($request);
         return view('admin.medication_entries.list', [
             'medication_entries' => $medication_entries,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -84,7 +80,6 @@ class MedicationEntriesController extends Controller
 
         return view('admin.medication_entries.form', [
             'title' => " Classificações Medicamentos | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'medication_entries' => $medication_entries
         ]);
     }

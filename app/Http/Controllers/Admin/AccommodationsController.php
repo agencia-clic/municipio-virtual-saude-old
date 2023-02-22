@@ -104,7 +104,6 @@ class AccommodationsController extends Controller
         $accommodations = $this->accommodations->list_current(base64_decode($IdAccommodations));
 
         return view('admin.accommodations.form', [
-            'mask' => $this->mask,
             'accommodations' => $accommodations
         ]);
     }

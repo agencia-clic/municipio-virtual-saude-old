@@ -42,7 +42,7 @@ class Clinics extends Model
             $clinics = $clinics->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $clinics->paginate(env('PAGE_NUMBER')), "count" => $clinics->count());
+        return $clinics->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

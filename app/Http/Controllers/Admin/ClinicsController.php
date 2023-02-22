@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Clinics;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class ClinicsController extends Controller
 {
     protected $clinics;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -23,7 +21,6 @@ class ClinicsController extends Controller
     {
         $this->middleware('auth');
         $this->clinics = new Clinics();
-        $this->mask = new Mask();
     }
 
     /**
@@ -37,7 +34,6 @@ class ClinicsController extends Controller
 
         return view('admin.clinics.list', [
             'clinics' => $clinics,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -81,7 +77,6 @@ class ClinicsController extends Controller
         $clinics = $this->clinics->list_current(base64_decode($IdClinics));
 
         return view('admin.clinics.form', [
-            'mask' => $this->mask,
             'clinics' => $clinics
         ]);
     }
@@ -94,9 +89,7 @@ class ClinicsController extends Controller
      */
     public function show_modal($IdClinics = null)
     {
-        return view('admin.clinics.form_modal', [
-            'mask' => $this->mask,
-        ]);
+        return view('admin.clinics.form_modal');
     }
 
     /**

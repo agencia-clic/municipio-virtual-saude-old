@@ -43,7 +43,7 @@ class CallPanel extends Model
             $call_panel = $call_panel->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $call_panel->paginate(env('PAGE_NUMBER')), "count" => $call_panel->count());
+        return $call_panel->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

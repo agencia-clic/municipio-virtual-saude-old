@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Beds;
 use App\Models\Clinics;
 use App\Models\TypeFunctionalUnits;
-use App\Helpers\Mask;
 use DB;
 
 class FunctionalUnitsController extends Controller
@@ -18,7 +17,6 @@ class FunctionalUnitsController extends Controller
     protected $clinics;
     protected $beds;
     protected $type_functional_units;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -29,7 +27,6 @@ class FunctionalUnitsController extends Controller
     {
         $this->middleware('auth');
         $this->functional_units = new FunctionalUnits();
-        $this->mask = new Mask();
         $this->beds = new Beds();
         $this->clinics = new Clinics();
         $this->type_functional_units = new TypeFunctionalUnits();
@@ -46,7 +43,6 @@ class FunctionalUnitsController extends Controller
 
         return view('admin.functional_units.list', [
             'functional_units' => $functional_units,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -98,7 +94,6 @@ class FunctionalUnitsController extends Controller
         $functional_units = $this->functional_units->list_current(base64_decode($IdFunctionalUnits));
 
         return view('admin.functional_units.form', [
-            'mask' => $this->mask,
             'beds' => $this->beds->list_select(),
             'clinics' => $this->clinics->list_select(),
             'type_functional_units' => $this->type_functional_units->list_select(),
@@ -114,9 +109,7 @@ class FunctionalUnitsController extends Controller
      */
     public function show_modal($IdFunctionalUnits = null)
     {
-        return view('admin.functional_units.form_modal', [
-            'mask' => $this->mask,
-        ]);
+        return view('admin.functional_units.form_modal');
     }
 
     /**

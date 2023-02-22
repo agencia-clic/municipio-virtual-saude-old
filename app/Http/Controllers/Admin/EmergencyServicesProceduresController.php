@@ -8,7 +8,6 @@ use App\Models\ProceduresGroups;
 use App\Models\EmergencyServices;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use App\Models\User;
 use App\Models\Procedures;
 use App\Models\ServiceUnits;
@@ -19,7 +18,6 @@ class EmergencyServicesProceduresController extends Controller
 {
     protected $emergency_services_procedures;
     protected $procedures;
-    protected $mask;
     protected $users;
     protected $procedures_groups;
 
@@ -33,7 +31,6 @@ class EmergencyServicesProceduresController extends Controller
         $this->middleware('auth');
         $this->emergency_services_procedures = new EmergencyServicesProcedures();
         $this->procedures = new Procedures();
-        $this->mask = new Mask();
         $this->users = new User();
         $this->procedures_groups = new ProceduresGroups();
     }
@@ -48,7 +45,6 @@ class EmergencyServicesProceduresController extends Controller
         $IdEmergencyServices = base64_decode($IdEmergencyServices);
 
         return view('admin.emergency_services_procedures.list', [
-            'mask' => $this->mask,
             'users' => $this->users,
             'layout' => ['menu' => true, 'header' => true],
             'IdEmergencyServices' => base64_encode($IdEmergencyServices),
@@ -68,7 +64,6 @@ class EmergencyServicesProceduresController extends Controller
         $data['status'] = $request->input('status') ?? "open";
 
         return view('admin.emergency_services_procedures.list-run', [
-            'mask' => $this->mask,
             'procedures_groups' => $this->procedures_groups->list_run($data),
             'users' => $this->users,
         ]);
@@ -84,7 +79,6 @@ class EmergencyServicesProceduresController extends Controller
         $IdEmergencyServices = base64_decode($IdEmergencyServices);
 
         return view('admin.emergency_services_procedures.run', [
-            'mask' => $this->mask,
             'users' => $this->users,
             'layout' => ['menu' => true, 'header' => true],
             'IdEmergencyServices' => base64_encode($IdEmergencyServices),
@@ -103,7 +97,6 @@ class EmergencyServicesProceduresController extends Controller
         $emergency_services_procedures = $this->emergency_services_procedures->list($IdEmergencyServices, base64_decode($IdProceduresGroups));
 
         return view('admin.emergency_services_procedures.table', [
-            'mask' => $this->mask,
             'IdEmergencyServices' => base64_encode($IdEmergencyServices),
             'IdProceduresGroups' => $IdProceduresGroups,
             'emergency_services_procedures' => $emergency_services_procedures
@@ -121,7 +114,6 @@ class EmergencyServicesProceduresController extends Controller
         $emergency_services_procedures = $this->emergency_services_procedures->list($IdEmergencyServices, base64_decode($IdProceduresGroups));
 
         return view('admin.emergency_services_procedures.table-run', [
-            'mask' => $this->mask,
             'users' => $this->users,
             'IdEmergencyServices' => base64_encode($IdEmergencyServices),
             'IdProceduresGroups' => $IdProceduresGroups,
@@ -251,7 +243,6 @@ class EmergencyServicesProceduresController extends Controller
 
         $pdf = PDF::loadView('admin.emergency_services_procedures.export-group', [
             'title' => $title,
-            'mask' => $this->mask,
             'procedures_groups' => $procedures_groups,
             'IdEmergencyServices' => $IdEmergencyServices,
             'emergency_services_procedures' => $emergency_services_procedures,

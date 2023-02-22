@@ -42,7 +42,7 @@ class Beds extends Model
             $beds = $beds->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $beds->paginate(env('PAGE_NUMBER')), "count" => $beds->count());
+        return $beds->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

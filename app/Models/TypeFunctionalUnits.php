@@ -42,7 +42,7 @@ class TypeFunctionalUnits extends Model
             $type_functional_units = $type_functional_units->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
-        return array("data" => $type_functional_units->paginate(env('PAGE_NUMBER')), "count" => $type_functional_units->count());
+        return $type_functional_units->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)

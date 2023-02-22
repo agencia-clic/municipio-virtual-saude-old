@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\TypeFunctionalUnits;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use DB;
 
 class TypeFunctionalUnitsController extends Controller
 {
     protected $type_functional_units;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -23,7 +21,6 @@ class TypeFunctionalUnitsController extends Controller
     {
         $this->middleware('auth');
         $this->type_functional_units = new TypeFunctionalUnits();
-        $this->mask = new Mask();
     }
 
     /**
@@ -37,7 +34,6 @@ class TypeFunctionalUnitsController extends Controller
 
         return view('admin.type_functional_units.list', [
             'type_functional_units' => $type_functional_units,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -81,7 +77,6 @@ class TypeFunctionalUnitsController extends Controller
         $type_functional_units = $this->type_functional_units->list_current(base64_decode($IdTypeFunctionalUnits));
 
         return view('admin.type_functional_units.form', [
-            'mask' => $this->mask,
             'type_functional_units' => $type_functional_units
         ]);
     }
