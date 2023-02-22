@@ -9,14 +9,14 @@ function modal_info(a,b, c, d, button = '', p = "", e = "",) {
                 </div>
 
                 <div class="modal-body p-0">
-                    <div class="${d} rounded-top-lg py-3 ps-4 pe-6">
-                        <h4 class="mb-1 text-light" id="tooltippopoversLabel">${a}</h4>
+                    <div class="${d} rounded-top-lg py-3 ps-3 pe-6">
+                        <h5 class="mb-1 text-light" id="tooltippopoversLabel">${a}</h5>
                     </div>
-                    <div class="p-4 pb-0">
+                    <div class="p-3 pb-0">
                         <div class="row">
                             <div class="col">
-                                <h5>${b}</h5>
-                                <p>${c}</p>
+                                <h6 class="text-secondary">${b}</h6>
+                                <p class="text-secondary">${c}</p>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@ function modal_create(a,b,r,c='primary', d=60, button = `<button class="btn btn-
                 <form class="needs-validation" id="form_modal" name="form_modal" method="POST" enctype="multipart/form-data" action="${r}" novalidate="">
                     <div class="modal-body p-0">
                         <div class="rounded-top-lg py-3 ps-4 pe-6 bg-${c}">
-                            <h4 class="mb-1 text-light" id="modal_create_label">${a}</h4>
+                            <h5 class="mb-1 text-light" id="modal_create_label">${a}</h5>
                         </div>
                         <div class="p-4 mb-2 pb-0">${b}</div>
                     </div>
@@ -79,7 +79,7 @@ function modal_iframe(a, url, button) {
 
                 <div class="modal-body p-0">
                     <div class="rounded-top-lg py-3 ps-4 pe-6 bg-primary">
-                        <h4 class="mb-1 text-light" id="modal_iframe_label">${a}</h4>
+                        <h5 class="mb-1 text-light" id="modal_iframe_label">${a}</h5>
                     </div>
                     <div class="p-4 mb-2 pb-0 container_iframe">
                         <iframe class="responsive-iframe" name="iframe_modal" id="iframe_modal" src="${url}"></iframe>
