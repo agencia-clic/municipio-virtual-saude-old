@@ -7,7 +7,19 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Recepção</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $emergency_services['count'] }} de {{ $emergency_services['data']->total() }} registros</span>
+    
+    <span class="badge bg-primary">
+        @if ($emergency_services->firstItem())
+            <span class="font-medium">{{ $emergency_services->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $emergency_services->lastItem() }}</span>
+        @else
+            {{ $emergency_services->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $emergency_services->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">

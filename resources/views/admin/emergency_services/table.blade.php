@@ -3,7 +3,7 @@
     <div class="table-responsive scrollbar">
         <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden border">
 
-            @if(!empty($emergency_services['data']->total()) AND ($emergency_services['data']->total() > 0))
+            @if(!empty($emergency_services->total()) AND ($emergency_services->total() > 0))
                 <thead class="bg-200 text-900">
                     <tr>
                         <th class="sort pe-1 text-center" width="4%">...</th>
@@ -17,7 +17,7 @@
                 </thead>
                 <tbody class="list list-table" id="table-customers-body">
     
-                    @foreach($emergency_services['data'] as $val)
+                    @foreach($emergency_services as $val)
                         <tr class="btn-reveal-trigger" id="{{$val->IdEmergencyServices}}-table">
 
                             <td class="border phone py-2 text-center">
@@ -142,4 +142,4 @@
 <!-- table -- end -->
 
 <!-- paginations -- start -->
-{{ $emergency_services['data']->appends(app('request')->all())->links() }}
+{{ $emergency_services->appends(app('request')->all())->links() }}
