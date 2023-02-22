@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\EmergencyServices;
-use App\Helpers\Mask;
 use App\Models\EmergencyServicesForwardInternal;
 use App\Models\HospitalizationObservation;
 
@@ -22,7 +21,6 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->mask = new Mask();
     }
 
     /**
@@ -37,7 +35,6 @@ class HomeController extends Controller
             'emergency_services_forward_internal' => EmergencyServicesForwardInternal::where('status', 'a')->where('IdServiceUnits', auth()->user()->units_current()->IdServiceUnits ?? 0)->count(),
             'observation' => HospitalizationObservation::where('status', 'a')->where('IdServiceUnits', auth()->user()->units_current()->IdServiceUnits ?? 0)->where('type', 'o')->count(),
             'internal' => HospitalizationObservation::where('status', 'h')->where('IdServiceUnits', auth()->user()->units_current()->IdServiceUnits ?? 0)->where('type', 'o')->count(),
-            'mask' => $this->mask,
         ]);
     }
 }

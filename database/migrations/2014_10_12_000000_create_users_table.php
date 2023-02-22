@@ -89,43 +89,51 @@ class CreateUsersTable extends Migration
         // make service unit defull
         if(env('APP_ENV') == 'local'):
 
-            $user = User::factory()->make();
-
             // make users defull
-            DB::table('users')->insert([
-                [
+            for ($i = 0; $i < 10; $i++):
+                $user = User::factory()->make();
+                $userData = [
                     'name' => $user->name,
                     'email' => $user->email,
-                    'status' => 'a',
-                    'level' => 'p',
                     'cpf_cnpj' => $user->cpf_cnpj,
                     'mother' => $user->mother,
-                    'online' => "s",
-                    'active_attendance' => 'b',
+                    'status' =>$user->status,
+                    'online' => 'f',
+                    'active_attendance' => $user->active_attendance,
                     'visible' => 'y',
-                    'rg' => 'MG-1234-0',
+                    'level' => 'p',
+                    'image' => $user->image,
+                    'rg' => $user->rg,
                     'phone' => $user->phone,
                     'zip_code' => $user->zip_code,
                     'address' => $user->address,
                     'number' => $user->number,
-                ],
-                [
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'status' => 'a',
-                    'level' => 'p',
-                    'cpf_cnpj' => $user->cpf_cnpj,
-                    'mother' => $user->mother,
-                    'online' => "s",
-                    'active_attendance' => 'b',
-                    'visible' => 'y',
-                    'rg' => 'MG-1234-0',
-                    'phone' => $user->phone,
-                    'zip_code' => $user->zip_code,
-                    'address' => $user->address,
-                    'number' => $user->number,
-                ],
-            ]);
+                    'complement' => $user->complement,
+                    'date_birth' => $user->date_birth,
+                    'district' => $user->district,
+                    'city' => $user->city,
+                    'uf_rg' => $user->uf_rg,
+                    'crm' => $user->crm,
+                    'crn' => $user->crn,
+                    'uf_crm' => $user->uf_crm,
+                    'uf' => $user->uf,
+                    'origin' => $user->origin,
+                    'uf_naturalness' => $user->uf_naturalness,
+                    'naturalness' => $user->naturalness,
+                    'cell' => $user->cell,
+                    'voter_registration' => $user->voter_registration,
+                    'cns' => $user->cns,
+                    'chart' => $user->chart,
+                    'breed' => $user->breed,
+                    'sex' => $user->sex,
+                    'sanguine' => $user->sanguine,
+                    'marital_status' => $user->marital_status,
+                    'schooling' => $user->schooling,
+                ];
+            
+                DB::table('users')->insert([$userData]);
+            endfor;
+        endif;
 
 
     }

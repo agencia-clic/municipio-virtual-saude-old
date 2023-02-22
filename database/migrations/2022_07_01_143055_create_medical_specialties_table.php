@@ -21,6 +21,8 @@ class CreateMedicalSpecialtiesTable extends Migration
             $table->enum('service', ['y', 'n'])->default('n');
             $table->timestamps();
         });
+
+        
     }
 
     /**
