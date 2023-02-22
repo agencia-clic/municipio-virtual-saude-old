@@ -27,7 +27,6 @@
             <div class="row flex-between-center">
                 <div class="col-sm-auto mb-2 mb-sm-0">
                     <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                        <button class="btn btn-primary btn-sm" type="button" data-redirect="{{ route('users.form', ['module' => app('request')->input('module')]) }}"><span class="fas fa-plus"></span></button>
                         <button class="btn btn-primary btn-sm" title="Filtros" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2"><span class="fas fa-search"></span></button>
                         <button class="btn btn-primary btn-sm collapsed" type="button" title="Limpar Filtros" data-redirect="{{ route('users') }}"><span class="fas fa-times"></span></button>
                     </div>

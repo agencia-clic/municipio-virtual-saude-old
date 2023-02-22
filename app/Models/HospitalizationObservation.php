@@ -60,7 +60,7 @@ class HospitalizationObservation extends Model
         leftjoin('cid10', 'emergency_services_diagnostics.IdCid10', '=', 'cid10.IdCid10')->
         leftjoin('rooms_beds', 'hospitalization_observation.IdRoomsBeds', '=', 'rooms_beds.IdRoomsBeds')->groupBy('hospitalization_observation.IdHospitalizationObservation');
 
-        return array("data" => $hospitalization_observation->paginate(env('PAGE_NUMBER')), "count" => $hospitalization_observation->count());
+        return $hospitalization_observation->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_observation($data)
@@ -83,7 +83,7 @@ class HospitalizationObservation extends Model
         leftjoin('emergency_services_conducts', 'emergency_services.IdEmergencyServices', '=', 'emergency_services_conducts.IdEmergencyServices')->
         groupBy('hospitalization_observation.IdHospitalizationObservation');
 
-        return array("data" => $hospitalization_observation->paginate(env('PAGE_NUMBER')), "count" => $hospitalization_observation->count());
+        return $hospitalization_observation->paginate(env('PAGE_NUMBER'));
     }
 
     public function check_next()

@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Central de Leitos</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $rooms_beds['count'] }} de {{ $rooms_beds['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($rooms_beds->firstItem())
+            <span class="font-medium">{{ $rooms_beds->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $rooms_beds->lastItem() }}</span>
+        @else
+            {{ $rooms_beds->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $rooms_beds->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -92,7 +103,7 @@
     <div data-iframe="{{route('central_beds.table')}}"></div>
 
     <!-- paginations -- start -->
-    {{ $rooms_beds['data']->appends(app('request')->all())->links() }}
+    {{ $rooms_beds->appends(app('request')->all())->links() }}
     
 </div>
 

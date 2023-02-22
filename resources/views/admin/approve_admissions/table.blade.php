@@ -3,7 +3,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
 
-                @if(!empty($admit_patient_requests['data']->total()) AND ($admit_patient_requests['data']->total() > 0))
+                @if(!empty($admit_patient_requests->total()) AND ($admit_patient_requests->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 white-space-nowrap">Paciente</th>
@@ -15,7 +15,7 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($admit_patient_requests['data'] as $val)
+                        @foreach($admit_patient_requests as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdAdmitPatientRequests}}-table">
                                 <td class="border email py-2"><strong>{{ $val->patients }}</strong></td>
                                 <td class="border email py-2 text-center"> 

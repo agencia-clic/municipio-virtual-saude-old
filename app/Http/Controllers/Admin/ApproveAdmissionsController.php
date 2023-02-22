@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\AdmitPatientRequests;
 use App\Models\EmergencyServicesConducts;
-use App\Helpers\Mask;
 use App\Models\User;
 use DB;
 
 class ApproveAdmissionsController extends Controller
 {
-    protected $mask;
     protected $admit_patient_requests;
     protected $users;
 
@@ -24,7 +22,6 @@ class ApproveAdmissionsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->mask = new Mask();
         $this->admit_patient_requests = new AdmitPatientRequests();
         $this->users = new User();
     }
@@ -38,7 +35,6 @@ class ApproveAdmissionsController extends Controller
     {
         return view('admin.approve_admissions.list', [
             'admit_patient_requests' => $this->admit_patient_requests->list(),
-            'mask' => $this->mask,
         ]);
     }
 
@@ -52,7 +48,6 @@ class ApproveAdmissionsController extends Controller
         return view('admin.approve_admissions.table', [
             'admit_patient_requests' => $this->admit_patient_requests->list(),
             'users' => $this->users,
-            'mask' => $this->mask,
         ]);
     }
 

@@ -33,7 +33,7 @@ class RoomsBeds extends Model
     {
         $rooms_beds = RoomsBeds::where('rooms_beds.IdRooms', $IdRooms)->where('rooms_beds.IdServiceUnits', auth()->user()->units_current()->IdServiceUnits);
 
-        return array("data" => $rooms_beds->paginate(env('PAGE_NUMBER')), "count" => $rooms_beds->count());
+        return $rooms_beds->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_central()
@@ -54,7 +54,7 @@ class RoomsBeds extends Model
         leftjoin('accommodations', 'rooms.IdAccommodations', '=', 'accommodations.IdAccommodations')->
         groupBy('rooms_beds.IdRoomsBeds')->orderByRaw('CASE WHEN rooms_beds.status = "o" THEN 1 WHEN rooms_beds.status <> "o" THEN 2 end ASC');
 
-        return array("data" => $rooms_beds->paginate(env('PAGE_NUMBER')), "count" => $rooms_beds->count());
+        return $rooms_beds->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)
