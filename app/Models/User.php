@@ -29,7 +29,7 @@ class User extends Authenticatable
         'cell',
         'phone',
         'crm',
-        'crn',
+        'cns',
         'uf_crm',
         'rg',
         'uf_rg',

@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
 
 class CreateUsersTable extends Migration
 {
@@ -84,6 +85,49 @@ class CreateUsersTable extends Migration
                 'level' => 'a'
             ]
         ]);
+
+        // make service unit defull
+        if(env('APP_ENV') == 'local'):
+
+            $user = User::factory()->make();
+
+            // make users defull
+            DB::table('users')->insert([
+                [
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'status' => 'a',
+                    'level' => 'p',
+                    'cpf_cnpj' => $user->cpf_cnpj,
+                    'mother' => $user->mother,
+                    'online' => "s",
+                    'active_attendance' => 'b',
+                    'visible' => 'y',
+                    'rg' => 'MG-1234-0',
+                    'phone' => $user->phone,
+                    'zip_code' => $user->zip_code,
+                    'address' => $user->address,
+                    'number' => $user->number,
+                ],
+                [
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'status' => 'a',
+                    'level' => 'p',
+                    'cpf_cnpj' => $user->cpf_cnpj,
+                    'mother' => $user->mother,
+                    'online' => "s",
+                    'active_attendance' => 'b',
+                    'visible' => 'y',
+                    'rg' => 'MG-1234-0',
+                    'phone' => $user->phone,
+                    'zip_code' => $user->zip_code,
+                    'address' => $user->address,
+                    'number' => $user->number,
+                ],
+            ]);
+
+
     }
 
     /**

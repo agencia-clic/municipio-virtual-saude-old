@@ -228,7 +228,65 @@
                     </div>
                 </div>
             </div>
+            <div class="row mt-1">
+                <!-- medical - start -->
+                @if(app('request')->input('module') == "medical")                 
             
+                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div id="crm_fields" class="form-group">
+                        <label for="crm" id="label_crm">CRM:</label>
+                        <input type="text" id="crm" name="crm" class="form-control form-control-sm @error('crm') is-invalid @enderror" value="{{old('crm') ?? $users->crm ?? ""}}" {{ app('request')->input('module') == "medical" ? "required" : "" }}>
+                        <div class="valid-feedback">sucesso!</div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div id="uf_crm_fields" class="form-group">
+                        <label for="uf_crm" id="label_uf_crm">Estado/UF:</label>
+                        <select id="uf_crm" name="uf_crm" class="form-control form-control-sm @error('uf_crm') is-invalid @enderror" {{ app('request')->input('module') == "medical" ? "required" : "" }}>
+                            <option value="" selected="selected">...</option>
+                            <option value="AC" @if((old('uf_crm') == "AC") OR (!empty($users) AND ($users->uf_crm == "AC")))selected @endif>AC</option>
+                            <option value="AL" @if((old('uf_crm') == "AL") OR (!empty($users) AND ($users->uf_crm == "AL")))selected @endif>AL</option>
+                            <option value="AM" @if((old('uf_crm') == "AM") OR (!empty($users) AND ($users->uf_crm == "AM")))selected @endif>AM</option>
+                            <option value="AP" @if((old('uf_crm') == "AP") OR (!empty($users) AND ($users->uf_crm == "AP")))selected @endif>AP</option>
+                            <option value="BA" @if((old('uf_crm') == "BA") OR (!empty($users) AND ($users->uf_crm == "BA")))selected @endif>BA</option>
+                            <option value="CE" @if((old('uf_crm') == "CE") OR (!empty($users) AND ($users->uf_crm == "CE")))selected @endif>CE</option>
+                            <option value="DF" @if((old('uf_crm') == "DF") OR (!empty($users) AND ($users->uf_crm == "DF")))selected @endif>DF</option>
+                            <option value="ES" @if((old('uf_crm') == "ES") OR (!empty($users) AND ($users->uf_crm == "ES")))selected @endif>ES</option>
+                            <option value="GO" @if((old('uf_crm') == "GO") OR (!empty($users) AND ($users->uf_crm == "GO")))selected @endif>GO</option>
+                            <option value="MA" @if((old('uf_crm') == "MA") OR (!empty($users) AND ($users->uf_crm == "MA")))selected @endif>MA</option>
+                            <option value="MG" @if((old('uf_crm') == "MG") OR (!empty($users) AND ($users->uf_crm == "MG")))selected @endif>MG</option>
+                            <option value="MS" @if((old('uf_crm') == "MS") OR (!empty($users) AND ($users->uf_crm == "MS")))selected @endif>MS</option>
+                            <option value="MT" @if((old('uf_crm') == "MT") OR (!empty($users) AND ($users->uf_crm == "MT")))selected @endif>MT</option>
+                            <option value="PA" @if((old('uf_crm') == "PA") OR (!empty($users) AND ($users->uf_crm == "PA")))selected @endif>PA</option>
+                            <option value="PB" @if((old('uf_crm') == "PB") OR (!empty($users) AND ($users->uf_crm == "PB")))selected @endif>PB</option>
+                            <option value="PE" @if((old('uf_crm') == "PE") OR (!empty($users) AND ($users->uf_crm == "PE")))selected @endif>PE</option>
+                            <option value="PI" @if((old('uf_crm') == "PI") OR (!empty($users) AND ($users->uf_crm == "PI")))selected @endif>PI</option>
+                            <option value="PR" @if((old('uf_crm') == "PR") OR (!empty($users) AND ($users->uf_crm == "PR")))selected @endif>PR</option>
+                            <option value="RJ" @if((old('uf_crm') == "RJ") OR (!empty($users) AND ($users->uf_crm == "RJ")))selected @endif>RJ</option>
+                            <option value="RN" @if((old('uf_crm') == "RN") OR (!empty($users) AND ($users->uf_crm == "RN")))selected @endif>RN</option>
+                            <option value="RO" @if((old('uf_crm') == "RO") OR (!empty($users) AND ($users->uf_crm == "RO")))selected @endif>RO</option>
+                            <option value="RR" @if((old('uf_crm') == "RR") OR (!empty($users) AND ($users->uf_crm == "RR")))selected @endif>RR</option>
+                            <option value="RS" @if((old('uf_crm') == "RS") OR (!empty($users) AND ($users->uf_crm == "RS")))selected @endif>RS</option>
+                            <option value="SC" @if((old('uf_crm') == "SC") OR (!empty($users) AND ($users->uf_crm == "SC")))selected @endif>SC</option>
+                            <option value="SE" @if((old('uf_crm') == "SE") OR (!empty($users) AND ($users->uf_crm == "SE")))selected @endif>SE</option>
+                            <option value="SP" @if((old('uf_crm') == "SP") OR (!empty($users) AND ($users->uf_crm == "SP")))selected @endif>SP</option>
+                            <option value="TO" @if((old('uf_crm') == "TO") OR (!empty($users) AND ($users->uf_crm == "TO")))selected @endif>TO</option>	
+                        </select>
+                        <div class="valid-feedback">sucesso!</div>
+                    </div>
+                </div>  
+                @endif
+                <!-- medical - end -->
+
+                     <div class="col-sm-12 col-md col-lg col-xl">
+                        <div id="crn_fields" class="form-group">
+                            <label for="cns" id="label_cns">CNS:</label>
+                            <input type="text" id="crn" name="cns" class="form-control form-control-sm @error('cns') is-invalid @enderror" value="{{old('cns') ?? $users->cns ?? ""}}">
+                            <div class="valid-feedback">sucesso!</div>
+                        </div>
+                    </div>
+                </div>            
         </div>
     </div>
     <!-- complemnt - end -->
@@ -276,77 +334,6 @@
     </div>
     @endif
     <!-- specialties - end -->
-
-    <!-- medical - start -->
-    @if(app('request')->input('module') == "medical")
-    <div class="card mb-3">
-        <div class="card-header">
-            <div class="row flex-between-end">
-                <div class="col-auto align-self-center">
-                    <h5 class="mb-0">Dados</h5>
-                </div>
-            </div>
-        </div>
-        
-        <div class="card-body bg-light">
-            <div class="row">
-                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div id="crm_fields" class="form-group">
-                        <label for="crm" id="label_crm">CRM:</label>
-                        <input type="text" id="crm" name="crm" class="form-control form-control-sm @error('crm') is-invalid @enderror" value="{{old('crm') ?? $users->crm ?? ""}}" {{ app('request')->input('module') == "medical" ? "required" : "" }}>
-                        <div class="valid-feedback">sucesso!</div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div id="uf_crm_fields" class="form-group">
-                        <label for="uf_crm" id="label_uf_crm">Estado/UF:</label>
-                        <select id="uf_crm" name="uf_crm" class="form-control form-control-sm @error('uf_crm') is-invalid @enderror" {{ app('request')->input('module') == "medical" ? "required" : "" }}>
-                            <option value="" selected="selected">...</option>
-                            <option value="AC" @if((old('uf_crm') == "AC") OR (!empty($users) AND ($users->uf_crm == "AC")))selected @endif>AC</option>
-                            <option value="AL" @if((old('uf_crm') == "AL") OR (!empty($users) AND ($users->uf_crm == "AL")))selected @endif>AL</option>
-                            <option value="AM" @if((old('uf_crm') == "AM") OR (!empty($users) AND ($users->uf_crm == "AM")))selected @endif>AM</option>
-                            <option value="AP" @if((old('uf_crm') == "AP") OR (!empty($users) AND ($users->uf_crm == "AP")))selected @endif>AP</option>
-                            <option value="BA" @if((old('uf_crm') == "BA") OR (!empty($users) AND ($users->uf_crm == "BA")))selected @endif>BA</option>
-                            <option value="CE" @if((old('uf_crm') == "CE") OR (!empty($users) AND ($users->uf_crm == "CE")))selected @endif>CE</option>
-                            <option value="DF" @if((old('uf_crm') == "DF") OR (!empty($users) AND ($users->uf_crm == "DF")))selected @endif>DF</option>
-                            <option value="ES" @if((old('uf_crm') == "ES") OR (!empty($users) AND ($users->uf_crm == "ES")))selected @endif>ES</option>
-                            <option value="GO" @if((old('uf_crm') == "GO") OR (!empty($users) AND ($users->uf_crm == "GO")))selected @endif>GO</option>
-                            <option value="MA" @if((old('uf_crm') == "MA") OR (!empty($users) AND ($users->uf_crm == "MA")))selected @endif>MA</option>
-                            <option value="MG" @if((old('uf_crm') == "MG") OR (!empty($users) AND ($users->uf_crm == "MG")))selected @endif>MG</option>
-                            <option value="MS" @if((old('uf_crm') == "MS") OR (!empty($users) AND ($users->uf_crm == "MS")))selected @endif>MS</option>
-                            <option value="MT" @if((old('uf_crm') == "MT") OR (!empty($users) AND ($users->uf_crm == "MT")))selected @endif>MT</option>
-                            <option value="PA" @if((old('uf_crm') == "PA") OR (!empty($users) AND ($users->uf_crm == "PA")))selected @endif>PA</option>
-                            <option value="PB" @if((old('uf_crm') == "PB") OR (!empty($users) AND ($users->uf_crm == "PB")))selected @endif>PB</option>
-                            <option value="PE" @if((old('uf_crm') == "PE") OR (!empty($users) AND ($users->uf_crm == "PE")))selected @endif>PE</option>
-                            <option value="PI" @if((old('uf_crm') == "PI") OR (!empty($users) AND ($users->uf_crm == "PI")))selected @endif>PI</option>
-                            <option value="PR" @if((old('uf_crm') == "PR") OR (!empty($users) AND ($users->uf_crm == "PR")))selected @endif>PR</option>
-                            <option value="RJ" @if((old('uf_crm') == "RJ") OR (!empty($users) AND ($users->uf_crm == "RJ")))selected @endif>RJ</option>
-                            <option value="RN" @if((old('uf_crm') == "RN") OR (!empty($users) AND ($users->uf_crm == "RN")))selected @endif>RN</option>
-                            <option value="RO" @if((old('uf_crm') == "RO") OR (!empty($users) AND ($users->uf_crm == "RO")))selected @endif>RO</option>
-                            <option value="RR" @if((old('uf_crm') == "RR") OR (!empty($users) AND ($users->uf_crm == "RR")))selected @endif>RR</option>
-                            <option value="RS" @if((old('uf_crm') == "RS") OR (!empty($users) AND ($users->uf_crm == "RS")))selected @endif>RS</option>
-                            <option value="SC" @if((old('uf_crm') == "SC") OR (!empty($users) AND ($users->uf_crm == "SC")))selected @endif>SC</option>
-                            <option value="SE" @if((old('uf_crm') == "SE") OR (!empty($users) AND ($users->uf_crm == "SE")))selected @endif>SE</option>
-                            <option value="SP" @if((old('uf_crm') == "SP") OR (!empty($users) AND ($users->uf_crm == "SP")))selected @endif>SP</option>
-                            <option value="TO" @if((old('uf_crm') == "TO") OR (!empty($users) AND ($users->uf_crm == "TO")))selected @endif>TO</option>	
-                        </select>
-                        <div class="valid-feedback">sucesso!</div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div id="crn_fields" class="form-group">
-                        <label for="crn" id="label_crn">CRN</label>
-                        <input type="text" id="crn" name="crn" class="form-control form-control-sm @error('crn') is-invalid @enderror" value="{{old('crn') ?? $users->crn ?? ""}}">
-                        <div class="valid-feedback">sucesso!</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
-    <!-- medical - end -->
 
     <!-- credential - start -->
     <div class="card mb-3">

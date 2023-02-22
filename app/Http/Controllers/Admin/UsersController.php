@@ -79,7 +79,7 @@ class UsersController extends Controller
             'phone' => preg_replace('/[^0-9]/', '', $data['phone']),
             'rg' => $data['rg'],
             'crm' => $request->input('crm'),
-            'crn' => $request->input('crn'),
+            'cns' => $request->input('cns'),
             'uf_crm' => $request->input('uf_crm'),
             'uf_rg' => $data['uf_rg'],
             'date_birth' => $data['date_birth'],
@@ -154,7 +154,7 @@ class UsersController extends Controller
         $user->phone = preg_replace('/[^0-9]/', '', $data['phone']);
         $user->rg = $data['rg'];
         $user->crm = $request->input('crm');
-        $user->crn = $request->input('crn');
+        $user->cns = $request->input('cns');
         $user->uf_crm = $request->input('uf_crm');
         $user->uf_rg = $data['uf_rg'];
         $user->date_birth = $data['date_birth'];
