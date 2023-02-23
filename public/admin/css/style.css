@@ -185,3 +185,34 @@ body::-webkit-scrollbar-thumb {
     border-left: 1px;
     border-left: 5px solid #2c7be5;
 }
+
+button.btn-circle {
+    width: 1.0rem !important;
+    height: 1.0rem !important;
+    padding: 6px !important;
+    margin-top: 5px !important;
+    margin-right: 5px;
+}
+
+.setting-toggle {
+    -webkit-transform: rotate(90deg) !important;
+    -ms-transform: rotate(90deg) !important;
+    transform: rotate(90deg) !important;
+    outline: none !important;
+    margin-top: -83px;
+    -webkit-box-shadow: var(--falcon-setting-toggle-shadow) !important;
+    box-shadow: var(--falcon-setting-toggle-shadow) !important;
+    border-radius: 10px;
+    border-right: 0;
+    z-index: 1016;
+    margin-right: -13px;
+}
+.setting-toggle .bg-soft-primary, .setting-toggle .fc-timegrid .event-bg-soft-primary, .fc-timegrid .setting-toggle .event-bg-soft-primary {
+    background-color: transparent !important;
+}
+.setting-toggle small, .setting-toggle .small {
+    display: none !important;
+}
+.setting-toggle:hover {
+text-decoration: none !important;
+}
