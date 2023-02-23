@@ -17,7 +17,7 @@ class CreateScreeningsTable extends Migration
             $table->id('IdScreenings');
             $table->integer('IdServiceUnits');
             $table->integer('IdEmergencyServices');
-            $table->integer('IdFlowcharts')->nullable();
+            $table->integer('IdMedicalSpecialties')->nullable();
             $table->integer('IdUsers')->nullable();
             $table->integer('IdUsersResponsible');
             $table->index(['IdServiceUnits']);

@@ -98,11 +98,11 @@ class ScreeningsController extends Controller
         // validator
         $validator = Validator::make($data, [
             'temperature' => ['required', 'string', 'max:255'],
-            'IdEmergencyServices' => ['required', 'string', 'max:255'],
+            'IdMedicalSpecialties' => ['required', 'max:255'],
             'O2_saturation' => ['required', 'string', 'max:255'],
             'blood_pressure' => ['required', 'string', 'max:255'],
         ]);
-
+        
         // update emergency services
         $emergency_services = $this->emergency_services::find($IdEmergencyServices);
         $emergency_services->types = "atem";
@@ -181,7 +181,7 @@ class ScreeningsController extends Controller
             'emergency_services' => $emergency_services,
             'users' => $this->users->list_current($emergency_services->IdUsers),
             'screenings' => $screenings,
-            'medical_specialties' => MedicalSpecialties::select('title', 'code')->where('status', 'a')->where('service', 'y')->get(),
+            'medical_specialties' => MedicalSpecialties::select('IdMedicalSpecialties', 'title', 'code')->where('status', 'a')->where('service', 'y')->get(),
         ]);
     }
 

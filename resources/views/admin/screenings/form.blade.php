@@ -379,8 +379,8 @@
                             <select name="IdMedicalSpecialties" id="IdMedicalSpecialties" class="form-control form-control-sm @error('IdMedicalSpecialties') is-invalid @enderror" @if(!empty($screenings)) disabled @endif>
                                 <option value="">...</option>
                                 @if(!empty($medical_specialties))
-                                    @foreach($medical_specialties as $val)
-                                        <option value="{{ $val->IdMedicalSpecialties }}" @if(old('IdMedicalSpecialties') == $val->IdMedicalSpecialties OR (!empty($screenings) AND ($val->IdMedicalSpecialties == $screenings->IdMedicalSpecialties)))selected @endif>{{ $val->code }} • {{ $val->title }}
+                                    @foreach($medical_specialties as $key => $val)
+                                        <option value="{{ $val->IdMedicalSpecialties }}" @if(old('IdMedicalSpecialties') == $val->IdMedicalSpecialties OR (!empty($screenings) AND ($val->IdMedicalSpecialties == $screenings->IdMedicalSpecialties) OR ($key == 0)))selected @endif>{{ $val->code }} • {{ $val->title }}
                                         </option>
                                     @endforeach
                                 @endif

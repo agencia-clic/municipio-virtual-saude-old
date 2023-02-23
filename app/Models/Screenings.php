@@ -76,6 +76,8 @@ class Screenings extends Model
             $screenings = $screenings->where('title', 'LIKE', "%{$filter['title']}%");
         endif;
 
+        $screenings = $screenings->orderBy('IdScreenings', 'ASC');
+
         return $screenings->paginate(env('PAGE_NUMBER'));
     }
 
