@@ -39,7 +39,7 @@ class AdmitPatientRequests extends Model
         leftjoin('users as users_responsible_admit', 'admit_patient_requests.IdUsersResponsibleAdmit', '=', 'users_responsible_admit.IdUsers')->
         whereIn('admit_patient_requests.status', ['w', 'a'])->where('IdServiceUnits', auth()->user()->units_current()->IdServiceUnits);
 
-        return array("data" => $admit_patient_requests->paginate(env('PAGE_NUMBER')), "count" => $admit_patient_requests->count());
+        return $admit_patient_requests->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($IdUsers)

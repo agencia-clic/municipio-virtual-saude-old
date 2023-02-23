@@ -7,7 +7,6 @@ use App\Models\RoomsBeds;
 use App\Models\RoomsService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use App\Models\MedicalSpecialties;
 use DB;
 
@@ -15,7 +14,6 @@ class RoomsBedsController extends Controller
 {
     protected $medical_specialties;
     protected $rooms_beds;
-    protected $mask;
 
     /**
      * Create a new controller instance.
@@ -26,7 +24,6 @@ class RoomsBedsController extends Controller
     {
         $this->middleware('auth');
         $this->rooms_beds = new RoomsBeds();
-        $this->mask = new Mask();
     }
 
     /**
@@ -39,7 +36,6 @@ class RoomsBedsController extends Controller
         $IdRooms = base64_decode($IdRooms);
         $rooms_beds = $this->rooms_beds->list($IdRooms);
         return view('admin.rooms_beds.list', [
-            'mask' => $this->mask,
             'rooms_beds' => $rooms_beds
         ]);
     }

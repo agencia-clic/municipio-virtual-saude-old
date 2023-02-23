@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Aprovação de Internação</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $admit_patient_requests['count'] }} de {{ $admit_patient_requests['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($admit_patient_requests->firstItem())
+            <span class="font-medium">{{ $admit_patient_requests->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $admit_patient_requests->lastItem() }}</span>
+        @else
+            {{ $admit_patient_requests->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $admit_patient_requests->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -92,7 +103,7 @@
     <div id="table-admit_patient_requests" url="{{route('approve_admissions.table', app('request')->all())}}"></div>
 
     <!-- paginations -- start -->
-    {{ $admit_patient_requests['data']->appends(app('request')->all())->links() }}
+    {{ $admit_patient_requests->appends(app('request')->all())->links() }}
     
 </div>
 

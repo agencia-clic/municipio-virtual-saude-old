@@ -7,7 +7,18 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h4 text-800">Pacientes Observação</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $hospitalization_observation['count'] }} de {{ $hospitalization_observation['data']->total() }} registros</span>
+    <span class="badge bg-primary">
+        @if ($hospitalization_observation->firstItem())
+            <span class="font-medium">{{ $hospitalization_observation->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $hospitalization_observation->lastItem() }}</span>
+        @else
+            {{ $hospitalization_observation->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $hospitalization_observation->total() }}</span>
+        {!! __('registros') !!}
+    </span>
 </div>
 
 <div class="col-12 mb-2">
@@ -92,7 +103,7 @@
         <div class="table-responsive scrollbar">
             <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
 
-                @if(!empty($hospitalization_observation['data']->total()) AND ($hospitalization_observation['data']->total() > 0))
+                @if(!empty($hospitalization_observation->total()) AND ($hospitalization_observation->total() > 0))
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 text-center" width="4%">...</th>
@@ -104,7 +115,7 @@
                     </thead>
                     <tbody class="list list-table" id="table-customers-body">
         
-                        @foreach($hospitalization_observation['data'] as $val)
+                        @foreach($hospitalization_observation as $val)
                             <tr class="btn-reveal-trigger" id="{{$val->IdRooms}}-table">
                                 <td class="border text-center align-middle">
                                     <div class="avatar avatar-xl me-2">
@@ -179,7 +190,7 @@
     <!-- table -- end -->
 
     <!-- paginations -- start -->
-    {{ $hospitalization_observation['data']->appends(app('request')->all())->links() }}
+    {{ $hospitalization_observation->appends(app('request')->all())->links() }}
     
 </div>
 

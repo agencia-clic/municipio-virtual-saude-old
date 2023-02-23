@@ -6,7 +6,7 @@
             @if(!empty($emergency_services->total()) AND ($emergency_services->total() > 0))
                 <thead class="bg-200 text-900">
                     <tr>
-                        <th class="sort pe-1" width="3%"></th>
+                        <th class="sort pe-1 text-center" width="3%"></th>
                         <th class="sort pe-1">Paciente</th>
                         <th class="sort pe-1 text-center" width="20%">Responsável</th>
                         <th class="sort pe-1 text-center" width="8%">Idade</th>

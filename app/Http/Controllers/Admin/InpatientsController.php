@@ -7,11 +7,9 @@ use App\Models\HospitalizationObservation;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 
-use App\Helpers\Mask;
 
 class InpatientsController extends Controller
 {
-    protected $mask;
     protected $hospitalization_observation;
     protected $users;
 
@@ -23,7 +21,6 @@ class InpatientsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->mask = new Mask();
         $this->hospitalization_observation = new HospitalizationObservation();
         $this->users = new User();
     }
@@ -38,7 +35,6 @@ class InpatientsController extends Controller
         return view('admin.inpatients.list', [
             'hospitalization_observation' => $this->hospitalization_observation->list(),
             'users' => $this->users,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -52,7 +48,6 @@ class InpatientsController extends Controller
         return view('admin.inpatients.list_observation', [
             'hospitalization_observation' => $this->hospitalization_observation->list_observation(['type' => ['o']]),
             'users' => $this->users,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -66,7 +61,6 @@ class InpatientsController extends Controller
         return view('admin.inpatients.list_revaluation', [
             'hospitalization_observation' => $this->hospitalization_observation->list_observation(['type' => ['r']]),
             'users' => $this->users,
-            'mask' => $this->mask,
         ]);
     }
 }
