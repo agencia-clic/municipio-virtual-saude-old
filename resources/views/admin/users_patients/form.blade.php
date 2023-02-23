@@ -29,24 +29,33 @@
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div id="name_fields" class="form-group">
+                        <label for="social_name" id="label_social_name">Nome social:</label>
+                        <input type="text" id="social_name" name="social_name" class="form-control form-control-sm @error('social_name') is-invalid @enderror" value="{{old('social_name') ?? $users->social_name ?? ""}}" required>
+                        <div class="valid-feedback">sucesso!</div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div id="email_fields" class="form-group">
                         <label for="email" id="label_email">E-mail:</label>
                         <input type="text" id="email" name="email" class="form-control form-control-sm @error('email') is-invalid @enderror" value="{{old('email') ?? $users->email ?? ""}}" data-no-uppercase="true">
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="row mt-1">
+
+                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3">
                     <div id="cpf_cnpj_fields" class="form-group">
                         <label for="cpf_cnpj" id="label_cpf_cnpj">CPF:</label>
                         <input type="text" id="cpf_cnpj" name="cpf_cnpj" class="form-control form-control-sm @error('cpf_cnpj') is-invalid @enderror" value="{{old('cpf_cnpj') ?? $users->cpf_cnpj ?? ""}}" @if(!empty($users->cpf_cnpj))readonly @endif required>
                         <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row mt-1">
-                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3">
                     <div id="cns_fields" class="form-group">
                         <label for="cns" id="label_cns">CNS:</label>
                         <input type="number" id="cns" name="cns" class="form-control form-control-sm @error('cns') is-invalid @enderror" value="{{ old('cns') ?? $users->cns ?? "" }}" @if(!empty($users->cns))readonly @endif>
@@ -55,7 +64,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-2">
                     <div id="date_birth_fields" class="form-group @error('date_birth') is-invalid @enderror">
                         <label for="date_birth" id="label_date_birth">Data Nascimento:</label>
                         <input type="text" id="date_birth" name="date_birth" class="form-control form-control-sm" value="{{!empty($users) ? date('d-m-Y', strtotime($users->date_birth)) : old('date_birth') }}" required>
