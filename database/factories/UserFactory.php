@@ -17,6 +17,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
+            'social_name'=> $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'cpf_cnpj' => $this->faker->unique()->numerify('###########'),
             'mother' => $this->faker->firstNameFemale,

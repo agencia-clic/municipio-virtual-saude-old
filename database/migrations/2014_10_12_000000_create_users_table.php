@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id('IdUsers');
             $table->string('name');
+            $table->string('social_name')->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('cpf_cnpj')->unique()->nullable();
             $table->string('mother')->nullable();
@@ -87,13 +88,14 @@ class CreateUsersTable extends Migration
         ]);
 
         // make service unit defull
-        if(env('APP_ENV') == 'local'):
+        if(env('APP_ENV') === 'local'):
 
             // make users defull
             for ($i = 0; $i < 10; $i++):
                 $user = User::factory()->make();
                 $userData = [
                     'name' => $user->name,
+                    'social_name' => $user->social_name,
                     'email' => $user->email,
                     'cpf_cnpj' => $user->cpf_cnpj,
                     'mother' => $user->mother,
