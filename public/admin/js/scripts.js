@@ -71,7 +71,7 @@ $(document).on("click", ".call-save-attendance", function(e) {
         a = ""
         modal_call(a, $('#call-attendance').attr('href'))
     }else{
-        modal_iframe("Registros de Chamadas", $(this).attr('href'), `<button type="button" class="btn btn-primary call-save-modal" data-url='${$(this).attr('href')}' data-bs-dismiss="modal">Chamar</button>`)
+        modal_iframe("Registros de Chamadas", $(this).attr('href'), `<button type="button" class="btn btn-primary btn-sm call-save-modal" data-url='${$(this).attr('href')}' data-bs-dismiss="modal">Chamar</button>`)
     }
 });
 

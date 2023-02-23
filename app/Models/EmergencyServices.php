@@ -51,7 +51,7 @@ class EmergencyServices extends Model
         $emergency_services = EmergencyServices::
         where('IdServiceUnits', auth()->user()->units_current()->IdServiceUnits)->
 
-        select('emergency_services.*', 'users.name as users_name', 'users.cpf_cnpj as users_cpf_cnpj', 'users_responsible.name as responsible', 'users_screenings.name as users_screenings_name')->
+        select('emergency_services.*', 'users.name as users_name', 'users.date_birth as users_date_birth', 'users.cpf_cnpj as users_cpf_cnpj', 'users_responsible.name as responsible', 'users_screenings.name as users_screenings_name')->
         leftjoin('users', 'emergency_services.IdUsers', '=', 'users.IdUsers')->
         leftjoin('users as users_responsible', 'emergency_services.IdUsersResponsible', '=', 'users_responsible.IdUsers')->
         leftjoin('users as users_screenings', 'emergency_services.IdUsersResponsibleScreenings', '=', 'users_screenings.IdUsers')->orderByDesc('IdEmergencyServices');
@@ -127,8 +127,7 @@ class EmergencyServices extends Model
                 'users.name as users_name', 
                 'users.date_birth as users_date_birth',
                 'users.cpf_cnpj as users_cpf_cnpj'
-            )->
-            leftjoin('users', 'emergency_services.IdUsers', '=', 'users.IdUsers')->where('IdEmergencyServices', $id)->first();
+            )->join('users', 'emergency_services.IdUsers', '=', 'users.IdUsers')->where('IdEmergencyServices', $id)->first();
         endif;
     }
 

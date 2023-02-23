@@ -110,17 +110,17 @@ function inject_css(a, b) {
 }
 
 //modal info
-$(document).on('click', 'a[moda-alert]', function(e){
+$(document).on('click', 'a[modal-alert]', function(e){
 
     e.preventDefault()
     let button;
-    let modal = $('a[moda-alert]').attr('moda-alert')
+    let modal = $('a[modal-alert]').attr('modal-alert')
     let url = $(this).attr('href')
     modal = modal.split(",")
     
 
     if(url){
-        button = `<a href='${url}'><button class="btn btn-info submit-form-iframe" type="button">Sim</button></a>`
+        button = `<a href='${url}'><button class="btn btn-primary submit-form-iframe btn-sm" type="button">Sim</button></a>`
     }
 
     modal_info(modal[0], '', modal[1], 'bg-primary', button)

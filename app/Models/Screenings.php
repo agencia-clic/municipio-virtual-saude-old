@@ -48,6 +48,8 @@ class Screenings extends Model
         'discharge_reason',
         'classification',
         'IdUsersResponsibleScreenings',
+        'breathing_type',
+        'allergic_reactions',
     ];
 
     protected $primaryKey = 'IdScreenings';

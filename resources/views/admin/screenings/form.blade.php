@@ -51,12 +51,14 @@
                             <h5>
                                 <h6 class="alert-heading fw-semi-bold">
                                 <span class="mt-1"> {{ $emergency_services->users_name }}
-                                    @if($emergency_services->users_cpf_cnpj)
-                                        • {{ $mask->cpf_cnpj($emergency_services->users_cpf_cnpj) }}
+                                    @if(strlen($emergency_services->users_cpf_cnpj) == 11)
+                                        •  {{ Mask::default($emergency_services->users_cpf_cnpj, '###.###.###-##') }}
+                                    @elseif(strlen($emergency_services->users_cpf_cnpj) == 14)
+                                        •  {{ Mask::default($emergency_services->users_cpf_cnpj, '##.###.###/####-##') }}
                                     @endif
                         
                                     @if(!empty($emergency_services->users_date_birth))
-                                        • {{ $mask->birth($emergency_services->users_date_birth) }} ANOS
+                                        • {{ Mask::birth($emergency_services->users_date_birth) }} ANOS
                                     @endif</span> 
                                 </h6>
                         
@@ -180,7 +182,7 @@
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="temperature_fields" class="form-group">
                                     <label for="temperature" id="label_temperature">Temperatura:</label>
-                                    <input type="text" id="temperature" name="temperature" class="form-control  @error('temperature') is-invalid @enderror" value="{{old('temperature') ?? $screenings->temperature ?? ""}}" @if(!empty($screenings)) disabled @endif>
+                                    <input type="text" id="temperature" name="temperature" class="form-control form-control-sm @error('temperature') is-invalid @enderror" value="{{old('temperature') ?? $screenings->temperature ?? ""}}" @if(!empty($screenings)) disabled @endif>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -220,16 +222,6 @@
                             </div>
 
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div id="O2_saturation_fields" class="form-group">
-                                    <label for="O2_saturation" id="label_O2_saturation">Saturação O²:</label>
-                                    <input type="text" id="O2_saturation" name="O2_saturation" class="form-control form-control-sm @error('O2_saturation') is-invalid @enderror" value="{{old('O2_saturation') ?? $screenings->O2_saturation ?? ""}}" @if(!empty($screenings)) disabled @endif>
-                                    <div class="valid-feedback">sucesso!</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-1">
-                            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="blood_pressure_fields" class="form-group">
                                     <label for="blood_pressure" id="label_blood_pressure">Pressão Arterial (MM/HG):</label>
                                     <input type="text" id="blood_pressure" name="blood_pressure" class="form-control form-control-sm @error('blood_pressure') is-invalid @enderror" value="{{old('blood_pressure') ?? $screenings->blood_pressure ?? ""}}" @if(!empty($screenings)) disabled @endif>
@@ -237,6 +229,9 @@
                                 </div>
                             </div>
 
+                        </div>
+
+                        <div class="row mt-1">
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="ecg_fields" class="form-group">
                                     <label for="ecg" id="label_ecg">ECG:</label>
@@ -244,11 +239,45 @@
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div id="O2_saturation_fields" class="form-group">
+                                    <label for="O2_saturation" id="label_O2_saturation">Saturação O²:</label>
+                                    <input type="text" id="O2_saturation" name="O2_saturation" class="form-control form-control-sm @error('O2_saturation') is-invalid @enderror" value="{{old('O2_saturation') ?? $screenings->O2_saturation ?? ""}}" @if(!empty($screenings)) disabled @endif>
+                                    <div class="valid-feedback">sucesso!</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div id="breathing_type_fields" class="form-group">
+                                    <label for="breathing_type" id="label_breathing_type" class="label_breathing_type">Respiração:</label>
+                                    <select name="breathing_type" class="form-control form-control-sm @error('breathing_type') is-invalid @enderror">
+                                        <option value="a" @if((old('breathing_type') == "a") OR (!empty($accommodations) AND ($accommodations->breathing_type == "a")))selected @endif>Ar</option>
+                                        <option value="d" @if((old('breathing_type') == "d") OR (!empty($accommodations) AND ($accommodations->breathing_type == "d")))selected @endif>Adição O²</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="row mt-1">
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div id="blood_glucose_fields" class="form-group">
                                     <label for="blood_glucose" id="label_blood_glucose">Glicemia:</label>
                                     <input type="text" id="blood_glucose" name="blood_glucose" class="form-control form-control-sm @error('blood_glucose') is-invalid @enderror" value="{{old('blood_glucose') ?? $screenings->blood_glucose ?? ""}}" @if(!empty($screenings)) disabled @endif>
+                                    <div class="valid-feedback">sucesso!</div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div id="allergic_reactions_fields" class="form-group">
+                                    <label for="allergic_reactions" id="label_allergic_reactions">Reações Alérgicas:</label>
+                                    <input type="text" id="allergic_reactions" name="allergic_reactions" class="form-control form-control-sm @error('allergic_reactions') is-invalid @enderror" value="{{old('allergic_reactions') ?? $screenings->allergic_reactions ?? ""}}" @if(!empty($screenings)) disabled @endif>
+                                    <div class="valid-feedback">sucesso!</div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div id="discriminator_fields" class="form-group">
+                                    <label for="discriminator" id="label_discriminator">Discriminador:</label>
+                                    <input type="text" id="discriminator" name="discriminator" class="form-control form-control-sm @error('discriminator') is-invalid @enderror" value="{{old('discriminator') ?? $screenings->discriminator ?? ""}}" @if(!empty($screenings)) disabled @endif>
                                     <div class="valid-feedback">sucesso!</div>
                                 </div>
                             </div>
@@ -279,7 +308,7 @@
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" id="condition_heart_disease" name="condition_heart_disease" value="on" @if(old('condition_heart_disease') or (($screenings) AND $screenings->condition_heart_disease)) checked @endif @if(!empty($screenings)) disabled @endif/>
-                                        <label class="form-check-label" for="condition_heart_disease">Diabético</label>
+                                        <label class="form-check-label" for="condition_heart_disease">Cardiopata</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" id="condition_pregnant" name="condition_pregnant" value="on" @if(old('condition_pregnant') or (($screenings) AND $screenings->condition_pregnant)) checked @endif @if(!empty($screenings)) disabled @endif/>
@@ -318,7 +347,7 @@
                     <div class="card-header">
                         <div class="row flex-between-end">
                             <div class="col-auto align-self-center">
-                                <h5 class="mb-0">Queixas</h5>
+                                <h5 class="mb-0">Observações</h5>
                             </div>
                         </div>
                     </div>
@@ -333,32 +362,25 @@
 
             <!-- forwarding -->
             <div class="forwarding block-item-class">
-            
-                <input type="hidden" name="type" value="a"/> 
 
                 <!-- screenings - start -->
                 <div class="card mb-3 card-specialties">
                     <div class="card-header">
                         <div class="row flex-between-end">
                             <div class="col-auto align-self-center">
-                                <h5 class="mb-0">Fluxograma</h5>
+                                <h5 class="mb-0">Encaminhamento</h5>
                             </div>
                         </div>
                     </div>
 
                     <div class="card-body bg-light">
-
-                        <div class="alert alert-warning flowcharts_alert hide" role="alert">
-                            Não há nenhum profissional em atendimento neste Fluxo.
-                        </div>
-
-                        <div id="IdFlowcharts_fields" class="form-group">
-                            <label for="IdFlowcharts" id="label_IdFlowcharts" class="label_IdFlowcharts">Fluxo</label>
-                            <select name="IdFlowcharts" id="IdFlowcharts" class="form-control form-control-sm @error('IdFlowcharts') is-invalid @enderror" @if(!empty($screenings)) disabled @endif>
+                        <div id="IdMedicalSpecialties_fields" class="form-group">
+                            <label for="IdMedicalSpecialties" id="label_IdMedicalSpecialties" class="label_IdMedicalSpecialties">Especialidades</label>
+                            <select name="IdMedicalSpecialties" id="IdMedicalSpecialties" class="form-control form-control-sm @error('IdMedicalSpecialties') is-invalid @enderror" @if(!empty($screenings)) disabled @endif>
                                 <option value="">...</option>
-                                @if(!empty($flowcharts))
-                                    @foreach($flowcharts as $val)
-                                        <option value="{{ $val->IdFlowcharts }}" @if(old('IdFlowcharts') == $val->IdFlowcharts OR (!empty($screenings) AND ($val->IdFlowcharts == $screenings->IdFlowcharts)))selected @endif data-count="{{ $val->count_user_units() }}">{{ $val->title }}
+                                @if(!empty($medical_specialties))
+                                    @foreach($medical_specialties as $val)
+                                        <option value="{{ $val->IdMedicalSpecialties }}" @if(old('IdMedicalSpecialties') == $val->IdMedicalSpecialties OR (!empty($screenings) AND ($val->IdMedicalSpecialties == $screenings->IdMedicalSpecialties)))selected @endif>{{ $val->code }} • {{ $val->title }}
                                         </option>
                                     @endforeach
                                 @endif
@@ -486,19 +508,7 @@
 <script src="{{ asset('admin/js/block-item.js') }}" type="text/javascript"></script>
 
 <script type="text/javascript">
-function existem_users() {
-    $('.flowcharts_alert').addClass('hide')
-    if($('#IdFlowcharts option:selected').attr('data-count') == 0){
-        $('.flowcharts_alert').removeClass('hide')
-    }
-}
-existem_users()
-
 $(document).ready(function() {
-
-    $(document).on('change', '#IdFlowcharts', function(){
-        existem_users()
-    })
 
     //region - validação
 	$("#form").validate({
@@ -520,14 +530,6 @@ $(document).ready(function() {
                 required:{
 					depends: function(element) {
 						return $("#type").val() == "e";
-					}
-				},
-            },
-
-            IdFlowcharts:{
-                required:{
-					depends: function(element) {
-						return $("#type").val() == "a";
 					}
 				},
             },

@@ -81,7 +81,7 @@
                                         <div class="bg-white py-2">
 
                                             <!-- wellcome -->
-                                            <a class="dropdown-item fw-bold" href="{{ route('screenings.form', ['action' => 'acol', 'IdEmergencyServices' => base64_encode($val->IdEmergencyServices)]) }}" moda-alert="Atenção, Tem certeza que deseja iniciar esse processo ?"><span class="fas fa-user-plus me-1"></span><span> Acolher</span></a>
+                                            <a class="dropdown-item fw-bold" href="{{ route('screenings.form', ['action' => 'acol', 'IdEmergencyServices' => base64_encode($val->IdEmergencyServices)]) }}" modal-alert="Atenção, Tem certeza que deseja iniciar esse processo ?"><span class="fas fa-user-plus me-1"></span><span> Acolher</span></a>
                                             <div class="dropdown-divider"></div>
 
                                             <!-- call -->

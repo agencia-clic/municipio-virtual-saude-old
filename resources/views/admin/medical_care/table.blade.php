@@ -102,7 +102,7 @@
                                         <div class="bg-white py-2">
 
                                             <!-- atender -->
-                                            <a class="dropdown-item fw-bold" href="{{ route('medical_care.form', ['IdEmergencyServices' => base64_encode($val->IdEmergencyServices), 'IdFlowcharts' => $IdFlowcharts, 'IdEmergencyServicesInternal' => base64_encode($emergency_services['emergency_services_forward_internal'][$val->IdEmergencyServices]->IdEmergencyServicesForwardInternal)]) }}" moda-alert="Atenção, Tem certeza que deseja iniciar esse processo ?"><span class="fas fa-user-plus me-1"></span><span> Acolher</span></a>
+                                            <a class="dropdown-item fw-bold" href="{{ route('medical_care.form', ['IdEmergencyServices' => base64_encode($val->IdEmergencyServices), 'IdFlowcharts' => $IdFlowcharts, 'IdEmergencyServicesInternal' => base64_encode($emergency_services['emergency_services_forward_internal'][$val->IdEmergencyServices]->IdEmergencyServicesForwardInternal)]) }}" modal-alert="Atenção, Tem certeza que deseja iniciar esse processo ?"><span class="fas fa-user-plus me-1"></span><span> Acolher</span></a>
                                             
                                             <!-- call -->
                                             <div class="dropdown-divider"></div>

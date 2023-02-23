@@ -41,6 +41,8 @@ class CreateScreeningsTable extends Migration
             $table->string('condition_pregnant', 2)->nullable();
             $table->string('gestational_age', 2)->nullable();
             $table->text('complaints')->nullable();
+            $table->text('breathing_type')->nullable();
+            $table->text('allergic_reactions')->nullable();
             $table->enum('classification', [4, 3, 2, 1, 0])->nullable();//emergency - very urgent - urgent - little urgent - not urgent
             $table->timestamps();
         });
