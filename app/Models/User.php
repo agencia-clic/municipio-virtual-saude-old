@@ -174,13 +174,13 @@ class User extends Authenticatable
 
     public function units()
     {
-        $units = $this->hasOne(UsersServiceUnits::class, 'IdUsers')->select('service_units.name', 'service_units.IdServiceUnits')->join('service_units', 'users_service_units.IdServiceUnits', '=', 'service_units.IdServiceUnits');
+        $units = $this->hasOne(UsersServiceUnits::class, 'IdUsers')->select('service_units.name', 'service_units.acronym', 'service_units.IdServiceUnits')->join('service_units', 'users_service_units.IdServiceUnits', '=', 'service_units.IdServiceUnits');
         return (object) array('data' => $units->get(), 'count' => $units->count());    
     }
 
     public function units_current()
     {
-        $unit = $this->hasOne(UsersServiceUnits::class, 'IdUsers')->select('service_units.name', 'service_units.IdServiceUnits', 'IdUsersServiceUnits')->join('service_units', 'users_service_units.IdServiceUnits', '=', 'service_units.IdServiceUnits');
+        $unit = $this->hasOne(UsersServiceUnits::class, 'IdUsers')->select('service_units.name', 'service_units.acronym', 'service_units.IdServiceUnits', 'IdUsersServiceUnits')->join('service_units', 'users_service_units.IdServiceUnits', '=', 'service_units.IdServiceUnits');
 
         if(Cookie::has('IdServiceUnits')):
             $unit->where('users_service_units.IdServiceUnits', Cookie::get('IdServiceUnits'));

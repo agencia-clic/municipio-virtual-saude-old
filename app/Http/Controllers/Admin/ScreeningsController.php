@@ -3,18 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\EmergencyServicesForwardInternal;
-use App\Events\channelCall;
-use App\Events\channelScreenings;
 use Illuminate\Http\Request;
 use App\Models\Screenings;
 use App\Models\EmergencyServices;
-use App\Models\ServiceUnits;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\MedicalSpecialties;
-use App\Models\EmergencyServicesVitalData;
-use App\Models\FlowchartsUsers;
-use App\Models\MedicalCareRaffles;
 use App\Models\User;
 use DB;
 
@@ -116,49 +110,16 @@ class ScreeningsController extends Controller
             return redirect(route('screenings.form', ['IdEmergencyServices' => base64_encode($IdEmergencyServices)]))->withErrors($validator)->withInput();
         endif;
 
-        //type
-        if($data['type'] == "a"):
+        EmergencyServicesForwardInternal::create([
+            'status' => 'a',
+            'type' => 't',
+            'IdServiceUnits' => auth()->user()->units_current()->IdServiceUnits,
+            'IdEmergencyServices' => $IdEmergencyServices,
+            'IdUsersResponsible' => auth()->user()->IdUsers,
+            'IdFlowcharts' => $data['IdFlowcharts'],
+        ]);
 
-            EmergencyServicesForwardInternal::create([
-                'status' => 'a',
-                'type' => 't',
-                'IdServiceUnits' => auth()->user()->units_current()->IdServiceUnits,
-                'IdEmergencyServices' => $IdEmergencyServices,
-                'IdUsersResponsible' => auth()->user()->IdUsers,
-                'IdFlowcharts' => $data['IdFlowcharts'],
-            ]);
-
-            $emergency_services->types = "atem";
-        elseif($data['type'] == "e"):
-            $emergency_services->status = "rf";
-            $emergency_services->IdServiceUnitsForwarding = $request->input('IdServiceUnitsForwarding');
-            $emergency_services->forwarding_reason = $request->input('forwarding_reason');
-
-            //insert emergencia
-            $emerg = EmergencyServices::create([
-                'IdServiceUnits' => $request->input('IdServiceUnitsForwarding'),
-                'IdUsers' => $emergency_services->IdUsers,
-                'IdUsersResponsible' => auth()->user()->IdUsers,
-                'types' => 'pp',  
-                'provenance' => 'amb',
-                'character' => 'ele',
-                'accident_work' => 'n',
-                'note' => $request->input('forwarding_reason'),
-                'identified_patient' => 's',
-                'status' => 'a',
-            ]);
-
-            $data['IdServiceUnits'] = $request->input('IdServiceUnitsForwarding');
-            $data['IdEmergencyServices'] =  $emerg->IdEmergencyServices;
-            $data['IdUsers'] = $emergency_services->IdUsers;
-            $data['IdUsersResponsible'] = auth()->user()->IdUsers;
-            $this->create($data, $request);
-
-        else:
-            $emergency_services->status = "r";
-            $emergency_services->discharge_reason = $data['discharge_reason'];
-        endif;
-
+        $emergency_services->types = "atem";
         $emergency_services->save();
 
         $data['IdServiceUnits'] = auth()->user()->units_current()->IdServiceUnits;
@@ -181,20 +142,21 @@ class ScreeningsController extends Controller
     {
         $data = $request->all();
         $data['IdEmergencyServices'] = base64_decode($IdEmergencyServices);
-        $emergency_services = $this->emergency_services->list_current($data['IdEmergencyServices']);
 
         //update em processo
-        $emergency_services = EmergencyServices::find($emergency_services->IdEmergencyServices);
+        $emergency_services = EmergencyServices::find($data['IdEmergencyServices']);
         $emergency_services->IdUsersResponsibleScreenings = auth()->user()->IdUsers;
         $emergency_services->save();
 
         $screenings = $this->screenings->list_current(base64_decode($IdScreenings));
+        $emergency_services = $this->emergency_services->list_current($data['IdEmergencyServices']);
 
         return view('admin.screenings.form', [
             'title' => " Atendimentos | ".env('APP_NAME'),
             'emergency_services' => $emergency_services,
             'users' => $this->users->list_current($emergency_services->IdUsers),
-            'screenings' => $screenings
+            'screenings' => $screenings,
+            'medical_specialties' => MedicalSpecialties::select('title', 'code')->where('status', 'a')->where('service', 'y')->get(),
         ]);
     }
 
@@ -236,7 +198,9 @@ class ScreeningsController extends Controller
         $screenings->complaints = $data['complaints'];
         $screenings->classification = $data['classification'];
         $screenings->status = $data['status'];
-        
+        $screenings->breathing_type = $data['breathing_type'];
+        $screenings->allergic_reactions = $data['allergic_reactions'];
+        $screenings->discriminator = $data['discriminator'];
         $screenings->save();
 
         session()->flash('modal', json_encode(['title' => "Sucesso", 'description' => 'Registro editado com sucesso.', 'color' => 'bg-primary']));
@@ -280,6 +244,9 @@ class ScreeningsController extends Controller
             'gestational_age' => $request->input('gestational_age'),
             'complaints' => $request->input('complaints'),
             'classification' => $data['classification'],
+            'breathing_type' => $data['breathing_type'],
+            'allergic_reactions' => $data['allergic_reactions'],
+            'discriminator' => $data['discriminator'],
         ]);
     }
 }

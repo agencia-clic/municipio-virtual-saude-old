@@ -22,7 +22,15 @@
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4 no-margin">
                         <span class="common-label"><strong>CPF:</strong></span>
-                        <div class="text-secondary">{{ $mask->cpf_cnpj($users->cpf_cnpj) }}</div>
+                        <div class="text-secondary">
+
+                            @if(strlen($users->cpf_cnpj) == 11)
+                                {{ Mask::default($users->cpf_cnpj, '###.###.###-##') }}
+                            @elseif(strlen($users->cpf_cnpj) == 14)
+                                {{ Mask::default($users->cpf_cnpj, '##.###.###/####-##') }}
+                            @endif
+
+                        </div>
                     </div>
 
                     <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
@@ -88,11 +96,11 @@
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
                         <span class="common-label"><strong>Tel. residencial:</strong></span>
-                        <div class="text-secondary">{{  $mask->phone($users->phone) }}</div>
+                        <div class="text-secondary">{{ Mask::default($users->phone, '(34) 9999-9999')}}</div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
                         <span class="common-label"><strong>Celular:</strong></span>
-                        <div class="text-secondary">{{  $mask->phone($users->cell) }}</div>
+                        <div class="text-secondary">{{ Mask::default($users->phone, '(34) 9 9999-9999')}}</div>
                     </div>
 
                     <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">

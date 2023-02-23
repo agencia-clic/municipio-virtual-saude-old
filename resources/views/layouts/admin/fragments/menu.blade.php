@@ -218,7 +218,7 @@
                                     <a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="{{ route('service_units.set', ['IdServiceUnits' => base64_encode($val->IdServiceUnits)]) }}">
                                         <!--<div class="avatar avatar-2xl"> <img class="rounded-circle" src="assets/img/team/3.jpg" alt="" /></div>-->
                                         <div class="avatar avatar-xl">
-                                            <div class="avatar-name rounded-circle @if(auth()->user()->units_current()->IdServiceUnits == $val->IdServiceUnits)bg-primary @endif"><span>{{ Mask::AvatarShortName($val->name) }}</span></div>
+                                            <div class="avatar-name rounded-circle @if(auth()->user()->units_current()->IdServiceUnits == $val->IdServiceUnits)bg-primary @endif"><span>{{ $val->acronym }}</span></div>
                                         </div>
                                         <p class="mb-0 fw-medium text-800 text-truncate fs--2">{{ $val->name }}</p>
                                     </a>
