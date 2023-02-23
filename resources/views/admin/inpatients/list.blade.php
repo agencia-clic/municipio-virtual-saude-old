@@ -6,7 +6,7 @@
 
 <!-- actions - start -->
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Pacientes Internados</span>
+    <span class="h5 text-800">Pacientes Internados</span>
     <span class="badge bg-primary">
         @if ($hospitalization_observation->firstItem())
             <span class="font-medium">{{ $hospitalization_observation->firstItem() }}</span>

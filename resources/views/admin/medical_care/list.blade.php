@@ -6,7 +6,7 @@
 
 <!-- actions - start -->
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Atendimentos</span>
+    <span class="h5 text-800">Atendimentos</span>
     <span class="badge rounded-pill badge-soft-primary">{{ $emergency_services['count'] }} de {{ $emergency_services['data']->total() }} registros</span>
 </div>
 

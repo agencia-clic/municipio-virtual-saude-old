@@ -6,7 +6,7 @@
 
 <!-- actions - start -->
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Medicamentos</span>
+    <span class="h5 text-800">Medicamentos</span>
     <span class="badge bg-primary">
         @if ($medicines->firstItem())
             <span class="font-medium">{{ $medicines->firstItem() }}</span>

@@ -8,7 +8,7 @@
 @section('content')
 
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Registrar Condutas</span>
+    <span class="h5 text-800">Registrar Condutas</span>
 </div>
 
 <!-- form -- start -->
