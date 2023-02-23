@@ -21,7 +21,7 @@
                     @foreach($emergency_services as $key => $val)
                         <tr class="btn-reveal-trigger" id="{{$val->IdEmergencyServices}}-table">
 
-                            <td class="border phone py-2 text-center">
+                            <td style="padding-top:15px">
                                 {{ $val->IdEmergencyServices }}
                             </td>
 

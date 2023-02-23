@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="mt-3 mb-3">
-    <span class="h5 text-800">Atendimento Medíco</span>
+    <span class="h5 text-800">Atendimento Médico</span>
 </div>
 
 <!-- form -- start -->
@@ -26,7 +26,7 @@
                             <nav style="--falcon-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23748194'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="{{route('medical_care')}}">Atendimentos Medícos</a></li>
+                                    <li class="breadcrumb-item"><a href="{{route('medical_care')}}">Atendimentos Médicos</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">@if(empty($medical_care))Inserir @else Editar @endif</li>
                                 </ol>
                             </nav>
