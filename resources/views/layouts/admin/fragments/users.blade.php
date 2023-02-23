@@ -12,17 +12,17 @@
             
             <div class="list-group-item list-group-item-action">
                 <div class="row mt-1">
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Nome:</strong></span>
-                        <div class="text-secondary">{{$users->name}}</div>
+                        <td class="text-secondary">{{$users->name}}</td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Nome da mãe:</strong></span>
-                        <div class="text-secondary">{{ $users->mother }}</div>
+                        <td class="text-secondary">{{ $users->mother }}</td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>CPF:</strong></span>
-                        <div class="text-secondary">
+                        <td class="text-secondary">
 
                             @if(strlen($users->cpf_cnpj) == 11)
                                 {{ Mask::default($users->cpf_cnpj, '###.###.###-##') }}
@@ -30,16 +30,16 @@
                                 {{ Mask::default($users->cpf_cnpj, '##.###.###/####-##') }}
                             @endif
 
-                        </div>
+                        </td>
                     </div>
 
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Código:</strong></span>
-                        <div class="text-secondary">{{ $users->IdUsers }}</div>
+                        <td class="text-secondary">{{ $users->IdUsers }}</td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Nascimento:</strong></span>
-                        <div class="text-secondary">{{  date('d-m-Y', strtotime($users->date_birth)) }}</div>
+                        <td class="text-secondary">{{  date('d-m-Y', strtotime($users->date_birth)) }}</td>
                     </div>
                 </div>
             </div>
@@ -62,20 +62,20 @@
             
             <div class="list-group-item list-group-item-action">
                 <div class="row mt-1">
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Raça/Cor:</strong></span>
-                        <div class="text-secondary">
+                        <td class="text-secondary">
                             @if((!empty($users) AND ($users->breed == "B")))BRANCA @endif
                             @if((!empty($users) AND ($users->breed == "N")))NEGRA @endif
                             @if((!empty($users) AND ($users->breed == "P")))PARDA @endif
                             @if((!empty($users) AND ($users->breed == "A")))AMARELA @endif
                             @if((!empty($users) AND ($users->breed == "I")))INDIGENA @endif
                             @if((!empty($users) AND ($users->breed == "O")))OUTROS @endif
-                        </div>
+                        </td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Sexo:</strong></span>
-                        <div class="text-secondary">
+                        <td class="text-secondary">
                             @if($users->sex == "m")
                                 Masculino
                             @elseif($users->sex == "f"):
@@ -83,33 +83,33 @@
                             @else
                                 Outros
                             @endif
-                        </div>
+                        </td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>País de origem:</strong></span>
-                        <div class="text-secondary">{{$users->origin }}</div>
+                        <td class="text-secondary">{{$users->origin }}</td>
                     </div>
 
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Naturalidade:</strong></span>
-                        <div class="text-secondary">{{ $users->naturalness }}/{{ $users->uf_naturalness }}</div>
+                        <td class="text-secondary">{{ $users->naturalness }}/{{ $users->uf_naturalness }}</td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Tel. residencial:</strong></span>
-                        <div class="text-secondary">{{ Mask::default($users->phone, '(34) 9999-9999')}}</div>
+                        <td class="text-secondary">{{ Mask::default($users->phone, '(34) 9999-9999')}}</td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Celular:</strong></span>
-                        <div class="text-secondary">{{ Mask::default($users->phone, '(34) 9 9999-9999')}}</div>
+                        <td class="text-secondary">{{ Mask::default($users->phone, '(34) 9 9999-9999')}}</td>
                     </div>
 
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Email:</strong></span>
-                        <div class="text-secondary">{{ $users->email }}</div>
+                        <td class="text-secondary">{{ $users->email }}</td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Tipo sanguíneo:</strong></span>
-                        <div class="text-secondary">
+                        <td class="text-secondary">
                             @if((!empty($users) AND ($users->sanguine == "A+")))A+ @endif
                             @if((!empty($users) AND ($users->sanguine == "A-")))A- @endif
                             @if((!empty($users) AND ($users->sanguine == "B+")))B+ @endif
@@ -118,11 +118,11 @@
                             @if((!empty($users) AND ($users->sanguine == "O-")))O- @endif
                             @if((!empty($users) AND ($users->sanguine == "O+")))O+ @endif
                             @if((!empty($users) AND ($users->sanguine == "N")))Nenhum @endif
-                        </div>
+                        </td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Estado Civil:</strong></span>
-                        <div class="text-secondary">
+                        <td class="text-secondary">
                             @if((!empty($users) AND ($users->schooling == "ca")))Classe Alfabetizada @endif
                             @if((!empty($users) AND ($users->schooling == "c")))Creche @endif
                             @if((!empty($users) AND ($users->schooling == "ef")))Ensino Fundamental @endif
@@ -130,12 +130,12 @@
                             @if((!empty($users) AND ($users->schooling == "t")))Ensino Tecnico @endif
                             @if((!empty($users) AND ($users->schooling == "si")))Ensino Superior Incompleto @endif
                             @if((!empty($users) AND ($users->schooling == "s")))Ensino Superior @endif
-                        </div>
+                        </td>
                     </div>
 
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Escolaridade:</strong></span>
-                        <div class="text-secondary">
+                        <td class="text-secondary">
                             @if((!empty($users) AND ($users->schooling == "ca")))Classe Alfabetizada @endif
                             @if((!empty($users) AND ($users->schooling == "c")))Creche @endif
                             @if((!empty($users) AND ($users->schooling == "ef")))Ensino Fundamental @endif
@@ -143,12 +143,12 @@
                             @if((!empty($users) AND ($users->schooling == "t")))Ensino Tecnico @endif
                             @if((!empty($users) AND ($users->schooling == "si")))Ensino Superior Incompleto @endif
                             @if((!empty($users) AND ($users->schooling == "s")))Ensino Superior @endif
-                        </div>
+                        </td>
                     </div>
 
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Ocupação:</strong></span>
-                        <div class="text-secondary">{{ $users->occupation }}</div>
+                        <td class="text-secondary">{{ $users->occupation }}</td>
                     </div>
                 </div>
             </div>
@@ -171,33 +171,33 @@
             
             <div class="list-group-item list-group-item-action">
                 <div class="row mt-1">
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>CEP:</strong></span>
-                        <div class="text-secondary">{{$users->zip_code }}</div>
+                        <td class="text-secondary">{{$users->zip_code }}</td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Bairro:</strong></span>
-                        <div class="text-secondary">{{ $users->district }}</div>
+                        <td class="text-secondary">{{ $users->district }}</td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Endereço:</strong></span>
-                        <div class="text-secondary">{{  $users->address }}</div>
+                        <td class="text-secondary">{{  $users->address }}</td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Número:</strong></span>
-                        <div class="text-secondary">{{  $users->number }}</div>
+                        <td class="text-secondary">{{  $users->number }}</td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Complemento:</strong></span>
-                        <div class="text-secondary">{{ $users->complement }}</div>
+                        <td class="text-secondary">{{ $users->complement }}</td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Cidade:</strong></span>
-                        <div class="text-secondary">{{ $users->city }}</div>
+                        <td class="text-secondary">{{ $users->city }}</td>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1">
+                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin mt-1" style="margin-bottom: 10px; margin-top: 5px;">
                         <span class="common-label"><strong>Estado:</strong></span>
-                        <div class="text-secondary">{{ $users->uf }}</div>
+                        <td class="text-secondary">{{ $users->uf }}</td>
                     </div>
                 </div>
             </div>
