@@ -7,12 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\MedicalCare;
 use App\Models\EmergencyServices;
 use App\Models\ServiceUnits;
-use App\Models\UsersMedicalSpecialties;
-use App\Models\MedicalCareLottery;
 use App\Models\EmergencyServicesForwardInternal;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Helpers\Mask;
 use App\Models\MedicalSpecialties;
 use App\Models\User;
 use DB;
@@ -21,10 +18,8 @@ class MedicalCareController extends Controller
 {
     protected $medical_care;
     protected $emergency_services;
-    protected $mask;
     protected $service_units;
     protected $medical_specialties;
-    protected $medical_care_lottery;
     protected $users;
 
     /**
@@ -37,10 +32,8 @@ class MedicalCareController extends Controller
         $this->middleware('auth');
         $this->medical_care = new MedicalCare();
         $this->emergency_services = new EmergencyServices();
-        $this->mask = new Mask();
         $this->service_units = new ServiceUnits();
         $this->medical_specialties = new MedicalSpecialties();
-        $this->medical_care_lottery = new MedicalCareLottery();
         $this->users = new User();
     }
 
@@ -49,17 +42,14 @@ class MedicalCareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $IdFlowcharts)
+    public function index(Request $request)
     {
         $data = $request->all();
-        $data['IdFlowcharts'] = base64_decode($IdFlowcharts);
         $emergency_services = $this->medical_care->list_care($data);
 
         return view('admin.medical_care.list', [
             'title' => " Atendimentos | ".env('APP_NAME'),
-            'IdFlowcharts' => $IdFlowcharts,
             'emergency_services' => $emergency_services,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -68,15 +58,12 @@ class MedicalCareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function table(Request $request, $IdFlowcharts)
+    public function table(Request $request)
     {
         $data = $request->all();
-        $data['IdFlowcharts'] = base64_decode($IdFlowcharts);
 
         return view('admin.medical_care.table', [
             'emergency_services' => $this->medical_care->list_care($data),
-            'IdFlowcharts' => $IdFlowcharts,
-            'mask' => $this->mask,
         ]);
     }
 
@@ -104,7 +91,7 @@ class MedicalCareController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $IdEmergencyServices, $IdEmergencyServicesForwardInternal, $IdFlowcharts)
+    public function store(Request $request, $IdEmergencyServices, $IdEmergencyServicesForwardInternal)
     {
         $data = $request->all();
         $IdEmergencyServices = base64_decode($IdEmergencyServices);
@@ -116,7 +103,7 @@ class MedicalCareController extends Controller
         $emergency_services = $this->emergency_services::find($IdEmergencyServices);
 
         if($validator->fails() OR (empty($emergency_services))):
-            return redirect(route('medical_care.form', ['IdFlowcharts' => $IdFlowcharts, 'IdEmergencyServicesInternal' => $IdEmergencyServicesForwardInternal, 'IdEmergencyServices' => base64_encode($IdEmergencyServices)]))->withErrors($validator)->withInput();
+            return redirect(route('medical_care.form', ['IdEmergencyServicesInternal' => $IdEmergencyServicesForwardInternal, 'IdEmergencyServices' => base64_encode($IdEmergencyServices)]))->withErrors($validator)->withInput();
         endif;
 
         $IdEmergencyServicesForwardInternal = base64_decode($IdEmergencyServicesForwardInternal);
@@ -145,7 +132,7 @@ class MedicalCareController extends Controller
         broadcast(new channelMedicalCare(auth()->user()->units_current()->IdServiceUnits));
 
         session()->flash('modal', json_encode(['title' => "Sucesso", 'description' => 'Registro criado com sucesso.', 'color' => 'bg-primary']));
-        return redirect()->route('emergency_services_conducts', ['type' => $IdFlowcharts, 'IdEmergencyServices' => base64_encode($IdEmergencyServices)]);
+        return redirect()->route('emergency_services_conducts', ['IdEmergencyServices' => base64_encode($IdEmergencyServices)]);
     }
 
     /**
@@ -172,7 +159,6 @@ class MedicalCareController extends Controller
 
         return view('admin.medical_care.form', [
             'title' => " Atendimentos | ".env('APP_NAME'),
-            'mask' => $this->mask,
             'IdFlowcharts' => $IdFlowcharts,
             'IdEmergencyServicesForwardInternal' => $IdEmergencyServicesForwardInternal,
             'emergency_services' =>  $emergency_services,
@@ -225,45 +211,6 @@ class MedicalCareController extends Controller
         ]);
 
         return "success";
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function watch($IdEmergencyServices, $IdMedicalCareLottery)
-    {
-        $IdEmergencyServices = base64_decode($IdEmergencyServices); 
-        $IdMedicalCareLottery = base64_decode($IdMedicalCareLottery);
-
-        $medical_care_lottery = MedicalCareLottery::find($IdMedicalCareLottery);
-        $medical_care_lottery->status = "p";
-        $medical_care_lottery->save();
-
-        $emergency_services_edit = EmergencyServices::find($IdEmergencyServices); 
-        $emergency_services_edit->IdUsersResponsibleMedicare = NULL;
-        $emergency_services_edit->save();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function release($IdEmergencyServices, $IdMedicalCareLottery)
-    {
-        $IdEmergencyServices = base64_decode($IdEmergencyServices); 
-        $IdMedicalCareLottery = base64_decode($IdMedicalCareLottery);
-
-        $medical_care_lottery = MedicalCareLottery::find($IdMedicalCareLottery);
-        $medical_care_lottery->status = "b";
-
-        $emergency_services_edit = EmergencyServices::find($IdEmergencyServices); 
-        $emergency_services_edit->IdUsersResponsibleMedicare = NULL;
-        $emergency_services_edit->save();
     }
 
     /**

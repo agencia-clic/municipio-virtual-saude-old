@@ -111,19 +111,9 @@ class ScreeningsController extends Controller
         if($validator->fails() OR (empty($emergency_services))):
             return redirect(route('screenings.form', ['IdEmergencyServices' => base64_encode($IdEmergencyServices)]))->withErrors($validator)->withInput();
         endif;
-
-        //create emergency services forward Internal
-        EmergencyServicesForwardInternal::create([
-            'status' => 'a',
-            'type' => 't',
-            'IdServiceUnits' => auth()->user()->units_current()->IdServiceUnits,
-            'IdEmergencyServices' => $IdEmergencyServices,
-            'IdUsersResponsible' => auth()->user()->IdUsers,
-            'IdMedicalSpecialties' => $request->input('IdMedicalSpecialties'),
-        ]);
         
         //create screenings
-        Screenings::create([
+        $screenings = Screenings::create([
             'IdServiceUnits' => auth()->user()->units_current()->IdServiceUnits,
             'IdEmergencyServices' => $emergency_services->IdEmergencyServices,
             'IdMedicalSpecialties' => $request->input('IdMedicalSpecialties'),
@@ -149,6 +139,17 @@ class ScreeningsController extends Controller
             'breathing_type' => $request->input('breathing_type'),
             'allergic_reactions' => $request->input('allergic_reactions'),
             'discriminator' => $request->input('discriminator'),
+        ]);
+
+        //create emergency services forward Internal
+        EmergencyServicesForwardInternal::create([
+            'status' => 'a',
+            'type' => 't',
+            'IdScreenings' => $screenings->IdScreenings,
+            'IdServiceUnits' => auth()->user()->units_current()->IdServiceUnits,
+            'IdEmergencyServices' => $IdEmergencyServices,
+            'IdUsersResponsible' => auth()->user()->IdUsers,
+            'IdMedicalSpecialties' => $request->input('IdMedicalSpecialties'),
         ]);
 
         // modal success

@@ -150,7 +150,9 @@
             <li>
                 <a class="dropdown-item link-600 fw-medium" href="{{ route('screenings') }}">Acolhimento</a>
             </li>
-
+            <li>
+                <a class="dropdown-item link-600 fw-medium" href="{{ route('medical_care') }}">Atendimento Médico</a>
+            </li>
             <li>
                 <a class="dropdown-item link-600 fw-medium" href="{{ route('emergency_services_procedures.list.run') }}">Procedimentos</a>
             </li>

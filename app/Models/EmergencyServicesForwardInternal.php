@@ -24,7 +24,7 @@ class EmergencyServicesForwardInternal extends Model
         'IdMedicalCare',
         'IdMedicalSpecialties',
         'status',
-        'IdFlowcharts',
+        'IdScreenings',
         'IdServiceUnits',
         'type',
         'note',
