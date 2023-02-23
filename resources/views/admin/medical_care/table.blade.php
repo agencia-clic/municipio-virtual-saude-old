@@ -9,7 +9,8 @@
                         <th class="sort pe-1 text-center" width="3%"></th>
                         <th class="sort pe-1">Paciente</th>
                         <th class="sort pe-1 text-center" width="15%">Responsavel</th>
-                        <th class="sort pe-1 text-center" width="10%">Idade</th>
+                        <th class="sort pe-1 text-center" width="12%">Especialidade</th>
+                        <th class="sort pe-1 text-center" width="8%">Idade</th>
                         <th class="sort pe-1 text-center" width="10%">Entrada</th>
                         <th class="sort pe-1 text-center" width="20%">Queixas</th>
                         <th class="no-sort text-end" width="5%">Ações</th>
@@ -63,6 +64,10 @@
 
                             <td class="border phone white-space-nowrap py-2 text-center" width="15%">
                                 <strong>{{ $val->responsible_execution }}</strong>
+                            </td>
+
+                            <td class="border phone white-space-nowrap py-2 text-center" width="15%">
+                                <strong>{{ $val->specialties }}</strong>
                             </td>
 
                             <td class="border phone white-space-nowrap py-2 text-center" width="8%">

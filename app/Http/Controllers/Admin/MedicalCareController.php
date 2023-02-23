@@ -139,7 +139,7 @@ class MedicalCareController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($IdFlowcharts, $IdEmergencyServices, $IdEmergencyServicesForwardInternal, $IdMedicalCare = null)
+    public function show($IdEmergencyServices)
     {
         //select from units
         $service_units = $this->service_units::whereExists(function ($query) {
@@ -157,8 +157,6 @@ class MedicalCareController extends Controller
 
         return view('admin.medical_care.form', [
             'title' => " Atendimentos | ".env('APP_NAME'),
-            'IdFlowcharts' => $IdFlowcharts,
-            'IdEmergencyServicesForwardInternal' => $IdEmergencyServicesForwardInternal,
             'emergency_services' =>  $emergency_services,
             'users' => $this->users->list_current($emergency_services->IdUsers),
             "service_units" => $service_units,
@@ -217,7 +215,7 @@ class MedicalCareController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $IdEmergencyServices, $IdMedicalCare, $IdFlowcharts)
+    public function update(Request $request, $IdEmergencyServices, $IdMedicalCare)
     {
         $IdMedicalCare = base64_decode($IdMedicalCare);
         $medical_care = MedicalCare::find($IdMedicalCare);
@@ -230,7 +228,7 @@ class MedicalCareController extends Controller
         $emergency_services = $this->emergency_services::find(base64_decode($IdEmergencyServices));
 
         if($validator->fails() OR (empty($emergency_services))):
-            return redirect(route('medical_care.form', ['IdFlowcharts' => $IdFlowcharts, 'IdEmergencyServices' => base64_encode($IdEmergencyServices), 'IdMedicalCare' => $IdEmergencyServices]))->withErrors($validator)->withInput();
+            return redirect(route('medical_care.form', ['IdEmergencyServices' => base64_encode($IdEmergencyServices), 'IdMedicalCare' => $IdEmergencyServices]))->withErrors($validator)->withInput();
         endif;
 
         $medical_care->guidelines = $request['guidelines'];

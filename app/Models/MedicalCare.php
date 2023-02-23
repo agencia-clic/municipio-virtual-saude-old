@@ -68,7 +68,7 @@ class MedicalCare extends Model
 
     public function list_care($filter)
     {
-        $emergency_services_forward_internal = DB::table('view_emergency_services_forward_internal');
+        $emergency_services_forward_internal = DB::table('view_emergency_services_forward_internal')->where('IdServiceUnits', auth()->user()->units_current()->IdServiceUnits);
         return $emergency_services_forward_internal->paginate(env('PAGE_NUMBER'));
     }
 

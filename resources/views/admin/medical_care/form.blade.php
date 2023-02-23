@@ -7,7 +7,7 @@
 </div>
 
 <!-- form -- start -->
-<form class="mt-3 needs-validation" id="form" name="form" method="POST" enctype="multipart/form-data" action="{{ empty($medical_care->IdMedicalCare) ? route('medical_care.form.create', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices), 'IdFlowcharts' => $IdFlowcharts, 'IdEmergencyServicesInternal' => $IdEmergencyServicesForwardInternal]) : route('medical_care.form.update', ['IdFlowcharts' => $IdFlowcharts, 'IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices), 'IdMedicalCare' => base64_encode($medical_care->IdMedicalCare)])}}" novalidate="">
+<form class="mt-3 needs-validation" id="form" name="form" method="POST" enctype="multipart/form-data" action="{{ empty($medical_care->IdMedicalCare) ? route('medical_care.form.create', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) : route('medical_care.form.update', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices), 'IdMedicalCare' => base64_encode($medical_care->IdMedicalCare)])}}" novalidate="">
 
     @csrf <!--token--> 
 
@@ -17,7 +17,7 @@
                 <div class="row flex-between-center">
                     <div class="col-sm-auto mb-2 mb-sm-0">
                         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                            <button class="btn btn-primary btn-sm" type="button" data-redirect="{{ route('medical_care', ['IdFlowcharts' => $IdFlowcharts]) }}"><span class="fas fa-arrow-left"></span></button>
+                            <button class="btn btn-primary btn-sm" type="button" data-redirect="{{ route('medical_care') }}"><span class="fas fa-arrow-left"></span></button>
                             <button class="btn btn-primary btn-sm" type="submit"><span class="fas fa-save"></span></button>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                             <nav style="--falcon-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23748194'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="{{route('medical_care', ['IdFlowcharts' => $IdFlowcharts])}}">Atendimentos Medícos</a></li>
+                                    <li class="breadcrumb-item"><a href="{{route('medical_care')}}">Atendimentos Medícos</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">@if(empty($medical_care))Inserir @else Editar @endif</li>
                                 </ol>
                             </nav>
@@ -63,12 +63,14 @@
                                     @endif me-1 icon-item" style="float: left;"></span>
 
                                    <span class="mt-1"> {{ $emergency_services->users_name }}
-                                    @if($emergency_services->users_cpf_cnpj)
-                                        • {{ $mask->cpf_cnpj($emergency_services->users_cpf_cnpj) }}
+                                    @if(strlen($emergency_services->users_cpf_cnpj) == 11)
+                                        •  {{ Mask::default($emergency_services->users_cpf_cnpj, '###.###.###-##') }}
+                                    @elseif(strlen($emergency_services->users_cpf_cnpj) == 14)
+                                        •  {{ Mask::default($emergency_services->users_cpf_cnpj, '##.###.###/####-##') }}
                                     @endif
                         
                                     @if($emergency_services->users_date_birth)
-                                        • {{ $mask->birth($emergency_services->users_date_birth) }} ANOS
+                                        • {{ Mask::birth($emergency_services->users_date_birth) }} ANOS
                                     @endif</span> 
                                 </h6>
                         

@@ -15,8 +15,9 @@ class ViewEmergencyServicesForwardInternal extends Migration
         DB::statement("
             CREATE VIEW view_emergency_services_forward_internal AS
             SELECT
-                emergency_services_forward_internal.IdEmergencyServicesForwardInternal, emergency_services_forward_internal.IdEmergencyServices, emergency_services_forward_internal.type as internal_type, emergency_services_forward_internal.IdUsersResponsibleExecution, emergency_services_forward_internal.created_at,
+                emergency_services_forward_internal.IdEmergencyServicesForwardInternal, emergency_services_forward_internal.IdEmergencyServices, emergency_services_forward_internal.type as internal_type, emergency_services_forward_internal.IdUsersResponsibleExecution, emergency_services_forward_internal.created_at, emergency_services_forward_internal.IdServiceUnits,
                 users.name, users.IdUsers,
+                medical_specialties.title as specialties,
                 users_execution.name as responsible_execution,
                 users.date_birth as users_date_birth,
                 screenings.classification, screenings.complaints,
@@ -24,6 +25,7 @@ class ViewEmergencyServicesForwardInternal extends Migration
             FROM 
                 emergency_services_forward_internal
                 JOIN emergency_services ON emergency_services_forward_internal.IdEmergencyServices = emergency_services.IdEmergencyServices
+                JOIN medical_specialties ON emergency_services_forward_internal.IdMedicalSpecialties = medical_specialties.IdMedicalSpecialties
                 JOIN users ON emergency_services.IdUsers = users.IdUsers
                 JOIN screenings ON emergency_services_forward_internal.IdScreenings = screenings.IdScreenings
                 LEFT JOIN users as users_execution ON emergency_services_forward_internal.IdUsersResponsibleExecution = users.IdUsers
