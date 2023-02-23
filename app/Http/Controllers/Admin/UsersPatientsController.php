@@ -77,6 +77,7 @@ class UsersPatientsController extends Controller
 
         $users = UsersPatients::create([
             'name' => $data['name'],
+            'social_name' => $data['social_name'],
             'mother' => $data['mother'],
             'email' => $data['email'],
             'cpf_cnpj' => $data['cpf_cnpj'],
