@@ -53,7 +53,7 @@ class CreateUsersTable extends Migration
             $table->string('chart', 11)->nullable();
             $table->enum('breed', ['B', 'N', 'P', 'A', 'I', 'O'])->nullable();
             $table->enum('sex', ['f', 'm', 'o'])->nullable();
-            $table->enum('sanguine', ['A+', 'A-', 'B+', 'AB+', 'AB-', 'O-', 'O+', 'n'])->nullable();
+            $table->enum('sanguine', ['A+', 'A-', 'B+', 'AB+', 'AB-', 'O-', 'O+'])->nullable();
             $table->enum('marital_status', ['c', 's', 'v'])->nullable();
             $table->enum('schooling', ['ca', 'c', 'ef', 'efc', 't', 'si', 's'])->nullable();
             $table->string('occupation')->nullable();
