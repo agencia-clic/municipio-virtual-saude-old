@@ -3,7 +3,7 @@
     <div class="table-responsive scrollbar">
         <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden border">
 
-            @if(!empty($emergency_services['data']->total()) AND ($emergency_services['data']->total() > 0))
+            @if(!empty($emergency_services->total()) AND ($emergency_services->total() > 0))
                 <thead class="bg-200 text-900">
                     <tr>
                         <th class="sort pe-1 text-center" width="3%"></th>
@@ -17,7 +17,7 @@
                 </thead>
                 <tbody class="list list-table" id="table-customers-body">
     
-                    @foreach($emergency_services['data'] as $key => $val)
+                    @foreach($emergency_services as $key => $val)
                         <tr class="btn-reveal-trigger" id="{{$val->IdEmergencyServices}}-table">
 
                             <td class="border phone py-2 text-center">
@@ -46,42 +46,27 @@
                                         rounded-circle" title="código"><span></span></div>
                                     </div>
                                     <div class="flex-1">
-                                        <h5 class="mb-0 fs--1">{{ $val->users_name }} 
+                                        <h5 class="mb-0 fs--1">{{ $val->name }} 
                                             <span class="badge rounded-pill badge-soft-primary">
-                                                @if($emergency_services['emergency_services_forward_internal'][$val->IdEmergencyServices]->type == "t")
+                                                @if($val->internal_type == "t")
                                                     (TRIAGEM)
-                                                @elseif($emergency_services['emergency_services_forward_internal'][$val->IdEmergencyServices]->type->type == "c")
+                                                @elseif($val->internal_type == "c")
                                                     (CONSULTA)
                                                 @else
                                                     (REAVALIAÇÂO)
                                                 @endif
                                             </span>
                                         </h5>
-
-                                        @if(!empty($val->IdUsersResponsibleMedicare) AND ($mask->dataDifference(date('Y-m-d H:i:s'), $val->updated_at, "m") < 15))
-                                            <span class="badge rounded-pill badge-soft-info">Em Atendimento há: {{ $mask->dataDifference(date('Y-m-d H:i:s'), $val->updated_at, "m") }} M</span>
-                                        @endif
-
-                                        @if(!empty($val->IdUsersResponsibleMedicare) AND ($mask->dataDifference(date('Y-m-d H:i:s'), $val->updated_at, "m") >= 15))
-                                            <span class="badge rounded-pill badge-soft-danger">Em Atendimento há: 
-                                                @php $minutes = $mask->dataDifference(date('Y-m-d H:i:s'), $val->updated_at, "m") @endphp
-                                                @if($minutes <= 59)
-                                                    {{ $minutes }} Minutos
-                                                @else
-                                                    {{ $mask->dataDifference(date('Y-m-d H:i:s'), $val->updated_at, "h") }} H/M
-                                                @endif
-                                            </span>
-                                        @endif
                                     </div>
                                 </div>
                             </td>
 
                             <td class="border phone white-space-nowrap py-2 text-center" width="15%">
-                                <strong>{{ $val->responsible_service }}</strong>
+                                <strong>{{ $val->responsible_execution }}</strong>
                             </td>
 
                             <td class="border phone white-space-nowrap py-2 text-center" width="8%">
-                                <strong>{{ $mask->birth($val->date_birth) }}</strong>
+                                <strong>{{ Mask::birth($val->users_date_birth) }}</strong>
                             </td>
 
                             <td class="border phone white-space-nowrap py-2 text-center" width="8%">
@@ -102,7 +87,7 @@
                                         <div class="bg-white py-2">
 
                                             <!-- atender -->
-                                            <a class="dropdown-item fw-bold" href="{{ route('medical_care.form', ['IdEmergencyServices' => base64_encode($val->IdEmergencyServices), 'IdFlowcharts' => $IdFlowcharts, 'IdEmergencyServicesInternal' => base64_encode($emergency_services['emergency_services_forward_internal'][$val->IdEmergencyServices]->IdEmergencyServicesForwardInternal)]) }}" modal-alert="Atenção, Tem certeza que deseja iniciar esse processo ?"><span class="fas fa-user-plus me-1"></span><span> Acolher</span></a>
+                                            <a class="dropdown-item fw-bold" href="{{ route('medical_care.form', ['IdEmergencyServices' => base64_encode($val->IdEmergencyServices)]) }}" modal-alert="Atenção, Tem certeza que deseja iniciar esse processo ?"><span class="fas fa-user-plus me-1"></span><span> Atender</span></a>
                                             
                                             <!-- call -->
                                             <div class="dropdown-divider"></div>
@@ -110,7 +95,7 @@
                                             <div class="dropdown-divider"></div>
 
                                             <!-- Liberar atendimento -->
-                                            @if(!empty($val->responsible))
+                                            @if(!empty($val->responsible_execution))
                                                 <a class="dropdown-item fw-bold medical-care-watch" title="Realmente deseja libera esse atendimento ?" href="{{ route('medical_care.release', ['IdEmergencyServices' => base64_encode($val->IdEmergencyServices)]) }}"><span class="fas fa-arrow-alt-circle-right me-1"></span><span> Libera Atendimento</span></a>
                                                 <div class="dropdown-divider"></div>
                                             @endif
@@ -139,4 +124,4 @@
 <!-- table -- end -->
 
 <!-- paginations -- start -->
-{{ $emergency_services['data']->appends(app('request')->all())->links() }}
+{{ $emergency_services->appends(app('request')->all())->links() }}

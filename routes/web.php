@@ -441,12 +441,11 @@ Route::group(['middleware' => 'auth', 'belongUnit'], function () {
     //medical_care
     Route::get('/medical-care', [App\Http\Controllers\Admin\MedicalCareController::class, 'index'])->name('medical_care');
     Route::post('/medical-care/table', [App\Http\Controllers\Admin\MedicalCareController::class, 'table'])->name('medical_care.table');
-    Route::post('/medical-care/watch/{IdEmergencyServices}/{IdMedicalCareLottery}', [App\Http\Controllers\Admin\MedicalCareController::class, 'watch'])->name('medical_care.watch');
-    Route::post('/medical-care/release/{IdEmergencyServices}/{IdMedicalCareLottery}', [App\Http\Controllers\Admin\MedicalCareController::class, 'release'])->name('medical_care.release');
+    Route::post('/medical-care/release/{IdEmergencyServices}', [App\Http\Controllers\Admin\MedicalCareController::class, 'release'])->name('medical_care.release');
     Route::get('/medical-care/list_iframe/{IdEmergencyServices}', [App\Http\Controllers\Admin\MedicalCareController::class, 'list_iframe'])->name('medical_care.list_iframe');
-    Route::get('/medical-care/form/{IdEmergencyServices}/{IdEmergencyServicesInternal}/{IdMedicalCare?}', [App\Http\Controllers\Admin\MedicalCareController::class, 'show'])->name('medical_care.form');
+    Route::get('/medical-care/form/{IdEmergencyServices}/{IdMedicalCare?}', [App\Http\Controllers\Admin\MedicalCareController::class, 'show'])->name('medical_care.form');
     Route::get('/medical-care/form-iframe/{IdEmergencyServices}/{IdMedicalCare?}', [App\Http\Controllers\Admin\MedicalCareController::class, 'show_iframe'])->name('medical_care.form.iframe');
-    Route::post('/medical-care/create/{IdEmergencyServices}/{IdEmergencyServicesInternal}', [App\Http\Controllers\Admin\MedicalCareController::class, 'store'])->name('medical_care.form.create');
+    Route::post('/medical-care/create/{IdEmergencyServices}', [App\Http\Controllers\Admin\MedicalCareController::class, 'store'])->name('medical_care.form.create');
     Route::post('/medical-care/update/{IdEmergencyServices}/{IdMedicalCare}', [App\Http\Controllers\Admin\MedicalCareController::class, 'update'])->name('medical_care.form.update');
     Route::post('/medical-care/create-iframe/{IdEmergencyServices}', [App\Http\Controllers\Admin\MedicalCareController::class, 'store_iframe'])->name('medical_care.form.iframe.create');
     Route::post('/medical-care/update-iframe/{IdEmergencyServices}/{IdMedicalCare}', [App\Http\Controllers\Admin\MedicalCareController::class, 'update_iframe'])->name('medical_care.update.iframe');

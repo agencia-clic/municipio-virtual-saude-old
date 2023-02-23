@@ -60,10 +60,8 @@ class MedicalCareController extends Controller
      */
     public function table(Request $request)
     {
-        $data = $request->all();
-
         return view('admin.medical_care.table', [
-            'emergency_services' => $this->medical_care->list_care($data),
+            'emergency_services' => $this->medical_care->list_care($request->all()),
         ]);
     }
 
@@ -252,6 +250,11 @@ class MedicalCareController extends Controller
 
         session()->flash('modal', json_encode(['title' => "Sucesso", 'description' => 'Registro criado com sucesso.', 'color' => 'bg-primary']));
         return redirect()->route('emergency_services_conducts', ['type' => $IdFlowcharts, 'IdEmergencyServices' => $IdEmergencyServices]);
+    }
+
+    public function release($IdEmergencyServices)
+    {
+        
     }
 
     /**

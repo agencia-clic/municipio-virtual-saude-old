@@ -20,6 +20,7 @@ class CreateScreeningsTable extends Migration
             $table->integer('IdMedicalSpecialties')->nullable();
             $table->integer('IdUsers')->nullable();
             $table->integer('IdUsersResponsible');
+            $table->integer('IdUsers');
             $table->index(['IdServiceUnits']);
             $table->enum('status', ['a', 'n'])->default('a');
             $table->string('temperature')->nullable();
@@ -42,7 +43,7 @@ class CreateScreeningsTable extends Migration
             $table->text('complaints')->nullable();
             $table->text('breathing_type')->nullable();
             $table->text('allergic_reactions')->nullable();
-            $table->enum('classification', [4, 3, 2, 1, 0])->nullable();//emergency - very urgent - urgent - little urgent - not urgent
+            $table->enum('classification', [4, 3, 2, 1, 0])->default(0);//emergency - very urgent - urgent - little urgent - not urgent
             $table->timestamps();
         });
     }

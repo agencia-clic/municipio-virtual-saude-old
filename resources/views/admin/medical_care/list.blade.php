@@ -7,7 +7,20 @@
 <!-- actions - start -->
 <div class="mt-3 mb-3">
     <span class="h5 text-800">Atendimentos</span>
-    <span class="badge rounded-pill badge-soft-primary">{{ $emergency_services['count'] }} de {{ $emergency_services['data']->total() }} registros</span>
+    
+    <span class="badge bg-primary">
+        @if ($emergency_services->firstItem())
+            <span class="font-medium">{{ $emergency_services->firstItem() }}</span>
+            {!! __('até') !!}
+            <span class="font-medium">{{ $emergency_services->lastItem() }}</span>
+        @else
+            {{ $emergency_services->count() }}
+        @endif
+        {!! __('de') !!}
+        <span class="font-medium">{{ $emergency_services->total() }}</span>
+        {!! __('registros') !!}
+    </span>
+
 </div>
 
 <div class="col-12 mb-2">
@@ -17,7 +30,7 @@
                 <div class="col-sm-auto mb-2 mb-sm-0">
                     <div class="btn-group btn-group-sm" role="group" aria-label="...">
                         <button class="btn btn-primary btn-sm" title="Filtros" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2"><span class="fas fa-search"></span></button>
-                        <button class="btn btn-primary btn-sm collapsed" type="button" title="Limpar Filtros" data-redirect="{{ route('medical_care', ['IdFlowcharts' => $IdFlowcharts]) }}"><span class="fas fa-times"></span></button>
+                        <button class="btn btn-primary btn-sm collapsed" type="button" title="Limpar Filtros" data-redirect="{{ route('medical_care') }}"><span class="fas fa-times"></span></button>
                     </div>
                 </div>
                 <div class="col-sm-auto">
@@ -51,7 +64,7 @@
             <div class="accordion-collapse collapse {{ app('request')->input('medical_care') ? "show" : ""}}" id="collapse2" aria-labelledby="heading2" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
 
-                    <form id="formFiltro" action="{{ route('medical_care', ['IdFlowcharts' => $IdFlowcharts]) }}" method="get" enctype="multipart/form-data">
+                    <form id="formFiltro" action="{{ route('medical_care') }}" method="get" enctype="multipart/form-data">
                         <div class="row">			
                             <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                 <div id="IdEmergencyServices_campo" class="form-group">
@@ -107,7 +120,7 @@
     </div>
 
     <!-- table -->
-    <div id="table-medical_care" url="{{ route('medical_care.table', ['IdFlowcharts' => $IdFlowcharts]) }}" data-id="{{ auth()->user()->units_current()->IdServiceUnits ?? ""}}"></div>
+    <div id="table-medical_care" url="{{ route('medical_care.table') }}" data-id="{{ auth()->user()->units_current()->IdServiceUnits ?? ""}}"></div>
     
 </div>
 @endsection

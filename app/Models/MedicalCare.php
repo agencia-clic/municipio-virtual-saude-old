@@ -68,41 +68,8 @@ class MedicalCare extends Model
 
     public function list_care($filter)
     {
-        $emergency_services = DB::table('views_medical_care')->select('views_medical_care.*')->where('IdServiceUnits', auth()->user()->units_current()->IdServiceUnits);
-        $emergency_services_forward_internal = EmergencyServicesForwardInternal::where('status', 'a')->where('IdServiceUnits', auth()->user()->units_current()->IdServiceUnits);
-
-        if(!empty($filter['status'])):
-            $emergency_services = $emergency_services->where('views_medical_care.status', $filter['status']);
-        endif;
-
-        if(!empty($filter['IdFlowcharts'])):
-            $emergency_services_forward_internal = $emergency_services_forward_internal->where('IdFlowcharts', $filter['IdFlowcharts']);
-        endif;
-
-        $specialty_users = auth()->user()->specialty_users(auth()->user()->IdUsers);
-
-        $IdMedicalSpecialties = array();
-        if(!empty($specialty_users)):
-            foreach($specialty_users as $val):
-                $IdMedicalSpecialties[] = $val->IdMedicalSpecialties;
-            endforeach;
-
-            $emergency_services_forward_internal = $emergency_services_forward_internal->orWhereIn('IdMedicalSpecialties', $IdMedicalSpecialties);
-        endif;
-
-        $emergency_services_forward_internal = $emergency_services_forward_internal->get();
-
-        $IdEmergencyServices = array();
-        $IdEmergencyServicesForwardInternal = array();
-        if(!empty($emergency_services_forward_internal)):
-            foreach($emergency_services_forward_internal as $val):
-                $IdEmergencyServices[] = $val->IdEmergencyServices;
-                $IdEmergencyServicesForwardInternal[$val->IdEmergencyServices] = $val;
-            endforeach;
-            $emergency_services = $emergency_services->whereIn('IdEmergencyServices', $IdEmergencyServices);
-        endif;
-
-        return array("data" => $emergency_services->paginate(env('PAGE_NUMBER')), "emergency_services_forward_internal" => $IdEmergencyServicesForwardInternal, "count" => $emergency_services->count());
+        $emergency_services_forward_internal = DB::table('view_emergency_services_forward_internal');
+        return $emergency_services_forward_internal->paginate(env('PAGE_NUMBER'));
     }
 
     public function list_current($id)
