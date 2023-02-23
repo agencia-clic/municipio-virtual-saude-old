@@ -26,6 +26,7 @@ class Screenings extends Model
         'IdUsersResponsible',
         'IdMedicalSpecialties',
         'type',
+        'temperature',
         'weight',
         'heart_rate',
         'height',
