@@ -21,6 +21,7 @@ class UsersPatients extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'social_name',
         'email',
         'cpf_cnpj',
         'level',
