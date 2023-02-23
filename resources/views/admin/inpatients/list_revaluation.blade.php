@@ -6,7 +6,7 @@
 
 <!-- actions - start -->
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Pacientes Reavaliação</span>
+    <span class="h5 text-800">Pacientes Reavaliação</span>
     <span class="badge rounded-pill badge-soft-primary">{{ $hospitalization_observation['count'] }} de {{ $hospitalization_observation['data']->total() }} registros</span>
 </div>
 

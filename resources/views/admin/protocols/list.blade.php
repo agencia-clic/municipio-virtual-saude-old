@@ -6,7 +6,7 @@
 
 <!-- actions - start -->
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Protocolos</span>
+    <span class="h5 text-800">Protocolos</span>
     <span class="badge bg-primary">
         @if ($protocols->firstItem())
             <span class="font-medium">{{ $protocols->firstItem() }}</span>

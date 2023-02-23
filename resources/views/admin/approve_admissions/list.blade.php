@@ -6,7 +6,7 @@
 
 <!-- actions - start -->
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Aprovação de Internação</span>
+    <span class="h5 text-800">Aprovação de Internação</span>
     <span class="badge bg-primary">
         @if ($admit_patient_requests->firstItem())
             <span class="font-medium">{{ $admit_patient_requests->firstItem() }}</span>

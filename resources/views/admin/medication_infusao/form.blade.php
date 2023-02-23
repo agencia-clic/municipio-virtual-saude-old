@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Infusão Medicamento</span>
+    <span class="h5 text-800">Infusão Medicamento</span>
 </div>
 
 <!-- form -- start -->

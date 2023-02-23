@@ -6,7 +6,7 @@
 
 <!-- actions - start -->
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Especialidades (<strong>CBO</strong>)</span>
+    <span class="h5 text-800">Especialidades (<strong>CBO</strong>)</span>
     <span class="badge bg-primary">
         @if ($medical_specialties->firstItem())
             <span class="font-medium">{{ $medical_specialties->firstItem() }}</span>

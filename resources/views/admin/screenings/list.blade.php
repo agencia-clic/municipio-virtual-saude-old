@@ -6,7 +6,7 @@
 
 <!-- actions - start -->
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">Acolhimentos Triagens</span>
+    <span class="h5 text-800">Acolhimentos Triagens</span>
     <span class="badge bg-primary">
         @if ($emergency_services->firstItem())
             <span class="font-medium">{{ $emergency_services->firstItem() }}</span>

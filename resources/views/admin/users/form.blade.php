@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="mt-3 mb-3">
-    <span class="h4 text-800">
+    <span class="h5 text-800">
         @if(app('request')->input('module') == 'medical')
             Médicos
         @else
