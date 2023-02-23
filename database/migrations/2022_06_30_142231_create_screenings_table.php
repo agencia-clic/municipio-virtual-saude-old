@@ -21,7 +21,6 @@ class CreateScreeningsTable extends Migration
             $table->integer('IdUsers')->nullable();
             $table->integer('IdUsersResponsible');
             $table->index(['IdServiceUnits']);
-            $table->enum('type', ['a', 'e', 'l']);
             $table->enum('status', ['a', 'n'])->default('a');
             $table->string('temperature')->nullable();
             $table->string('weight', 5)->nullable();

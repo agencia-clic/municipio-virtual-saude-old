@@ -95,39 +95,63 @@ class ScreeningsController extends Controller
         $data = $request->all();
         $IdEmergencyServices = base64_decode($IdEmergencyServices);
 
+        // validator
         $validator = Validator::make($data, [
             'temperature' => ['required', 'string', 'max:255'],
-            'IdFlowcharts' => ['required', 'string', 'max:255'],
+            'IdEmergencyServices' => ['required', 'string', 'max:255'],
             'O2_saturation' => ['required', 'string', 'max:255'],
             'blood_pressure' => ['required', 'string', 'max:255'],
         ]);
 
-        //type
-        $data['type'] = $data['type'] ?? "e";
+        // update emergency services
         $emergency_services = $this->emergency_services::find($IdEmergencyServices);
+        $emergency_services->types = "atem";
+        $emergency_services->save();
 
         if($validator->fails() OR (empty($emergency_services))):
             return redirect(route('screenings.form', ['IdEmergencyServices' => base64_encode($IdEmergencyServices)]))->withErrors($validator)->withInput();
         endif;
 
+        //create emergency services forward Internal
         EmergencyServicesForwardInternal::create([
             'status' => 'a',
             'type' => 't',
             'IdServiceUnits' => auth()->user()->units_current()->IdServiceUnits,
             'IdEmergencyServices' => $IdEmergencyServices,
             'IdUsersResponsible' => auth()->user()->IdUsers,
-            'IdFlowcharts' => $data['IdFlowcharts'],
+            'IdMedicalSpecialties' => $request->input('IdMedicalSpecialties'),
+        ]);
+        
+        //create screenings
+        Screenings::create([
+            'IdServiceUnits' => auth()->user()->units_current()->IdServiceUnits,
+            'IdEmergencyServices' => $emergency_services->IdEmergencyServices,
+            'IdMedicalSpecialties' => $request->input('IdMedicalSpecialties'),
+            'IdUsers' => $emergency_services->IdUsers,
+            'IdUsersResponsible' => auth()->user()->IdUsers,
+            'weight' => $request->input('weight'),
+            'temperature' => $request->input('temperature'),
+            'heart_rate' => $request->input('heart_rate'),
+            'height' => $request->input('height'),
+            'respiratory_frequency' => $request->input('respiratory_frequency'),
+            'O2_saturation' => $request->input('O2_saturation'),
+            'blood_pressure' => $request->input('blood_pressure'),
+            'ecg' => $request->input('ecg'),
+            'blood_glucose' => $request->input('blood_glucose'),
+            'rule_of_pain' => $request->input('rule_of_pain'),
+            'condition_hypertensive' => $request->input('condition_hypertensive'),
+            'condition_diabetic' => $request->input('condition_diabetic'),
+            'condition_heart_disease' => $request->input('condition_heart_disease'),
+            'condition_pregnant' => $request->input('condition_pregnant'),
+            'gestational_age' => $request->input('gestational_age'),
+            'complaints' => $request->input('complaints'),
+            'classification' => $request->input('classification'),
+            'breathing_type' => $request->input('breathing_type'),
+            'allergic_reactions' => $request->input('allergic_reactions'),
+            'discriminator' => $request->input('discriminator'),
         ]);
 
-        $emergency_services->types = "atem";
-        $emergency_services->save();
-
-        $data['IdServiceUnits'] = auth()->user()->units_current()->IdServiceUnits;
-        $data['IdEmergencyServices'] = $emergency_services->IdEmergencyServices;
-        $data['IdUsers'] = $emergency_services->IdUsers;
-        $data['IdUsersResponsible'] = auth()->user()->IdUsers;
-        $this->create($data, $request);
-
+        // modal success
         session()->flash('modal', json_encode(['title' => "Sucesso", 'description' => 'Registro criado com sucesso.', 'color' => 'bg-primary']));
         return redirect()->route('screenings');
     }
@@ -161,53 +185,6 @@ class ScreeningsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $IdEmergencyServices, $id)
-    {
-        $screenings = Screenings::find(base64_decode($id));
-        $data = $request->all();
-
-        $validator = Validator::make($data, [
-            'status' => ['required', 'string', 'max:1', 'in:a,b'],
-        ]);
-        
-        if($validator->fails()):
-            return redirect(route('screenings.form', ['IdScreenings' => base64_encode($screenings->IdScreenings)]))->withErrors($validator)->withInput();
-        endif;
-
-        $screenings->IdMedicalSpecialties = $data['IdMedicalSpecialties'];
-        $screenings->weight = $data['weight'];
-        $screenings->heart_rate = $data['heart_rate'];
-        $screenings->height = $data['height'];
-        $screenings->respiratory_frequency = $data['respiratory_frequency'];
-        $screenings->O2_saturation = $data['O2_saturation'];
-        $screenings->blood_pressure = $data['blood_pressure'];
-        $screenings->ecg = $data['ecg'];
-        $screenings->blood_glucose = $data['blood_glucose'];
-        $screenings->rule_of_pain = $data['rule_of_pain'];
-        $screenings->condition_hypertensive = $request->input('condition_hypertensive');
-        $screenings->condition_diabetic = $request->input('condition_diabetic');
-        $screenings->condition_heart_disease = $request->input('condition_heart_disease');
-        $screenings->condition_pregnant = $request->input('condition_pregnant');
-        $screenings->gestational_age = $request->input('gestational_age');
-        $screenings->complaints = $data['complaints'];
-        $screenings->classification = $data['classification'];
-        $screenings->status = $data['status'];
-        $screenings->breathing_type = $data['breathing_type'];
-        $screenings->allergic_reactions = $data['allergic_reactions'];
-        $screenings->discriminator = $data['discriminator'];
-        $screenings->save();
-
-        session()->flash('modal', json_encode(['title' => "Sucesso", 'description' => 'Registro editado com sucesso.', 'color' => 'bg-primary']));
-        return redirect()->route('screenings.welcome', ['IdEmergencyServices' => $IdEmergencyServices]);
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -216,37 +193,5 @@ class ScreeningsController extends Controller
     public function destroy($id)
     {
         Screenings::find(base64_decode($id))->delete();
-    }
-
-    public function create($data, $request)
-    {
-        Screenings::create([
-            'IdServiceUnits' => $data['IdServiceUnits'],
-            'IdEmergencyServices' => $data['IdEmergencyServices'],
-            'IdFlowcharts' => $data['IdFlowcharts'],
-            'IdUsers' => $data['IdUsers'],
-            'IdUsersResponsible' => auth()->user()->IdUsers,
-            'type' => $data['type'],
-            'weight' => $data['weight'],
-            'temperature' => $data['temperature'],
-            'heart_rate' => $data['heart_rate'],
-            'height' => $data['height'],
-            'respiratory_frequency' => $data['respiratory_frequency'],
-            'O2_saturation' => $data['O2_saturation'],
-            'blood_pressure' => $data['blood_pressure'],
-            'ecg' => $data['ecg'],
-            'blood_glucose' => $data['blood_glucose'],
-            'rule_of_pain' => $data['rule_of_pain'],
-            'condition_hypertensive' => $request->input('condition_hypertensive'),
-            'condition_diabetic' => $request->input('condition_diabetic'),
-            'condition_heart_disease' => $request->input('condition_heart_disease'),
-            'condition_pregnant' => $request->input('condition_pregnant'),
-            'gestational_age' => $request->input('gestational_age'),
-            'complaints' => $request->input('complaints'),
-            'classification' => $data['classification'],
-            'breathing_type' => $data['breathing_type'],
-            'allergic_reactions' => $data['allergic_reactions'],
-            'discriminator' => $data['discriminator'],
-        ]);
     }
 }

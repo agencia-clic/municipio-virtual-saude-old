@@ -18,7 +18,6 @@ class CreateEmergencyServicesForwardInternalTable extends Migration
             $table->integer('IdMedicalSpecialties');
             $table->integer('IdServiceUnits');
             $table->integer('IdEmergencyServices')->nullable();
-            $table->integer('IdFlowcharts')->nullable();
             $table->integer('IdUsersResponsible');
             $table->integer('IdMedicalCare')->nullable();
             $table->enum('status', ['a', 'b', 'e']);
