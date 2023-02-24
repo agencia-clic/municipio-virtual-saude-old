@@ -269,7 +269,7 @@ Released under the UploadiFive Standard License <http://www.uploadify.com/upload
                                     <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="fas fa-ellipsis-h"></span>
                                     </button>
-                                    <div class="dropdown-menu dropdown-menu-end border py-2"><a class="dropdown-item close" href="#!" data-dz-remove="data-dz-remove">Remove File</a></div>
+                                    <div class="dropdown-menu dropdown-menu-end border py-2"><a class="dropdown-item close" href="#!" data-dz-remove="data-dz-remove">Remover Arquivo</a></div>
                                 </div>
                             </div>
                         </div>
