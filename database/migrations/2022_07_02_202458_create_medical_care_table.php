@@ -17,9 +17,16 @@ class CreateMedicalCareTable extends Migration
             $table->id('IdMedicalCare');
             $table->enum('status', ['a', 'b']);
             $table->integer('IdEmergencyServices');
-            $table->integer('IdUsers')->nullable();
             $table->integer('IdUsersResponsible');
-            $table->text('anamnesis')->nullable();
+            $table->integer('IdUsers');
+            $table->text('anamnesis');
+            $table->text('chief_complaint')->nullable();
+            $table->text('comorbidities')->nullable();;
+            $table->text('medication_continues')->nullable();
+            $table->text('clinical_exam')->nullable();
+            $table->text('hypothesis')->nullable();
+            $table->text('diagnostics')->nullable();
+            $table->text('conduct')->nullable();
             $table->text('guidelines')->nullable();
             $table->enum('bodily_injury', ['y', 'n'])->default('n')->nullable();
             $table->enum('aggression', ['y', 'n'])->default('n')->nullable();

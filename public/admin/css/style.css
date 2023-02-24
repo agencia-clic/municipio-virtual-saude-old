@@ -214,5 +214,8 @@ button.btn-circle {
     display: none !important;
 }
 .setting-toggle:hover {
-text-decoration: none !important;
+    text-decoration: none !important;
+}
+.text-service-form{
+    font-size: 10px !important;
 }
