@@ -69,52 +69,52 @@
                             <div class="list-group-item list-group-item-action">
 
                                 <div class="row mt-1">
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px;">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> Pressão Arterial (mmHg): </strong></span>
                                         <td class="text-secondary">{{$val->blood_pressure?? "-"}}</td>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> Peso (Kg): </strong></span>
                                         <td class="text-secondary">{{$val->weight?? "-"}}</td>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"> <strong> Temperatura (°C): </strong></span>
                                         <td class="text-secondary">{{$val->temperature?? "-"}}</td>
                                     </div>
                                 </div>
 
                                 <div class="row mt-1">
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"> <strong> Altura: </strong> </span>
                                         <td class="text-secondary">{{$val->height ?? "-"}}</td>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"> <strong> Frequência Respiratória (rpm): </strong></span>
                                         <td class="text-secondary">{{$val->respiratory_frequency ?? "-"}}</td>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> Frequência Cardíaca (bpm): </strong></span>
                                         <td class="text-secondary">{{$val->heart_rate ?? "-"}}</td>
                                     </div>
                                 </div>
 
                                 <div class="row mt-1">
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> Saturação O<sub>2</sub>: </strong></span>
                                         <td class="text-secondary">{{$val->O2_saturation ?? "-"}}</td>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> ECG: </strong></span>
                                         <td class="text-secondary">{{$val->ecg ?? "-"}}</td>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> Glicemia (mg/dl): </strong></span>
                                         <td class="text-secondary">{{$val->blood_glucose ?? "-"}}</td>
                                     </div>
                                 </div>
 
                                 <div class="row mt-1">
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> Régua da Dor:</strong></span>
                                         <td class="text-white">
                                             @if($val->rule_of_pain == 1)
@@ -140,28 +140,28 @@
                                             @endif
                                             </td>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> Diabético: </strong></span>
                                         <td class="text-secondary">{{$val->condition_diabetic ? "SIM" : "NÃO"}}</td>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> Cardiopata: </strong></span>
                                         <td class="text-secondary">{{$val->condition_diabetic ? "SIM" : "NÃO"}}</td>
                                     </div>
                                 </div>
 
                                 <div class="row mt-1">
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> Hipertenso: </strong></span>
                                         <td class="text-secondary">{{$val->condition_hypertensive ? "SIM" : "NÃO"}}</td>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> Gestante: </strong></span>
                                         <td class="text-secondary">{{$val->condition_pregnant ? "SIM" : "NÃO"}}</td>
                                     </div>
 
                                     @if(!empty($val->gestational_age))
-                                        <div class="col-sm col-md col-lg no-margin" style="margin-top:5px; margin-bottom:10px">
+                                        <div class="col-sm col-md col-lg no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                             <span class="common-label"><strong> Idade Gestacional:</strong></span>
                                             <td class="text-secondary">{{$val->gestational_age ?? "-"}}</td>
                                         </div>
@@ -169,19 +169,19 @@
                                 </div>
                                 
                                 <div class="row mt-1">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> Discriminador: </strong></span>
                                         <td class="text-secondary">{{$val->discriminator ?? "-"}}</td>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> Fluxograma: </strong></span>
                                         <td class="text-secondary">{{$val->flowchart ?? "-"}}</td>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6 col-md-12 col-lg-12 no-margin" style="margin-top:5px; margin-bottom:10px">
+                                    <div class="col-sm-6 col-md-12 col-lg-12 no-margin" style="margin-top:5px; margin-bottom:10px; font-size:14px;">
                                         <span class="common-label"><strong> Queixas: </strong></span>
                                         <td class="text-secondary">{{$val->complaints ?? "-"}}</td>
                                     </div>
