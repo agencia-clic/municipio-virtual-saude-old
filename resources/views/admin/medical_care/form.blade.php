@@ -86,7 +86,7 @@
         </div>
 
         <div class="col-sm-12 col-md-3">
-            <div class="kanban-items-container border bg-white rounded-2 py-3 mb-3" style="max-height: none;">
+            <div class="kanban-items-container border rounded-2 py-3 mb-3">
 
                 <div class="card mb-3 kanban-item shadow-sm active" data-class="data-front-desk">
                     <div class="card-body">

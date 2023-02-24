@@ -216,17 +216,20 @@ button.btn-circle {
 .setting-toggle:hover {
     text-decoration: none !important;
 }
+
+.ps-1{
+    font-size: 12px !important;  
+}
+
 /* responsive NAV */
 @media (max-width: 1494px)  {
-.ps-1{
-    font-size: 8px !important;  
-
+    .ps-1{
+        font-size: 10px !important;  
     }
 }
 
-@media (max-width: 1000px)  {
+@media (max-width: 1050px)  {
     .ps-1{
         font-size: 8px !important;  
-    
     }
 }
