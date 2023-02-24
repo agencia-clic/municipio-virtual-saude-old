@@ -216,6 +216,17 @@ button.btn-circle {
 .setting-toggle:hover {
     text-decoration: none !important;
 }
-.text-service-form{
-    font-size: 10px !important;
+/* responsive NAV */
+@media (max-width: 1494px)  {
+.ps-1{
+    font-size: 8px !important;  
+
+    }
+}
+
+@media (max-width: 1000px)  {
+    .ps-1{
+        font-size: 8px !important;  
+    
+    }
 }

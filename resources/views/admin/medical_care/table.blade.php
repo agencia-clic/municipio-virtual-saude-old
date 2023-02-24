@@ -6,7 +6,7 @@
             @if(!empty($emergency_services->total()) AND ($emergency_services->total() > 0))
                 <thead class="bg-200 text-900">
                     <tr>
-                        <th class="sort pe-1 text-center" width="3%"></th>
+                        <th style="padding-right:10px" width="3%">Código</th>
                         <th class="sort pe-1">Paciente</th>
                         <th class="sort pe-1 text-center" width="15%">Responsavel</th>
                         <th class="sort pe-1 text-center" width="12%">Especialidade</th>
@@ -21,7 +21,7 @@
                     @foreach($emergency_services as $key => $val)
                         <tr class="btn-reveal-trigger" id="{{$val->IdEmergencyServices}}-table">
 
-                            <td style="padding-top:15px">
+                            <td style="text-align:center; padding-top:15px; padding-right:15px">
                                 {{ $val->IdEmergencyServices }}
                             </td>
 

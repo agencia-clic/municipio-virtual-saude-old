@@ -168,6 +168,7 @@ class UsersPatientsController extends Controller
         endif;
 
         $user->name = $data['name'];
+        $user->social_name = $data['social_name'];
         $user->mother = $data['mother'];
         $user->email = $data['email'];
         $user->cpf_cnpj = $data['cpf_cnpj'];

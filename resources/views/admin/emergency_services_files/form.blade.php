@@ -75,7 +75,7 @@
             /* 'fileTypeExts' 		: '*.gif; *.jpg; *.jpeg; *.png', */
             'fileType': ["image\/gif","image\/jpeg","image\/png", "application\/pdf", "application\/vnd.ms-excel"],
             'auto'				: false,
-            'buttonText'		: `<img class="me-2" src="{{ asset('admin/img/cloud-upload.svg') }}" width="25" alt=""/>Solte seus arquivos aqui`,
+            'buttonText'		: `<img class="me-2" src="{{ asset('admin/img/cloud-upload.png') }}" width="30px" alt=""/>Solte seus arquivos aqui`,
             //'onDialogClose' : function() {
               //	console.log(this.queueData.filesQueued);
               //},
