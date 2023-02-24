@@ -89,7 +89,7 @@
             <div class="kanban-items-container border rounded-2 py-3 mb-3">
 
                 <div class="card mb-3 kanban-item shadow-sm active" data-class="data-front-desk">
-                    <div class="card-body">
+                    <div class="card-body shadow-button">
                         <p class="fs--1 fw-medium font-sans-serif mb-0 d-flex align-items-center">
                             <span class="far fa-file-alt fs-0"></span>
                             <span class="nav-link-text ps-1">Informações</span>
@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="card mb-3 kanban-item shadow-sm" data-class="data-attendance">
-                    <div class="card-body">
+                    <div class="card-body shadow-button">
                         <p class="fs--1 fw-medium font-sans-serif mb-0 d-flex align-items-center">
                             <span class="fas fa-user-md fs-0"></span>
                             <span class="nav-link-text ps-1">Atendimento</span>
@@ -106,7 +106,7 @@
                     </div>
                 </div>
                 <div class="card mb-3 kanban-item shadow-sm" data-class="data-upload">
-                    <div class="card-body">
+                    <div class="card-body shadow-button">
                         <p class="fs--1 fw-medium font-sans-serif mb-0 d-flex align-items-center">
                             <span class="fas fa-upload fs-0"></span>
                             <span class="nav-link-text ps-1">Upload de Arquivos</span>
@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 <div class="card mb-3 kanban-item shadow-sm" data-class="allergies-diseases">
-                    <div class="card-body">
+                    <div class="card-body shadow-button">
                         <p class="fs--1 fw-medium font-sans-serif mb-0 d-flex align-items-center">
                             <span class="fas fa-first-aid fs-0"></span>
                             <span class="nav-link-text ps-1">Alergias / Doenças / Antecedentes</span>
@@ -122,7 +122,7 @@
                     </div>
                 </div>
                 <div class="card mb-3 kanban-item shadow-sm" data-class="data-historic">
-                    <div class="card-body">
+                    <div class="card-body shadow-button">
                         <p class="fs--1 fw-medium font-sans-serif mb-0 d-flex align-items-center">
                             <span class="fas fa-history fs-0"></span>
                             <span class="nav-link-text ps-1">Histórico</span>
@@ -130,7 +130,7 @@
                     </div>
                 </div>
                 <div class="card mb-3 kanban-item shadow-sm" data-class="registration-data">
-                    <div class="card-body">
+                    <div class="card-body shadow-button">
                         <p class="fs--1 fw-medium font-sans-serif mb-0 d-flex align-items-center">
                             <span class="far fa-address-card fs-0"></span>
                             <span class="nav-link-text ps-1">Dados Cadastrais</span>
