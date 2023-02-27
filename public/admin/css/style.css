@@ -233,3 +233,20 @@ button.btn-circle {
         font-size: 8px !important;  
     }
 }
+
+.shadow-button{
+
+    flex: 1 1 auto;
+    padding: 1.25rem 1.25rem;
+    border: none; /* Remover borda do botão */
+    border-radius: 5px;
+    text-align: center; /* Centralizar texto do botão */
+    text-decoration: none; /* Remover sublinhado do texto do botão */
+    display: inline-block; /* Exibir o botão como um bloco */
+    font-size: 16px; /* Tamanho da fonte do texto do botão */
+    cursor: pointer; /* Mudar o cursor do mouse quando passar por cima do botão */      
+}
+
+.shadow-button:hover {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Adicionar sombra ao botão quando o cursor passar por cima */
+  }

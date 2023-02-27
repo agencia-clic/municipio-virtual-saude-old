@@ -44,7 +44,7 @@
         <div class="col-sm-12 col-md-3">
             <div class="kanban-items-container border bg-white rounded-2 py-3 mb-3" style="max-height: none;">
                 <div class="card mb-3 kanban-item shadow-sm active" data-class="data-atendimento">
-                    <div class="card-body">
+                    <div class="card-body shadow-button">
                     <p class="fs--1 fw-medium font-sans-serif mb-0 d-flex align-items-center">
                         <span class="far fa-address-card fs-1"></span>
                         <span class="nav-link-text ps-1">Dados do Paciente</span>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="card mb-3 kanban-item shadow-sm" data-class="data-acompanhante">
-                    <div class="card-body">
+                    <div class="card-body shadow-button">
                     <p class="fs--1 fw-medium font-sans-serif mb-0 d-flex align-items-center">
                         <span class="fas fa-user-friends fs-1"></span>
                         <span class="nav-link-text ps-1">Dados do Acompanhante</span>
