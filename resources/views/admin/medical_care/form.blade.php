@@ -163,7 +163,7 @@
 									<li class="nav-item">
 										<a class="nav-link active fw-semi-bold" href="#bootstrap-wizard-validation-tab1" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
 											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-lock"></span></span>
+												<span class="nav-item-circle"><span class="fas fa-stethoscope"></span></span>
 											</span>
 											<span class="d-none text-service-form d-md-block mt-1 fs--1">Anamnese / Exame Físico</span>
 										</a>
@@ -171,7 +171,7 @@
 									<li class="nav-item">
 										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab2" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
 											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-user"></span></span>
+												<span class="nav-item-circle"><span class="fas fa-notes-medical"></span></span>
 											</span>
 											<span class="d-none text-service-form d-md-block mt-1 fs--1">Queixa Principal</span>
 										</a>
@@ -179,7 +179,7 @@
 									<li class="nav-item">
 										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab3" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
 											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-dollar-sign"></span></span>
+												<span class="nav-item-circle"><span class="fas fa-procedures"></span></span>
 											</span>
 											<span class="d-none text-service-form d-md-block mt-1 fs--1">Comorbidades</span>
 										</a>
@@ -187,7 +187,7 @@
 									<li class="nav-item">
 										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab4" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
 											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-thumbs-up"></span></span>
+												<span class="nav-item-circle"><span class="fas fa-prescription-bottle-alt"></span></span>
 											</span>
 											<span class="d-none text-service-form d-md-block mt-1 fs--1">Medicações de Uso Contínuo</span>
 										</a>
@@ -195,7 +195,7 @@
 									<li class="nav-item">
 										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab5" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
 											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-lock"></span></span>
+												<span class="nav-item-circle"><span class="fas fa-syringe"></span></span>
 											</span>
 											<span class="d-none text-service-form d-md-block mt-1 fs--1">Alergias</span>
 										</a>
@@ -203,7 +203,7 @@
 									<li class="nav-item">
 										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab6" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
 											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-user"></span></span>
+												<span class="nav-item-circle"><span class="fas fa-hospital-user"></span></span>
 											</span>
 											<span class="d-none text-service-form d-md-block mt-1 fs--1">Exame Clínico</span>
 										</a>
@@ -211,15 +211,15 @@
 									<li class="nav-item">
 										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab7" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
 											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-dollar-sign"></span></span>
+												<span class="nav-item-circle"><span class="fas fa-user-md"></span></span>
 											</span>
-											<span class="d-none text-service-form d-md-block mt-1 fs--1">Hupotese Diagnóstica</span>
+											<span class="d-none text-service-form d-md-block mt-1 fs--1">Hipótese Diagnóstica</span>
 										</a>
 									</li>
 									<li class="nav-item">
 										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab8" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
 											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-thumbs-up"></span></span>
+												<span class="nav-item-circle"><span class="fas fa-laptop-medical"></span></span>
 											</span>
 											<span class="d-none text-service-form d-md-block mt-1 fs--1">Conduta</span>
 										</a>
@@ -306,10 +306,10 @@
 								<div class="px-sm-3 px-md-5">
 									<ul class="pager wizard list-inline mb-0">
 										<li class="previous">
-											<button class="btn btn-link ps-0 btn-sm" type="button"><span class="fas fa-chevron-left me-2" data-fa-transform="shrink-3"></span>Prev</button>
+											<button class="btn btn-link ps-0 btn-sm" type="button"><span class="fas fa-chevron-left me-2" data-fa-transform="shrink-3"></span>Anterior</button>
 										</li>
 										<li class="next">
-											<button class="btn btn-primary px-5 px-sm-3 btn-sm" type="button">Next<span class="fas fa-chevron-right ms-2" data-fa-transform="shrink-3"> </span></button>
+											<button class="btn btn-primary px-5 px-sm-3 btn-sm" type="button">Próximo<span class="fas fa-chevron-right ms-2" data-fa-transform="shrink-3"> </span></button>
 										</li>
 									</ul>
 								</div>
