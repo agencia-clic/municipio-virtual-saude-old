@@ -28,6 +28,7 @@
     <link href="{{ asset('admin/css/user-rtl.min.css') }}" rel="stylesheet" id="user-style-rtl">
     <link href="{{ asset('admin/css/user.min.css') }}" rel="stylesheet" id="user-style-default">
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet" id="user-style-default">
+    <link href="{{ asset('admin/vendors/dropzone/dropzone.min.css') }}" rel="stylesheet" />
 
     <script>
         var isRTL = JSON.parse(localStorage.getItem('isRTL'));
@@ -92,12 +93,16 @@
     <script src="{{ asset('admin/vendors/popper/popper.min.js') }}"></script>
     <script src="{{ asset('admin/vendors/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('admin/vendors/anchorjs/anchor.min.js') }}"></script>
+
     <script src="{{ asset('admin/vendors/is/is.min.js') }}"></script>
+    <script src="{{ asset('admin/vendors/lottie/lottie.min.js') }}"></script>
+    <script src="{{ asset('admin/vendors/validator/validator.min.js') }}"></script>
+    <script src="{{ asset('admin/vendors/prism/prism.js') }}"></script>
+
     <script src="{{ asset('admin/vendors/fontawesome/all.min.js') }}"></script>
     <script src="{{ asset('admin/vendors/lodash/lodash.min.js') }}"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="{{ asset('admin/vendors/list.js/list.min.js') }}"></script>
-    <script src="{{ asset('admin/js/theme.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="{{ asset('admin/js/modal.js') }}"></script>
     <script src="{{ asset('admin/js/request.js') }}"></script>

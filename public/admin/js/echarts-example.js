@@ -1,12 +1,12 @@
 "use strict";
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 /* -------------------------------------------------------------------------- */
 
@@ -99,19 +99,19 @@ var getSoftColors = function getSoftColors(dom) {
 
 var getGrays = function getGrays(dom) {
   return {
-    white: getColor('white', dom),
-    100: getColor('100', dom),
-    200: getColor('200', dom),
-    300: getColor('300', dom),
-    400: getColor('400', dom),
-    500: getColor('500', dom),
-    600: getColor('600', dom),
-    700: getColor('700', dom),
-    800: getColor('800', dom),
-    900: getColor('900', dom),
-    1000: getColor('1000', dom),
-    1100: getColor('1100', dom),
-    black: getColor('black', dom)
+    white: getColor('gray-white', dom),
+    100: getColor('gray-100', dom),
+    200: getColor('gray-200', dom),
+    300: getColor('gray-300', dom),
+    400: getColor('gray-400', dom),
+    500: getColor('gray-500', dom),
+    600: getColor('gray-600', dom),
+    700: getColor('gray-700', dom),
+    800: getColor('gray-800', dom),
+    900: getColor('gray-900', dom),
+    1000: getColor('gray-1000', dom),
+    1100: getColor('gray-1100', dom),
+    black: getColor('gray-black', dom)
   };
 };
 
@@ -122,6 +122,10 @@ var hasClass = function hasClass(el, className) {
 
 var addClass = function addClass(el, className) {
   el.classList.add(className);
+};
+
+var removeClass = function removeClass(el, className) {
+  el.classList.remove(className);
 };
 
 var getOffset = function getOffset(el) {
@@ -262,6 +266,7 @@ var getRandomNumber = function getRandomNumber(min, max) {
 
 var utils = {
   docReady: docReady,
+  breakpoints: breakpoints,
   resize: resize,
   isIterableArray: isIterableArray,
   camelize: camelize,
@@ -286,7 +291,8 @@ var utils = {
   getStoreSpace: getStoreSpace,
   getDates: getDates,
   getPastDates: getPastDates,
-  getRandomNumber: getRandomNumber
+  getRandomNumber: getRandomNumber,
+  removeClass: removeClass
 };
 /* eslint-disable */
 
@@ -313,7 +319,7 @@ var echartSetOption = function echartSetOption(chart, userOptions, getDefaultOpt
 var tooltipFormatter = function tooltipFormatter(params) {
   var tooltipItem = "";
   params.forEach(function (el) {
-    tooltipItem = tooltipItem + "<div class='ms-1'> \n        <h6 class=\"text-700\"><span class=\"fas fa-circle me-1 fs--2\" style=\"color:".concat(el.borderColor ? el.borderColor : el.color, "\"></span>\n          ").concat(el.seriesName, " : ").concat(_typeof(el.value) === 'object' ? el.value[1] : el.value, "\n        </h6>\n      </div>");
+    tooltipItem = tooltipItem + "<div class='ms-1'>\n        <h6 class=\"text-700\"><span class=\"fas fa-circle me-1 fs--2\" style=\"color:".concat(el.borderColor ? el.borderColor : el.color, "\"></span>\n          ").concat(el.seriesName, " : ").concat(_typeof(el.value) === 'object' ? el.value[1] : el.value, "\n        </h6>\n      </div>");
   });
   return "<div>\n            <p class='mb-2 text-600'>\n              ".concat(window.dayjs(params[0].axisValue).isValid() ? window.dayjs(params[0].axisValue).format('MMMM DD') : params[0].axisValue, "\n            </p>\n            ").concat(tooltipItem, "\n          </div>");
 };
@@ -1106,7 +1112,7 @@ var echartsBarTimelineChartInit = function echartsBarTimelineChartInit() {
         baseOption: {
           timeline: {
             axisType: 'category',
-            autoPlay: true,
+            autoPlay: false,
             playInterval: 1000,
             data: ['2005-01-01', '2006-01-01', '2007-01-01', '2008-01-01', '2009-01-01', '2010-01-01', '2011-01-01'],
             label: {
@@ -2691,113 +2697,122 @@ var echartsGaugeMultiRingChartInit = function echartsGaugeMultiRingChartInit() {
     var userOptions = utils.getData($gaugeMultiRingChartEl, 'options');
     var chart = window.echarts.init($gaugeMultiRingChartEl);
 
-    var _tooltipFormatter3 = function _tooltipFormatter3(params) {
-      return "\n      <div>\n          <h6 class=\"fs--1 text-700 mb-0\">\n            <span class=\"fas fa-circle me-1\" style='color:".concat(params[0].color, "'></span>\n            ").concat(params[0].name, " : ").concat(params[0].value, "\n          </h6>\n      </div>\n      ");
-    };
-
     var getDefaultOptions = function getDefaultOptions() {
       return {
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getColors().dark
-          },
-          borderWidth: 1,
-          formatter: _tooltipFormatter3,
-          transitionDuration: 0,
-          axisPointer: {
-            type: 'none'
-          }
-        },
         series: [{
           type: 'gauge',
-          radius: '100%',
           startAngle: 90,
           endAngle: -270,
+          radius: '85%',
           pointer: {
             show: false
           },
+          center: ['50%', '50%'],
           progress: {
             show: true,
             overlap: false,
             roundCap: true,
             clip: false,
             itemStyle: {
-              borderWidth: 1,
-              borderColor: utils.getGrays()['500']
+              color: utils.getColor('info')
             }
           },
           axisLine: {
             lineStyle: {
-              width: 40
+              width: 8,
+              color: [[1, utils.getColor('gray-200')]]
             }
           },
           splitLine: {
-            show: false,
-            distance: 0,
-            length: 10
+            show: false
           },
           axisTick: {
             show: false
           },
           axisLabel: {
-            show: false,
-            distance: 50
+            show: false
           },
-          data: [{
-            value: 60,
-            name: 'Perfect',
-            title: {
-              offsetCenter: ['0%', '-50%']
-            },
-            detail: {
-              offsetCenter: ['0%', '-35%']
-            },
+          data: [79],
+          detail: {
+            show: false
+          },
+          animationDuration: 2000
+        }, {
+          type: 'gauge',
+          startAngle: 90,
+          endAngle: -270,
+          radius: '70%',
+          pointer: {
+            show: false
+          },
+          center: ['50%', '50%'],
+          progress: {
+            show: true,
+            overlap: false,
+            roundCap: true,
+            clip: false,
             itemStyle: {
               color: utils.getColor('primary')
             }
-          }, {
-            value: 40,
-            name: 'Good',
-            title: {
-              offsetCenter: ['0%', '-10%']
-            },
-            detail: {
-              offsetCenter: ['0%', '5%']
-            },
+          },
+          axisLine: {
+            lineStyle: {
+              width: 8,
+              color: [[1, utils.getColor('gray-200')]]
+            }
+          },
+          splitLine: {
+            show: false
+          },
+          axisTick: {
+            show: false
+          },
+          axisLabel: {
+            show: false
+          },
+          data: [85],
+          detail: {
+            show: false
+          },
+          animationDuration: 2000
+        }, {
+          type: 'gauge',
+          startAngle: 90,
+          endAngle: -270,
+          radius: '55%',
+          pointer: {
+            show: false
+          },
+          center: ['50%', '50%'],
+          progress: {
+            show: true,
+            overlap: false,
+            roundCap: true,
+            clip: false,
             itemStyle: {
               color: utils.getColor('success')
             }
-          }, {
-            value: 20,
-            name: 'Commonly',
-            title: {
-              offsetCenter: ['0%', '30%']
-            },
-            detail: {
-              offsetCenter: ['0%', '45%']
-            },
-            itemStyle: {
-              color: utils.getColor('warning')
-            }
-          }],
-          title: {
-            fontSize: 14,
-            color: utils.getGrays()['600']
           },
+          axisLine: {
+            lineStyle: {
+              width: 8,
+              color: [[1, utils.getColor('gray-200')]]
+            }
+          },
+          splitLine: {
+            show: false
+          },
+          axisTick: {
+            show: false
+          },
+          axisLabel: {
+            show: false
+          },
+          data: [70],
           detail: {
-            width: 50,
-            height: 14,
-            fontSize: 14,
-            color: 'auto',
-            borderColor: 'auto',
-            borderRadius: 20,
-            borderWidth: 1,
-            formatter: '{value}%'
-          }
+            show: false
+          },
+          animationDuration: 2000
         }]
       };
     };
@@ -2820,7 +2835,7 @@ var echartsGaugeMultiTitleChartInit = function echartsGaugeMultiTitleChartInit()
     var userOptions = utils.getData($gaugeMultiTitleChartEl, 'options');
     var chart = window.echarts.init($gaugeMultiTitleChartEl);
 
-    var _tooltipFormatter4 = function _tooltipFormatter4(params) {
+    var _tooltipFormatter3 = function _tooltipFormatter3(params) {
       return "\n      <div>\n          <h6 class=\"fs--1 text-700 mb-0\">\n            <span class=\"fas fa-circle me-1\" style='color:".concat(params[0].color, "'></span>\n            ").concat(params[0].name, " : ").concat(params[0].value, "\n          </h6>\n      </div>\n      ");
     };
 
@@ -2835,7 +2850,7 @@ var echartsGaugeMultiTitleChartInit = function echartsGaugeMultiTitleChartInit()
             color: utils.getColors().dark
           },
           borderWidth: 1,
-          formatter: _tooltipFormatter4,
+          formatter: _tooltipFormatter3,
           transitionDuration: 0,
           axisPointer: {
             type: 'none'
@@ -2945,7 +2960,7 @@ var echartsGaugeProgressChartInit = function echartsGaugeProgressChartInit() {
     var userOptions = utils.getData($gaugeProgressChartEl, 'options');
     var chart = window.echarts.init($gaugeProgressChartEl);
 
-    var _tooltipFormatter5 = function _tooltipFormatter5(params) {
+    var _tooltipFormatter4 = function _tooltipFormatter4(params) {
       return "\n      <div>\n          <h6 class=\"fs--1 text-700 mb-0\">\n            <span class=\"fas fa-circle me-1\" style='color:".concat(params[0].color, "'></span>\n            ").concat(params[0].name, " : ").concat(params[0].value, "\n          </h6>\n      </div>\n      ");
     };
 
@@ -2960,7 +2975,7 @@ var echartsGaugeProgressChartInit = function echartsGaugeProgressChartInit() {
             color: utils.getColors().dark
           },
           borderWidth: 1,
-          formatter: _tooltipFormatter5,
+          formatter: _tooltipFormatter4,
           transitionDuration: 0,
           axisPointer: {
             type: 'none'
@@ -3050,7 +3065,7 @@ var echartsGaugeRingChartInit = function echartsGaugeRingChartInit() {
     var userOptions = utils.getData($gaugeRingChartEl, 'options');
     var chart = window.echarts.init($gaugeRingChartEl);
 
-    var _tooltipFormatter6 = function _tooltipFormatter6(params) {
+    var _tooltipFormatter5 = function _tooltipFormatter5(params) {
       return "\n      <div>\n          <h6 class=\"fs--1 text-700 mb-0\">\n            <span class=\"fas fa-circle me-1\" style='color:".concat(params[0].color, "'></span>\n            ").concat(params[0].name, " : ").concat(params[0].value, "\n          </h6>\n      </div>\n      ");
     };
 
@@ -3065,7 +3080,7 @@ var echartsGaugeRingChartInit = function echartsGaugeRingChartInit() {
             color: utils.getColors().dark
           },
           borderWidth: 1,
-          formatter: _tooltipFormatter6,
+          formatter: _tooltipFormatter5,
           transitionDuration: 0,
           axisPointer: {
             type: 'none'
@@ -3150,7 +3165,7 @@ var echartsGradientBarChartInit = function echartsGradientBarChartInit() {
     var userOptions = utils.getData($gradientBarChartEl, 'options');
     var chart = window.echarts.init($gradientBarChartEl);
 
-    var _tooltipFormatter7 = function _tooltipFormatter7(params) {
+    var _tooltipFormatter6 = function _tooltipFormatter6(params) {
       return "<div> \n          <h6 class=\"fs--1 text-700 mb-0\">\n          <span class=\"dot me-1 fs--2  bg-primary\" ></span> ".concat(params[0].name, " : ").concat(params[0].value, " \n           </h6>\n        </div> ");
     };
 
@@ -3172,7 +3187,7 @@ var echartsGradientBarChartInit = function echartsGradientBarChartInit() {
           axisPointer: {
             type: 'none'
           },
-          formatter: _tooltipFormatter7
+          formatter: _tooltipFormatter6
         },
         title: {
           text: 'Gradient and Clickable bar chart',
@@ -3634,7 +3649,7 @@ var echartsLineAreaChartInit = function echartsLineAreaChartInit() {
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var data = [1142, 1160, 1179, 946, 1420, 1434, 986, 1247, 1051, 1297, 927, 1282];
 
-    var _tooltipFormatter8 = function _tooltipFormatter8(params) {
+    var _tooltipFormatter7 = function _tooltipFormatter7(params) {
       return "\n      <div>\n          <h6 class=\"fs--1 text-700 mb-0\">\n            <span class=\"fas fa-circle me-1\" style='color:".concat(params[0].borderColor, "'></span>\n            ").concat(params[0].name, " : ").concat(params[0].value, "\n          </h6>\n      </div>\n      ");
     };
 
@@ -3649,7 +3664,7 @@ var echartsLineAreaChartInit = function echartsLineAreaChartInit() {
             color: utils.getColors().dark
           },
           borderWidth: 1,
-          formatter: _tooltipFormatter8,
+          formatter: _tooltipFormatter7,
           transitionDuration: 0,
           axisPointer: {
             type: 'none'
@@ -4750,6 +4765,156 @@ var echartsUsaMapInit = function echartsUsaMapInit() {
         type: 'restore'
       });
     });
+  }
+};
+/* -------------------------------------------------------------------------- */
+
+/*                            Bandwidth Saved                                 */
+
+/* -------------------------------------------------------------------------- */
+
+
+var echartsNestedPiesChartInit = function echartsNestedPiesChartInit() {
+  var $echartsNestedPies = document.querySelector('.echarts-nested-pies-chart-example');
+
+  if ($echartsNestedPies) {
+    var userOptions = utils.getData($echartsNestedPies, 'options');
+    var chart = window.echarts.init($echartsNestedPies);
+    var marketingExpenses = [{
+      value: 412600,
+      name: 'Offline Marketing',
+      itemStyle: {
+        color: utils.getColor('primary')
+      },
+      label: {
+        rich: {
+          per: {
+            color: '#1C4F93'
+          }
+        }
+      }
+    }, {
+      value: 641500,
+      name: 'Digital Marketing',
+      itemStyle: {
+        color: utils.rgbaColor(utils.getColor('info'), 0.35)
+      },
+      label: {
+        rich: {
+          per: {
+            color: '#1978A2'
+          }
+        }
+      }
+    }];
+    var detailedExpenses = [{
+      value: 91600,
+      name: 'Event Sponsorship',
+      itemStyle: {
+        color: utils.rgbaColor(utils.getColor('primary'), 0.4)
+      }
+    }, {
+      value: 183000,
+      name: 'Outrich Event',
+      itemStyle: {
+        color: utils.rgbaColor(utils.getColor('primary'), 0.6)
+      }
+    }, {
+      value: 138000,
+      name: 'Ad Campaign',
+      itemStyle: {
+        color: utils.rgbaColor(utils.getColor('primary'), 0.8)
+      }
+    }, {
+      value: 183000,
+      name: 'Social Media',
+      itemStyle: {
+        color: utils.rgbaColor(utils.getColor('info'), 0.2)
+      }
+    }, {
+      value: 45900,
+      name: 'Google Ads',
+      itemStyle: {
+        color: utils.rgbaColor(utils.getColor('info'), 0.35)
+      }
+    }, {
+      value: 138000,
+      name: 'Influencer Marketing',
+      itemStyle: {
+        color: utils.rgbaColor(utils.getColor('info'), 0.5)
+      }
+    }, {
+      value: 183000,
+      name: 'Email Marketing',
+      itemStyle: {
+        color: utils.rgbaColor(utils.getColor('info'), 0.7)
+      }
+    }, {
+      value: 91600,
+      name: 'Generate Backlinks',
+      itemStyle: {
+        color: utils.rgbaColor(utils.getColor('info'), 0.8)
+      }
+    }];
+
+    var getDefaultOptions = function getDefaultOptions() {
+      return {
+        tooltip: {
+          trigger: 'item',
+          backgroundColor: utils.getGrays()['100'],
+          textStyle: {
+            color: utils.getColors().dark
+          },
+          formatter: '{b}<br/> {c} ({d}%)'
+        },
+        series: [{
+          name: 'Marketing Expenses',
+          type: 'pie',
+          selectedMode: 'single',
+          radius: ['45%', '60%'],
+          label: {
+            show: false
+          },
+          labelLine: {
+            show: false
+          },
+          itemStyle: {
+            borderColor: utils.getColor('gray-100'),
+            borderWidth: 2
+          },
+          data: detailedExpenses
+        }, {
+          name: 'Marketing Expenses',
+          type: 'pie',
+          radius: ['70%', '75%'],
+          barWidth: 10,
+          labelLine: {
+            length: 0,
+            show: false
+          },
+          label: {
+            formatter: '{per|{d}%}',
+            rich: {
+              per: {
+                fontSize: 14,
+                fontWeight: 'bold',
+                lineHeight: 33
+              }
+            }
+          },
+          data: marketingExpenses
+        }]
+      };
+    };
+
+    var initChart = function initChart() {
+      if (utils.isScrolledIntoView($echartsNestedPies)) {
+        echartSetOption(chart, userOptions, getDefaultOptions);
+        window.removeEventListener('scroll', initChart);
+      }
+    };
+
+    window.addEventListener('scroll', initChart);
   }
 };
 /* -------------------------------------------------------------------------- */
@@ -6718,6 +6883,123 @@ var echartsStackedLineChartInit = function echartsStackedLineChartInit() {
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
+
+var echartsStackedVerticalChartInit = function echartsStackedVerticalChartInit() {
+  var $stackedVerticalChart = document.querySelector('.echart-stacked-vertival-chart-example');
+
+  if ($stackedVerticalChart) {
+    var userOptions = utils.getData($stackedVerticalChart, 'options');
+    var chart = window.echarts.init($stackedVerticalChart);
+    var xAxisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    var _data3 = [20, 18, 15, 20, 12, 15, 10];
+    var _data4 = [30, 20, 20, 25, 20, 15, 10];
+    var data3 = [35, 32, 40, 50, 30, 25, 15];
+    var data4 = [15, 25, 20, 18, 10, 15, 25];
+    var emphasisStyle = {
+      itemStyle: {
+        shadowColor: utils.rgbaColor(utils.getColor('dark'), 0.3)
+      }
+    };
+
+    var getDefaultOptions = function getDefaultOptions() {
+      return {
+        color: [utils.getColor('primary'), utils.getColor('info'), localStorage.getItem('theme') === 'dark' ? '#229BD2' : '#73D3FE', localStorage.getItem('theme') === 'dark' ? '#195979' : '#A9E4FF'],
+        tooltip: {
+          trigger: 'item',
+          padding: [7, 10],
+          backgroundColor: utils.getGrays()['100'],
+          borderColor: utils.getGrays()['300'],
+          textStyle: {
+            color: utils.getGrays()['900']
+          },
+          borderWidth: 1,
+          transitionDuration: 0,
+          axisPointer: {
+            type: 'none'
+          }
+        },
+        legend: {
+          data: ['Urgent', 'High', 'Medium', 'Low'],
+          textStyle: {
+            color: utils.getGrays()['700']
+          }
+        },
+        xAxis: {
+          data: xAxisData,
+          splitLine: {
+            show: false
+          },
+          splitArea: {
+            show: false
+          },
+          axisLabel: {
+            color: utils.getGrays()['600'],
+            margin: 8
+          },
+          axisLine: {
+            lineStyle: {
+              color: utils.getGrays()['300'],
+              type: 'dashed'
+            }
+          },
+          axisTick: {
+            show: false
+          }
+        },
+        yAxis: {
+          splitLine: {
+            lineStyle: {
+              color: utils.getGrays()['300'],
+              type: 'dashed'
+            }
+          },
+          axisLabel: {
+            color: utils.getGrays()['600']
+          },
+          position: 'right'
+        },
+        series: [{
+          name: 'Urgent',
+          type: 'bar',
+          stack: 'one',
+          emphasis: emphasisStyle,
+          data: _data3
+        }, {
+          name: 'High',
+          type: 'bar',
+          stack: 'one',
+          emphasis: emphasisStyle,
+          data: _data4
+        }, {
+          name: 'Medium',
+          type: 'bar',
+          stack: 'one',
+          emphasis: emphasisStyle,
+          data: data3
+        }, {
+          name: 'Low',
+          type: 'bar',
+          stack: 'one',
+          emphasis: emphasisStyle,
+          data: data4,
+          itemStyle: {
+            borderRadius: [2, 2, 0, 0]
+          }
+        }],
+        barWidth: '15px',
+        grid: {
+          top: '8%',
+          bottom: 10,
+          left: 0,
+          right: 2,
+          containLabel: true
+        }
+      };
+    };
+
+    echartSetOption(chart, userOptions, getDefaultOptions);
+  }
+};
 /* -------------------------------------------------------------------------- */
 
 /*                             Echarts Step Line Chart                        */
@@ -6913,4 +7195,6 @@ docReady(echartsHeatMapChartInit);
 docReady(echartsHeatMapSingleSeriesChartInit);
 docReady(echartsBarStackedChartInit);
 docReady(echartsPieEdgeAlignChartInit);
+docReady(echartsStackedVerticalChartInit);
+docReady(echartsNestedPiesChartInit);
 //# sourceMappingURL=echarts-example.js.map

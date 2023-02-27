@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.countUp = {}));
-}(this, (function (exports) { 'use strict';
+})(this, (function (exports) { 'use strict';
 
     var __assign = (undefined && undefined.__assign) || function () {
         __assign = Object.assign || function(t) {
@@ -19,10 +19,9 @@
     var CountUp = /** @class */ (function () {
         function CountUp(target, endVal, options) {
             var _this = this;
-            this.target = target;
             this.endVal = endVal;
             this.options = options;
-            this.version = '2.0.8';
+            this.version = '2.3.2';
             this.defaults = {
                 startVal: 0,
                 decimalPlaces: 0,
@@ -34,7 +33,10 @@
                 separator: ',',
                 decimal: '.',
                 prefix: '',
-                suffix: ''
+                suffix: '',
+                enableScrollSpy: false,
+                scrollSpyDelay: 200,
+                scrollSpyOnce: false,
             };
             this.finalEndVal = null; // for smart easing
             this.useEasing = true;
@@ -42,6 +44,7 @@
             this.error = '';
             this.startVal = 0;
             this.paused = true;
+            this.once = false;
             this.count = function (timestamp) {
                 if (!_this.startTime) {
                     _this.startTime = timestamp;
@@ -58,20 +61,11 @@
                     }
                 }
                 else {
-                    if (_this.countDown) {
-                        _this.frameVal = _this.startVal - ((_this.startVal - _this.endVal) * (progress / _this.duration));
-                    }
-                    else {
-                        _this.frameVal = _this.startVal + (_this.endVal - _this.startVal) * (progress / _this.duration);
-                    }
+                    _this.frameVal = _this.startVal + (_this.endVal - _this.startVal) * (progress / _this.duration);
                 }
                 // don't go past endVal since progress can exceed duration in the last frame
-                if (_this.countDown) {
-                    _this.frameVal = (_this.frameVal < _this.endVal) ? _this.endVal : _this.frameVal;
-                }
-                else {
-                    _this.frameVal = (_this.frameVal > _this.endVal) ? _this.endVal : _this.frameVal;
-                }
+                var wentPast = _this.countDown ? _this.frameVal < _this.endVal : _this.frameVal > _this.endVal;
+                _this.frameVal = wentPast ? _this.endVal : _this.frameVal;
                 // decimal
                 _this.frameVal = Number(_this.frameVal.toFixed(_this.options.decimalPlaces));
                 // format and print value
@@ -116,6 +110,7 @@
                 }
                 return neg + _this.options.prefix + x1 + x2 + _this.options.suffix;
             };
+            // t: current time, b: beginning value, c: change in value, d: duration
             this.easeOutExpo = function (t, b, c, d) {
                 return c * (-Math.pow(2, -10 * t / d) + 1) * 1024 / 1023 + b;
             };
@@ -141,13 +136,51 @@
             else {
                 this.error = '[CountUp] target is null or undefined';
             }
+            // scroll spy
+            if (typeof window !== 'undefined' && this.options.enableScrollSpy) {
+                if (!this.error) {
+                    // set up global array of onscroll functions to handle multiple instances
+                    window['onScrollFns'] = window['onScrollFns'] || [];
+                    window['onScrollFns'].push(function () { return _this.handleScroll(_this); });
+                    window.onscroll = function () {
+                        window['onScrollFns'].forEach(function (fn) { return fn(); });
+                    };
+                    this.handleScroll(this);
+                }
+                else {
+                    console.error(this.error, target);
+                }
+            }
         }
-        // determines where easing starts and whether to count down or up
+        CountUp.prototype.handleScroll = function (self) {
+            if (!self || !window || self.once)
+                return;
+            var bottomOfScroll = window.innerHeight + window.scrollY;
+            var rect = self.el.getBoundingClientRect();
+            var bottomOfEl = rect.top + rect.height + window.pageYOffset;
+            if (bottomOfEl < bottomOfScroll && bottomOfEl > window.scrollY && self.paused) {
+                // in view
+                self.paused = false;
+                setTimeout(function () { return self.start(); }, self.options.scrollSpyDelay);
+                if (self.options.scrollSpyOnce)
+                    self.once = true;
+            }
+            else if (window.scrollY > bottomOfEl && !self.paused) {
+                // scrolled past
+                self.reset();
+            }
+        };
+        /**
+         * Smart easing works by breaking the animation into 2 parts, the second part being the
+         * smartEasingAmount and first part being the total amount minus the smartEasingAmount. It works
+         * by disabling easing for the first part and enabling it on the second part. It is used if
+         * usingEasing is true and the total animation amount exceeds the smartEasingThreshold.
+         */
         CountUp.prototype.determineDirectionAndSmartEasing = function () {
             var end = (this.finalEndVal) ? this.finalEndVal : this.endVal;
             this.countDown = (this.startVal > end);
             var animateAmount = end - this.startVal;
-            if (Math.abs(animateAmount) > this.options.smartEasingThreshold) {
+            if (Math.abs(animateAmount) > this.options.smartEasingThreshold && this.options.useEasing) {
                 this.finalEndVal = end;
                 var up = (this.countDown) ? 1 : -1;
                 this.endVal = end + (up * this.options.smartEasingAmount);
@@ -157,7 +190,8 @@
                 this.endVal = end;
                 this.finalEndVal = null;
             }
-            if (this.finalEndVal) {
+            if (this.finalEndVal !== null) {
+                // setting finalEndVal indicates smart easing
                 this.useEasing = false;
             }
             else {
@@ -211,7 +245,7 @@
                 return;
             }
             this.startVal = this.frameVal;
-            if (!this.finalEndVal) {
+            if (this.finalEndVal == null) {
                 this.resetDuration();
             }
             this.finalEndVal = null;
@@ -237,7 +271,7 @@
         CountUp.prototype.validateValue = function (value) {
             var newValue = Number(value);
             if (!this.ensureNumber(newValue)) {
-                this.error = "[CountUp] invalid start or end value: " + value;
+                this.error = "[CountUp] invalid start or end value: ".concat(value);
                 return null;
             }
             else {
@@ -256,4 +290,4 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));

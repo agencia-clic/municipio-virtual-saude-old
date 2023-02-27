@@ -1,7 +1,7 @@
 /*!
-FullCalendar v5.9.0
+FullCalendar v5.11.3
 Docs & License: https://fullcalendar.io/
-(c) 2021 Adam Shaw
+(c) 2022 Adam Shaw
 */
 var FullCalendar = (function (exports) {
     'use strict';
@@ -77,14 +77,15 @@ var FullCalendar = (function (exports) {
             Fragment: y,
             createContext: createContext$1,
             createPortal: I,
-            flushToDom: flushToDom$1,
+            flushSync: flushSync$1,
             unmountComponentAtNode: unmountComponentAtNode$1,
         };
     }
     // HACKS...
     // TODO: lock version
     // TODO: link gh issues
-    function flushToDom$1() {
+    function flushSync$1(runBeforeFlush) {
+        runBeforeFlush();
         var oldDebounceRendering = n.debounceRendering; // orig
         var callbackQ = [];
         function execCallbackSync(callback) {
@@ -275,6 +276,12 @@ var FullCalendar = (function (exports) {
     function getElRoot(el) {
         return el.getRootNode ? el.getRootNode() : document;
     }
+    // Unique ID for DOM attribute
+    var guid$1 = 0;
+    function getUniqueDomId() {
+        guid$1 += 1;
+        return 'fc-dom-' + guid$1;
+    }
 
     // Stops a mouse/touch event from doing it's native browser action
     function preventDefault(ev) {
@@ -333,6 +340,22 @@ var FullCalendar = (function (exports) {
         transitionEventNames.forEach(function (eventName) {
             el.addEventListener(eventName, realCallback); // cross-browser way to determine when the transition finishes
         });
+    }
+    // ARIA workarounds
+    // ----------------------------------------------------------------------------------------------------------------
+    function createAriaClickAttrs(handler) {
+        return __assign({ onClick: handler }, createAriaKeyboardAttrs(handler));
+    }
+    function createAriaKeyboardAttrs(handler) {
+        return {
+            tabIndex: 0,
+            onKeyDown: function (ev) {
+                if (ev.key === 'Enter' || ev.key === ' ') {
+                    handler(ev);
+                    ev.preventDefault(); // if space, don't scroll down page
+                }
+            },
+        };
     }
 
     var guidNumber = 0;
@@ -433,6 +456,15 @@ var FullCalendar = (function (exports) {
     function padStart(val, len) {
         var s = String(val);
         return '000'.substr(0, len - s.length) + s;
+    }
+    function formatWithOrdinals(formatter, args, fallbackText) {
+        if (typeof formatter === 'function') {
+            return formatter.apply(void 0, args);
+        }
+        if (typeof formatter === 'string') { // non-blank string
+            return args.reduce(function (str, arg, index) { return (str.replace('$' + index, arg || '')); }, formatter);
+        }
+        return fallbackText;
     }
     /* Number Utilities
     ----------------------------------------------------------------------------------------------------------------------*/
@@ -1175,8 +1207,7 @@ var FullCalendar = (function (exports) {
             return currentResults;
         };
     }
-    function memoizeHashlike(// used?
-    workerFunc, resEquality, teardownFunc) {
+    function memoizeHashlike(workerFunc, resEquality, teardownFunc) {
         var _this = this;
         var currentArgHash = {};
         var currentResHash = {};
@@ -1306,7 +1337,7 @@ var FullCalendar = (function (exports) {
             return function (date) { return (formatTimeZoneOffset(date.timeZoneOffset)); };
         }
         if (standardDatePropCnt === 0 && extendedSettings.week) {
-            return function (date) { return (formatWeekNumber(context.computeWeekNumber(date.marker), context.weekText, context.locale, extendedSettings.week)); };
+            return function (date) { return (formatWeekNumber(context.computeWeekNumber(date.marker), context.weekText, context.weekTextLong, context.locale, extendedSettings.week)); };
         }
         return buildNativeFormattingFunc(standardDateProps, extendedSettings, context);
     }
@@ -1398,15 +1429,17 @@ var FullCalendar = (function (exports) {
         }
         return s;
     }
-    function formatWeekNumber(num, weekText, locale, display) {
+    function formatWeekNumber(num, weekText, weekTextLong, locale, display) {
         var parts = [];
-        if (display === 'narrow') {
+        if (display === 'long') {
+            parts.push(weekTextLong);
+        }
+        else if (display === 'short' || display === 'narrow') {
             parts.push(weekText);
         }
-        else if (display === 'short') {
-            parts.push(weekText, ' ');
+        if (display === 'long' || display === 'short') {
+            parts.push(' ');
         }
-        // otherwise, considered 'numeric'
         parts.push(locale.simpleNumberFormat.format(num));
         if (locale.options.direction === 'rtl') { // TODO: use control characters instead?
             parts.reverse();
@@ -1628,6 +1661,7 @@ var FullCalendar = (function (exports) {
         displayEventTime: Boolean,
         displayEventEnd: Boolean,
         weekText: String,
+        weekTextLong: String,
         progressiveEventRendering: Boolean,
         businessHours: identity,
         initialDate: identity,
@@ -1681,6 +1715,7 @@ var FullCalendar = (function (exports) {
         eventTimeFormat: createFormatter,
         rerenderDelay: Number,
         moreLinkText: identity,
+        moreLinkHint: identity,
         selectMinDistance: Number,
         selectable: Boolean,
         selectLongPressDelay: Number,
@@ -1702,8 +1737,14 @@ var FullCalendar = (function (exports) {
         validRange: identity,
         visibleRange: identity,
         titleFormat: identity,
+        eventInteractive: Boolean,
         // only used by list-view, but languages define the value, so we need it in base options
         noEventsText: String,
+        viewHint: identity,
+        navLinkHint: identity,
+        closeHint: String,
+        timeHint: String,
+        eventHint: String,
         moreLinkClick: identity,
         moreLinkClassNames: identity,
         moreLinkContent: identity,
@@ -1792,6 +1833,7 @@ var FullCalendar = (function (exports) {
     // -------------------------
     var CALENDAR_OPTION_REFINERS = {
         buttonText: identity,
+        buttonHints: identity,
         views: identity,
         plugins: identity,
         initialEvents: identity,
@@ -1799,12 +1841,14 @@ var FullCalendar = (function (exports) {
         eventSources: identity,
     };
     var COMPLEX_OPTION_COMPARATORS = {
-        headerToolbar: isBoolComplexEqual,
-        footerToolbar: isBoolComplexEqual,
-        buttonText: isBoolComplexEqual,
-        buttonIcons: isBoolComplexEqual,
+        headerToolbar: isMaybeObjectsEqual,
+        footerToolbar: isMaybeObjectsEqual,
+        buttonText: isMaybeObjectsEqual,
+        buttonHints: isMaybeObjectsEqual,
+        buttonIcons: isMaybeObjectsEqual,
+        dateIncrement: isMaybeObjectsEqual,
     };
-    function isBoolComplexEqual(a, b) {
+    function isMaybeObjectsEqual(a, b) {
         if (typeof a === 'object' && typeof b === 'object' && a && b) { // both non-null objects
             return isPropsEqual(a, b);
         }
@@ -2017,6 +2061,7 @@ var FullCalendar = (function (exports) {
         groupId: String,
         title: String,
         url: String,
+        interactive: Boolean,
     };
     var EVENT_DATE_REFINERS = {
         start: identity,
@@ -2069,6 +2114,7 @@ var FullCalendar = (function (exports) {
             sourceId: sourceId,
             allDay: allDay,
             hasEnd: hasEnd,
+            interactive: refined.interactive,
             ui: createEventUi(refined, context),
             extendedProps: __assign(__assign({}, (refined.extendedProps || {})), extra),
         };
@@ -2527,6 +2573,34 @@ var FullCalendar = (function (exports) {
             ? eventRange.instance.instanceId
             : eventRange.def.defId + ":" + eventRange.range.start.toISOString();
         // inverse-background events don't have specific instances. TODO: better solution
+    }
+    function getSegAnchorAttrs(seg, context) {
+        var _a = seg.eventRange, def = _a.def, instance = _a.instance;
+        var url = def.url;
+        if (url) {
+            return { href: url };
+        }
+        var emitter = context.emitter, options = context.options;
+        var eventInteractive = options.eventInteractive;
+        if (eventInteractive == null) {
+            eventInteractive = def.interactive;
+            if (eventInteractive == null) {
+                eventInteractive = Boolean(emitter.hasHandlers('eventClick'));
+            }
+        }
+        // mock what happens in EventClicking
+        if (eventInteractive) {
+            // only attach keyboard-related handlers because click handler is already done in EventClicking
+            return createAriaKeyboardAttrs(function (ev) {
+                emitter.trigger('eventClick', {
+                    el: ev.target,
+                    event: new EventApi(context, def, instance),
+                    jsEvent: ev,
+                    view: context.viewApi,
+                });
+            });
+        }
+        return {};
     }
 
     var STANDARD_PROPS = {
@@ -3002,7 +3076,7 @@ var FullCalendar = (function (exports) {
         // Preference is given to views that have corresponding buttons.
         CalendarApi.prototype.getUnitViewSpec = function (unit) {
             var _a = this.getCurrentData(), viewSpecs = _a.viewSpecs, toolbarConfig = _a.toolbarConfig;
-            var viewTypes = [].concat(toolbarConfig.viewsWithButtons);
+            var viewTypes = [].concat(toolbarConfig.header ? toolbarConfig.header.viewsWithButtons : [], toolbarConfig.footer ? toolbarConfig.footer.viewsWithButtons : []);
             var i;
             var spec;
             for (var viewType in viewSpecs) {
@@ -3806,6 +3880,7 @@ var FullCalendar = (function (exports) {
                 this.weekNumberFunc = settings.weekNumberCalculation;
             }
             this.weekText = settings.weekText != null ? settings.weekText : settings.locale.options.weekText;
+            this.weekTextLong = (settings.weekTextLong != null ? settings.weekTextLong : settings.locale.options.weekTextLong) || this.weekText;
             this.cmdFormatter = settings.cmdFormatter;
             this.defaultSeparator = settings.defaultSeparator;
         }
@@ -4108,7 +4183,7 @@ var FullCalendar = (function (exports) {
 
     var globalLocales = [];
 
-    var RAW_EN_LOCALE = {
+    var MINIMAL_RAW_EN_LOCALE = {
         code: 'en',
         week: {
             dow: 0,
@@ -4128,15 +4203,33 @@ var FullCalendar = (function (exports) {
             list: 'list',
         },
         weekText: 'W',
+        weekTextLong: 'Week',
+        closeHint: 'Close',
+        timeHint: 'Time',
+        eventHint: 'Event',
         allDayText: 'all-day',
         moreLinkText: 'more',
         noEventsText: 'No events to display',
     };
+    var RAW_EN_LOCALE = __assign(__assign({}, MINIMAL_RAW_EN_LOCALE), { 
+        // Includes things we don't want other locales to inherit,
+        // things that derive from other translatable strings.
+        buttonHints: {
+            prev: 'Previous $0',
+            next: 'Next $0',
+            today: function (buttonText, unit) {
+                return (unit === 'day')
+                    ? 'Today'
+                    : "This " + buttonText;
+            },
+        }, viewHint: '$0 view', navLinkHint: 'Go to $0', moreLinkHint: function (eventCnt) {
+            return "Show " + eventCnt + " more event" + (eventCnt === 1 ? '' : 's');
+        } });
     function organizeRawLocales(explicitRawLocales) {
         var defaultCode = explicitRawLocales.length > 0 ? explicitRawLocales[0].code : 'en';
         var allRawLocales = globalLocales.concat(explicitRawLocales);
         var rawLocaleMap = {
-            en: RAW_EN_LOCALE, // necessary?
+            en: RAW_EN_LOCALE,
         };
         for (var _i = 0, allRawLocales_1 = allRawLocales; _i < allRawLocales_1.length; _i++) {
             var rawLocale = allRawLocales_1[_i];
@@ -4171,7 +4264,7 @@ var FullCalendar = (function (exports) {
         return null;
     }
     function parseLocale(codeArg, codes, raw) {
-        var merged = mergeProps([RAW_EN_LOCALE, raw], ['buttonText']);
+        var merged = mergeProps([MINIMAL_RAW_EN_LOCALE, raw], ['buttonText']);
         delete merged.code; // don't want this part of the options
         var week = merged.week;
         delete merged.week;
@@ -4519,12 +4612,33 @@ var FullCalendar = (function (exports) {
         return classNames;
     }
 
-    function buildNavLinkData(date, type) {
-        if (type === void 0) { type = 'day'; }
-        return JSON.stringify({
-            date: formatDayString(date),
-            type: type,
-        });
+    var DAY_FORMAT = createFormatter({ year: 'numeric', month: 'long', day: 'numeric' });
+    var WEEK_FORMAT = createFormatter({ week: 'long' });
+    function buildNavLinkAttrs(context, dateMarker, viewType, isTabbable) {
+        if (viewType === void 0) { viewType = 'day'; }
+        if (isTabbable === void 0) { isTabbable = true; }
+        var dateEnv = context.dateEnv, options = context.options, calendarApi = context.calendarApi;
+        var dateStr = dateEnv.format(dateMarker, viewType === 'week' ? WEEK_FORMAT : DAY_FORMAT);
+        if (options.navLinks) {
+            var zonedDate = dateEnv.toDate(dateMarker);
+            var handleInteraction = function (ev) {
+                var customAction = viewType === 'day' ? options.navLinkDayClick :
+                    viewType === 'week' ? options.navLinkWeekClick : null;
+                if (typeof customAction === 'function') {
+                    customAction.call(calendarApi, dateEnv.toDate(dateMarker), ev);
+                }
+                else {
+                    if (typeof customAction === 'string') {
+                        viewType = customAction;
+                    }
+                    calendarApi.zoomTo(dateMarker, viewType);
+                }
+            };
+            return __assign({ title: formatWithOrdinals(options.navLinkHint, [dateStr, zonedDate], dateStr), 'data-navlink': '' }, (isTabbable
+                ? createAriaClickAttrs(handleInteraction)
+                : { onClick: handleInteraction }));
+        }
+        return { 'aria-label': dateStr };
     }
 
     var _isRtlScrollbarOnLeft = null;
@@ -4737,8 +4851,8 @@ var FullCalendar = (function (exports) {
             }
         };
         Emitter.prototype.hasHandlers = function (type) {
-            return (this.handlers[type] && this.handlers[type].length) ||
-                (this.options && this.options[type]);
+            return Boolean((this.handlers[type] && this.handlers[type].length) ||
+                (this.options && this.options[type]));
         };
         return Emitter;
     }());
@@ -5007,7 +5121,7 @@ var FullCalendar = (function (exports) {
     var Fragment = FullCalendarVDom.Fragment;
     var createContext = FullCalendarVDom.createContext;
     var createPortal = FullCalendarVDom.createPortal;
-    var flushToDom = FullCalendarVDom.flushToDom;
+    var flushSync = FullCalendarVDom.flushSync;
     var unmountComponentAtNode = FullCalendarVDom.unmountComponentAtNode;
     /* eslint-enable */
 
@@ -5091,6 +5205,12 @@ var FullCalendar = (function (exports) {
             }
             return !compareObjs(this.props, nextProps, this.propEquality) ||
                 !compareObjs(this.state, nextState, this.stateEquality);
+        };
+        // HACK for freakin' React StrictMode
+        PureComponent.prototype.safeSetState = function (newState) {
+            if (!compareObjs(this.state, __assign(__assign({}, this.state), newState), this.stateEquality)) {
+                this.setState(newState);
+            }
         };
         PureComponent.addPropsEquality = addPropsEquality;
         PureComponent.addStateEquality = addStateEquality;
@@ -5634,6 +5754,20 @@ var FullCalendar = (function (exports) {
             }
             return null;
         };
+        var queryButtonTitle = function (optionsSubset) {
+            var buttonHints = optionsSubset.buttonHints || {};
+            var buttonKey = viewDef.defaults.buttonTextKey; // use same key as text
+            if (buttonKey != null && buttonHints[buttonKey] != null) {
+                return buttonHints[buttonKey];
+            }
+            if (buttonHints[viewDef.type] != null) {
+                return buttonHints[viewDef.type];
+            }
+            if (buttonHints[singleUnit] != null) {
+                return buttonHints[singleUnit];
+            }
+            return null;
+        };
         return {
             type: viewDef.type,
             component: viewDef.component,
@@ -5648,7 +5782,15 @@ var FullCalendar = (function (exports) {
             buttonTextDefault: queryButtonText(localeDefaults) ||
                 viewDef.defaults.buttonText ||
                 queryButtonText(BASE_OPTION_DEFAULTS) ||
-                viewDef.type, // fall back to given view name
+                viewDef.type,
+            // not DRY
+            buttonTitleOverride: queryButtonTitle(dynamicOptionOverrides) ||
+                queryButtonTitle(optionOverrides) ||
+                viewDef.overrides.buttonHint,
+            buttonTitleDefault: queryButtonTitle(localeDefaults) ||
+                viewDef.defaults.buttonHint ||
+                queryButtonTitle(BASE_OPTION_DEFAULTS),
+            // will eventually fall back to buttonText
         };
     }
     // hack to get memoization working
@@ -6339,25 +6481,41 @@ var FullCalendar = (function (exports) {
     }
 
     function parseToolbars(calendarOptions, calendarOptionOverrides, theme, viewSpecs, calendarApi) {
-        var viewsWithButtons = [];
-        var headerToolbar = calendarOptions.headerToolbar ? parseToolbar(calendarOptions.headerToolbar, calendarOptions, calendarOptionOverrides, theme, viewSpecs, calendarApi, viewsWithButtons) : null;
-        var footerToolbar = calendarOptions.footerToolbar ? parseToolbar(calendarOptions.footerToolbar, calendarOptions, calendarOptionOverrides, theme, viewSpecs, calendarApi, viewsWithButtons) : null;
-        return { headerToolbar: headerToolbar, footerToolbar: footerToolbar, viewsWithButtons: viewsWithButtons };
+        var header = calendarOptions.headerToolbar ? parseToolbar(calendarOptions.headerToolbar, calendarOptions, calendarOptionOverrides, theme, viewSpecs, calendarApi) : null;
+        var footer = calendarOptions.footerToolbar ? parseToolbar(calendarOptions.footerToolbar, calendarOptions, calendarOptionOverrides, theme, viewSpecs, calendarApi) : null;
+        return { header: header, footer: footer };
     }
-    function parseToolbar(sectionStrHash, calendarOptions, calendarOptionOverrides, theme, viewSpecs, calendarApi, viewsWithButtons) {
-        return mapHash(sectionStrHash, function (sectionStr) { return parseSection(sectionStr, calendarOptions, calendarOptionOverrides, theme, viewSpecs, calendarApi, viewsWithButtons); });
+    function parseToolbar(sectionStrHash, calendarOptions, calendarOptionOverrides, theme, viewSpecs, calendarApi) {
+        var sectionWidgets = {};
+        var viewsWithButtons = [];
+        var hasTitle = false;
+        for (var sectionName in sectionStrHash) {
+            var sectionStr = sectionStrHash[sectionName];
+            var sectionRes = parseSection(sectionStr, calendarOptions, calendarOptionOverrides, theme, viewSpecs, calendarApi);
+            sectionWidgets[sectionName] = sectionRes.widgets;
+            viewsWithButtons.push.apply(viewsWithButtons, sectionRes.viewsWithButtons);
+            hasTitle = hasTitle || sectionRes.hasTitle;
+        }
+        return { sectionWidgets: sectionWidgets, viewsWithButtons: viewsWithButtons, hasTitle: hasTitle };
     }
     /*
     BAD: querying icons and text here. should be done at render time
     */
-    function parseSection(sectionStr, calendarOptions, calendarOptionOverrides, theme, viewSpecs, calendarApi, viewsWithButtons) {
+    function parseSection(sectionStr, calendarOptions, // defaults+overrides, then refined
+    calendarOptionOverrides, // overrides only!, unrefined :(
+    theme, viewSpecs, calendarApi) {
         var isRtl = calendarOptions.direction === 'rtl';
         var calendarCustomButtons = calendarOptions.customButtons || {};
         var calendarButtonTextOverrides = calendarOptionOverrides.buttonText || {};
         var calendarButtonText = calendarOptions.buttonText || {};
+        var calendarButtonHintOverrides = calendarOptionOverrides.buttonHints || {};
+        var calendarButtonHints = calendarOptions.buttonHints || {};
         var sectionSubstrs = sectionStr ? sectionStr.split(' ') : [];
-        return sectionSubstrs.map(function (buttonGroupStr) { return (buttonGroupStr.split(',').map(function (buttonName) {
+        var viewsWithButtons = [];
+        var hasTitle = false;
+        var widgets = sectionSubstrs.map(function (buttonGroupStr) { return (buttonGroupStr.split(',').map(function (buttonName) {
             if (buttonName === 'title') {
+                hasTitle = true;
                 return { buttonName: buttonName };
             }
             var customButtonProps;
@@ -6365,6 +6523,8 @@ var FullCalendar = (function (exports) {
             var buttonClick;
             var buttonIcon; // only one of these will be set
             var buttonText; // "
+            var buttonHint;
+            // ^ for the title="" attribute, for accessibility
             if ((customButtonProps = calendarCustomButtons[buttonName])) {
                 buttonClick = function (ev) {
                     if (customButtonProps.click) {
@@ -6374,6 +6534,7 @@ var FullCalendar = (function (exports) {
                 (buttonIcon = theme.getCustomButtonIconClass(customButtonProps)) ||
                     (buttonIcon = theme.getIconClass(buttonName, isRtl)) ||
                     (buttonText = customButtonProps.text);
+                buttonHint = customButtonProps.hint || customButtonProps.text;
             }
             else if ((viewSpec = viewSpecs[buttonName])) {
                 viewsWithButtons.push(buttonName);
@@ -6383,6 +6544,12 @@ var FullCalendar = (function (exports) {
                 (buttonText = viewSpec.buttonTextOverride) ||
                     (buttonIcon = theme.getIconClass(buttonName, isRtl)) ||
                     (buttonText = viewSpec.buttonTextDefault);
+                var textFallback = viewSpec.buttonTextOverride ||
+                    viewSpec.buttonTextDefault;
+                buttonHint = formatWithOrdinals(viewSpec.buttonTitleOverride ||
+                    viewSpec.buttonTitleDefault ||
+                    calendarOptions.viewHint, [textFallback, buttonName], // view-name = buttonName
+                textFallback);
             }
             else if (calendarApi[buttonName]) { // a calendarApi method
                 buttonClick = function () {
@@ -6390,11 +6557,26 @@ var FullCalendar = (function (exports) {
                 };
                 (buttonText = calendarButtonTextOverrides[buttonName]) ||
                     (buttonIcon = theme.getIconClass(buttonName, isRtl)) ||
-                    (buttonText = calendarButtonText[buttonName]);
-                //            ^ everything else is considered default
+                    (buttonText = calendarButtonText[buttonName]); // everything else is considered default
+                if (buttonName === 'prevYear' || buttonName === 'nextYear') {
+                    var prevOrNext = buttonName === 'prevYear' ? 'prev' : 'next';
+                    buttonHint = formatWithOrdinals(calendarButtonHintOverrides[prevOrNext] ||
+                        calendarButtonHints[prevOrNext], [
+                        calendarButtonText.year || 'year',
+                        'year',
+                    ], calendarButtonText[buttonName]);
+                }
+                else {
+                    buttonHint = function (navUnit) { return formatWithOrdinals(calendarButtonHintOverrides[buttonName] ||
+                        calendarButtonHints[buttonName], [
+                        calendarButtonText[navUnit] || navUnit,
+                        navUnit,
+                    ], calendarButtonText[buttonName]); };
+                }
             }
-            return { buttonName: buttonName, buttonClick: buttonClick, buttonIcon: buttonIcon, buttonText: buttonText };
+            return { buttonName: buttonName, buttonClick: buttonClick, buttonIcon: buttonIcon, buttonText: buttonText, buttonHint: buttonHint };
         })); });
+        return { widgets: widgets, viewsWithButtons: viewsWithButtons, hasTitle: hasTitle };
     }
 
     var eventSourceDef$3 = {
@@ -6699,8 +6881,8 @@ var FullCalendar = (function (exports) {
                 function (state) { return computeEventSourcesLoading(state.eventSources); },
             ],
             contentTypeHandlers: {
-                html: function () { return ({ render: injectHtml }); },
-                domNodes: function () { return ({ render: injectDomNodes }); },
+                html: buildHtmlRenderer,
+                domNodes: buildDomNodeRenderer,
             },
             propSetHandlers: {
                 dateProfile: handleDateProfile,
@@ -6708,19 +6890,45 @@ var FullCalendar = (function (exports) {
             },
         }),
     ];
-    function injectHtml(el, html) {
-        el.innerHTML = html;
-    }
-    function injectDomNodes(el, domNodes) {
-        var oldNodes = Array.prototype.slice.call(el.childNodes); // TODO: use array util
-        var newNodes = Array.prototype.slice.call(domNodes); // TODO: use array util
-        if (!isArraysEqual(oldNodes, newNodes)) {
-            for (var _i = 0, newNodes_1 = newNodes; _i < newNodes_1.length; _i++) {
-                var newNode = newNodes_1[_i];
-                el.appendChild(newNode);
+    function buildHtmlRenderer() {
+        var currentEl = null;
+        var currentHtml = '';
+        function render(el, html) {
+            if (el !== currentEl || html !== currentHtml) {
+                el.innerHTML = html;
             }
-            oldNodes.forEach(removeElement);
+            currentEl = el;
+            currentHtml = html;
         }
+        function destroy() {
+            currentEl.innerHTML = '';
+            currentEl = null;
+            currentHtml = '';
+        }
+        return { render: render, destroy: destroy };
+    }
+    function buildDomNodeRenderer() {
+        var currentEl = null;
+        var currentDomNodes = [];
+        function render(el, domNodes) {
+            var newDomNodes = Array.prototype.slice.call(domNodes);
+            if (el !== currentEl || !isArraysEqual(currentDomNodes, newDomNodes)) {
+                // append first, remove second (for scroll resetting)
+                for (var _i = 0, newDomNodes_1 = newDomNodes; _i < newDomNodes_1.length; _i++) {
+                    var newNode = newDomNodes_1[_i];
+                    el.appendChild(newNode);
+                }
+                destroy();
+            }
+            currentEl = el;
+            currentDomNodes = newDomNodes;
+        }
+        function destroy() {
+            currentDomNodes.forEach(removeElement);
+            currentDomNodes = [];
+            currentEl = null;
+        }
+        return { render: render, destroy: destroy };
     }
 
     var DelayedRunner = /** @class */ (function () {
@@ -7194,11 +7402,15 @@ var FullCalendar = (function (exports) {
             var anyChanges = false;
             var extra = {};
             for (var optionName in raw) {
-                if (raw[optionName] === currentRaw[optionName]) {
+                if (raw[optionName] === currentRaw[optionName] ||
+                    (COMPLEX_OPTION_COMPARATORS[optionName] &&
+                        COMPLEX_OPTION_COMPARATORS[optionName](raw[optionName], currentRaw[optionName]))) {
                     refined[optionName] = currentRefined[optionName];
                 }
                 else {
-                    if (raw[optionName] === this.currentCalendarOptionsInput[optionName]) {
+                    if (raw[optionName] === this.currentCalendarOptionsInput[optionName] ||
+                        (COMPLEX_OPTION_COMPARATORS[optionName] &&
+                            COMPLEX_OPTION_COMPARATORS[optionName](raw[optionName], this.currentCalendarOptionsInput[optionName]))) {
                         if (optionName in this.currentCalendarOptionsRefined) { // might be an "extra" prop
                             refined[optionName] = this.currentCalendarOptionsRefined[optionName];
                         }
@@ -7691,21 +7903,21 @@ var FullCalendar = (function (exports) {
             var isOnlyButtons = true;
             for (var _i = 0, widgetGroup_1 = widgetGroup; _i < widgetGroup_1.length; _i++) {
                 var widget = widgetGroup_1[_i];
-                var buttonName = widget.buttonName, buttonClick = widget.buttonClick, buttonText = widget.buttonText, buttonIcon = widget.buttonIcon;
+                var buttonName = widget.buttonName, buttonClick = widget.buttonClick, buttonText = widget.buttonText, buttonIcon = widget.buttonIcon, buttonHint = widget.buttonHint;
                 if (buttonName === 'title') {
                     isOnlyButtons = false;
-                    children.push(createElement("h2", { className: "fc-toolbar-title" }, props.title));
+                    children.push(createElement("h2", { className: "fc-toolbar-title", id: props.titleId }, props.title));
                 }
                 else {
-                    var ariaAttrs = buttonIcon ? { 'aria-label': buttonName } : {};
-                    var buttonClasses = ["fc-" + buttonName + "-button", theme.getClass('button')];
-                    if (buttonName === props.activeButton) {
-                        buttonClasses.push(theme.getClass('buttonActive'));
-                    }
+                    var isPressed = buttonName === props.activeButton;
                     var isDisabled = (!props.isTodayEnabled && buttonName === 'today') ||
                         (!props.isPrevEnabled && buttonName === 'prev') ||
                         (!props.isNextEnabled && buttonName === 'next');
-                    children.push(createElement("button", __assign({ disabled: isDisabled, className: buttonClasses.join(' '), onClick: buttonClick, type: "button" }, ariaAttrs), buttonText || (buttonIcon ? createElement("span", { className: buttonIcon }) : '')));
+                    var buttonClasses = ["fc-" + buttonName + "-button", theme.getClass('button')];
+                    if (isPressed) {
+                        buttonClasses.push(theme.getClass('buttonActive'));
+                    }
+                    children.push(createElement("button", { type: "button", title: typeof buttonHint === 'function' ? buttonHint(props.navUnit) : buttonHint, disabled: isDisabled, "aria-pressed": isPressed, className: buttonClasses.join(' '), onClick: buttonClick }, buttonText || (buttonIcon ? createElement("span", { className: buttonIcon }) : '')));
                 }
             }
             if (children.length > 1) {
@@ -7727,20 +7939,21 @@ var FullCalendar = (function (exports) {
             var forceLtr = false;
             var startContent;
             var endContent;
-            var centerContent = model.center;
-            if (model.left) {
+            var sectionWidgets = model.sectionWidgets;
+            var centerContent = sectionWidgets.center;
+            if (sectionWidgets.left) {
                 forceLtr = true;
-                startContent = model.left;
+                startContent = sectionWidgets.left;
             }
             else {
-                startContent = model.start;
+                startContent = sectionWidgets.start;
             }
-            if (model.right) {
+            if (sectionWidgets.right) {
                 forceLtr = true;
-                endContent = model.right;
+                endContent = sectionWidgets.right;
             }
             else {
-                endContent = model.end;
+                endContent = sectionWidgets.end;
             }
             var classNames = [
                 extraClassName || '',
@@ -7754,7 +7967,7 @@ var FullCalendar = (function (exports) {
         };
         Toolbar.prototype.renderSection = function (key, widgetGroups) {
             var props = this.props;
-            return (createElement(ToolbarSection, { key: key, widgetGroups: widgetGroups, title: props.title, activeButton: props.activeButton, isTodayEnabled: props.isTodayEnabled, isPrevEnabled: props.isPrevEnabled, isNextEnabled: props.isNextEnabled }));
+            return (createElement(ToolbarSection, { key: key, widgetGroups: widgetGroups, title: props.title, navUnit: props.navUnit, activeButton: props.activeButton, isTodayEnabled: props.isTodayEnabled, isPrevEnabled: props.isPrevEnabled, isNextEnabled: props.isNextEnabled, titleId: props.titleId }));
         };
         return Toolbar;
     }(BaseComponent));
@@ -7803,7 +8016,7 @@ var FullCalendar = (function (exports) {
             else {
                 height = props.height || '';
             }
-            return (createElement("div", { ref: this.handleEl, onClick: props.onClick, className: classNames.join(' '), style: { height: height, paddingBottom: paddingBottom } }, props.children));
+            return (createElement("div", { "aria-labelledby": props.labeledById, ref: this.handleEl, className: classNames.join(' '), style: { height: height, paddingBottom: paddingBottom } }, props.children));
         };
         ViewContainer.prototype.componentDidMount = function () {
             this.context.addResizeHandler(this.handleResize);
@@ -7912,10 +8125,13 @@ var FullCalendar = (function (exports) {
             _this.buildViewContext = memoize(buildViewContext);
             _this.buildViewPropTransformers = memoize(buildViewPropTransformers);
             _this.buildToolbarProps = memoize(buildToolbarProps);
-            _this.handleNavLinkClick = buildDelegationHandler('a[data-navlink]', _this._handleNavLinkClick.bind(_this));
             _this.headerRef = createRef();
             _this.footerRef = createRef();
             _this.interactionsStore = {};
+            // eslint-disable-next-line
+            _this.state = {
+                viewLabelId: getUniqueDomId(),
+            };
             // Component Registration
             // -----------------------------------------------------------------------------------------------------------------
             _this.registerInteractiveComponent = function (component, settingsInput) {
@@ -7930,11 +8146,14 @@ var FullCalendar = (function (exports) {
                 interactionSettingsStore[component.uid] = settings;
             };
             _this.unregisterInteractiveComponent = function (component) {
-                for (var _i = 0, _a = _this.interactionsStore[component.uid]; _i < _a.length; _i++) {
-                    var listener = _a[_i];
-                    listener.destroy();
+                var listeners = _this.interactionsStore[component.uid];
+                if (listeners) {
+                    for (var _i = 0, listeners_1 = listeners; _i < listeners_1.length; _i++) {
+                        var listener = listeners_1[_i];
+                        listener.destroy();
+                    }
+                    delete _this.interactionsStore[component.uid];
                 }
-                delete _this.interactionsStore[component.uid];
                 delete interactionSettingsStore[component.uid];
             };
             // Resizing
@@ -7977,12 +8196,15 @@ var FullCalendar = (function (exports) {
                 viewAspectRatio = Math.max(options.aspectRatio, 0.5); // prevent from getting too tall
             }
             var viewContext = this.buildViewContext(props.viewSpec, props.viewApi, props.options, props.dateProfileGenerator, props.dateEnv, props.theme, props.pluginHooks, props.dispatch, props.getCurrentData, props.emitter, props.calendarApi, this.registerInteractiveComponent, this.unregisterInteractiveComponent);
+            var viewLabelId = (toolbarConfig.header && toolbarConfig.header.hasTitle)
+                ? this.state.viewLabelId
+                : '';
             return (createElement(ViewContextType.Provider, { value: viewContext },
-                toolbarConfig.headerToolbar && (createElement(Toolbar, __assign({ ref: this.headerRef, extraClassName: "fc-header-toolbar", model: toolbarConfig.headerToolbar }, toolbarProps))),
-                createElement(ViewContainer, { liquid: viewVGrow, height: viewHeight, aspectRatio: viewAspectRatio, onClick: this.handleNavLinkClick },
+                toolbarConfig.header && (createElement(Toolbar, __assign({ ref: this.headerRef, extraClassName: "fc-header-toolbar", model: toolbarConfig.header, titleId: viewLabelId }, toolbarProps))),
+                createElement(ViewContainer, { liquid: viewVGrow, height: viewHeight, aspectRatio: viewAspectRatio, labeledById: viewLabelId },
                     this.renderView(props),
                     this.buildAppendContent()),
-                toolbarConfig.footerToolbar && (createElement(Toolbar, __assign({ ref: this.footerRef, extraClassName: "fc-footer-toolbar", model: toolbarConfig.footerToolbar }, toolbarProps)))));
+                toolbarConfig.footer && (createElement(Toolbar, __assign({ ref: this.footerRef, extraClassName: "fc-footer-toolbar", model: toolbarConfig.footer, titleId: "" }, toolbarProps)))));
         };
         CalendarContent.prototype.componentDidMount = function () {
             var props = this.props;
@@ -8011,24 +8233,6 @@ var FullCalendar = (function (exports) {
                 interaction.destroy();
             }
             this.props.emitter.trigger('_unmount');
-        };
-        CalendarContent.prototype._handleNavLinkClick = function (ev, anchorEl) {
-            var _a = this.props, dateEnv = _a.dateEnv, options = _a.options, calendarApi = _a.calendarApi;
-            var navLinkOptions = anchorEl.getAttribute('data-navlink');
-            navLinkOptions = navLinkOptions ? JSON.parse(navLinkOptions) : {};
-            var dateMarker = dateEnv.createMarker(navLinkOptions.date);
-            var viewType = navLinkOptions.type;
-            var customAction = viewType === 'day' ? options.navLinkDayClick :
-                viewType === 'week' ? options.navLinkWeekClick : null;
-            if (typeof customAction === 'function') {
-                customAction.call(calendarApi, dateEnv.toDate(dateMarker), ev);
-            }
-            else {
-                if (typeof customAction === 'string') {
-                    viewType = customAction;
-                }
-                calendarApi.zoomTo(dateMarker, viewType);
-            }
         };
         CalendarContent.prototype.buildAppendContent = function () {
             var props = this.props;
@@ -8068,6 +8272,7 @@ var FullCalendar = (function (exports) {
         return {
             title: title,
             activeButton: viewSpec.type,
+            navUnit: viewSpec.singleUnit,
             isTodayEnabled: todayInfo.isValid && !rangeContainsMarker(dateProfile.currentRange, now),
             isPrevEnabled: prevInfo.isValid,
             isNextEnabled: nextInfo.isValid,
@@ -8155,11 +8360,11 @@ var FullCalendar = (function (exports) {
             var classNames = [CLASS_NAME].concat(getDayClassNames(dayMeta, theme));
             var text = dateEnv.format(date, props.dayHeaderFormat);
             // if colCnt is 1, we are already in a day-view and don't need a navlink
-            var navLinkAttrs = (options.navLinks && !dayMeta.isDisabled && props.colCnt > 1)
-                ? { 'data-navlink': buildNavLinkData(date), tabIndex: 0 }
+            var navLinkAttrs = (!dayMeta.isDisabled && props.colCnt > 1)
+                ? buildNavLinkAttrs(this.context, date)
                 : {};
             var hookProps = __assign(__assign(__assign({ date: dateEnv.toDate(date), view: viewApi }, props.extraHookProps), { text: text }), dayMeta);
-            return (createElement(RenderHook, { hookProps: hookProps, classNames: options.dayHeaderClassNames, content: options.dayHeaderContent, defaultContent: renderInner$1, didMount: options.dayHeaderDidMount, willUnmount: options.dayHeaderWillUnmount }, function (rootElRef, customClassNames, innerElRef, innerContent) { return (createElement("th", __assign({ ref: rootElRef, className: classNames.concat(customClassNames).join(' '), "data-date": !dayMeta.isDisabled ? formatDayString(date) : undefined, colSpan: props.colSpan }, props.extraDataAttrs),
+            return (createElement(RenderHook, { hookProps: hookProps, classNames: options.dayHeaderClassNames, content: options.dayHeaderContent, defaultContent: renderInner$1, didMount: options.dayHeaderDidMount, willUnmount: options.dayHeaderWillUnmount }, function (rootElRef, customClassNames, innerElRef, innerContent) { return (createElement("th", __assign({ ref: rootElRef, role: "columnheader", className: classNames.concat(customClassNames).join(' '), "data-date": !dayMeta.isDisabled ? formatDayString(date) : undefined, colSpan: props.colSpan }, props.extraDataAttrs),
                 createElement("div", { className: "fc-scrollgrid-sync-inner" }, !dayMeta.isDisabled && (createElement("a", __assign({ ref: innerElRef, className: [
                         'fc-col-header-cell-cushion',
                         props.isSticky ? 'fc-sticky' : '',
@@ -8168,6 +8373,7 @@ var FullCalendar = (function (exports) {
         return TableDateCell;
     }(BaseComponent));
 
+    var WEEKDAY_FORMAT = createFormatter({ weekday: 'long' });
     var TableDowCell = /** @class */ (function (_super) {
         __extends(TableDowCell, _super);
         function TableDowCell() {
@@ -8189,9 +8395,9 @@ var FullCalendar = (function (exports) {
             var text = dateEnv.format(date, props.dayHeaderFormat);
             var hookProps = __assign(__assign(__assign(__assign({ // TODO: make this public?
                 date: date }, dateMeta), { view: viewApi }), props.extraHookProps), { text: text });
-            return (createElement(RenderHook, { hookProps: hookProps, classNames: options.dayHeaderClassNames, content: options.dayHeaderContent, defaultContent: renderInner$1, didMount: options.dayHeaderDidMount, willUnmount: options.dayHeaderWillUnmount }, function (rootElRef, customClassNames, innerElRef, innerContent) { return (createElement("th", __assign({ ref: rootElRef, className: classNames.concat(customClassNames).join(' '), colSpan: props.colSpan }, props.extraDataAttrs),
+            return (createElement(RenderHook, { hookProps: hookProps, classNames: options.dayHeaderClassNames, content: options.dayHeaderContent, defaultContent: renderInner$1, didMount: options.dayHeaderDidMount, willUnmount: options.dayHeaderWillUnmount }, function (rootElRef, customClassNames, innerElRef, innerContent) { return (createElement("th", __assign({ ref: rootElRef, role: "columnheader", className: classNames.concat(customClassNames).join(' '), colSpan: props.colSpan }, props.extraDataAttrs),
                 createElement("div", { className: "fc-scrollgrid-sync-inner" },
-                    createElement("a", { className: [
+                    createElement("a", { "aria-label": dateEnv.format(date, WEEKDAY_FORMAT), className: [
                             'fc-col-header-cell-cushion',
                             props.isSticky ? 'fc-sticky' : '',
                         ].join(' '), ref: innerElRef }, innerContent)))); }));
@@ -8273,7 +8479,7 @@ var FullCalendar = (function (exports) {
             var context = this.context;
             var _a = this.props, dates = _a.dates, dateProfile = _a.dateProfile, datesRepDistinctDays = _a.datesRepDistinctDays, renderIntro = _a.renderIntro;
             var dayHeaderFormat = this.createDayHeaderFormatter(context.options.dayHeaderFormat, datesRepDistinctDays, dates.length);
-            return (createElement(NowTimer, { unit: "day" }, function (nowDate, todayRange) { return (createElement("tr", null,
+            return (createElement(NowTimer, { unit: "day" }, function (nowDate, todayRange) { return (createElement("tr", { role: "row" },
                 renderIntro && renderIntro('day'),
                 dates.map(function (date) { return (datesRepDistinctDays ? (createElement(TableDateCell, { key: date.toISOString(), date: date, dateProfile: dateProfile, todayRange: todayRange, colCnt: dates.length, dayHeaderFormat: dayHeaderFormat })) : (createElement(TableDowCell, { key: date.getUTCDay(), dow: date.getUTCDay(), dayHeaderFormat: dayHeaderFormat }))); }))); }));
         };
@@ -8917,11 +9123,12 @@ var FullCalendar = (function (exports) {
             getSectionHasLiquidHeight(props, sectionConfig); // if the section is liquid height, it might condense enough to require scrollbars
     }
     // TODO: ONLY use `arg`. force out internal function to use same API
-    function renderChunkContent(sectionConfig, chunkConfig, arg) {
+    function renderChunkContent(sectionConfig, chunkConfig, arg, isHeader) {
         var expandRows = arg.expandRows;
         var content = typeof chunkConfig.content === 'function' ?
             chunkConfig.content(arg) :
             createElement('table', {
+                role: 'presentation',
                 className: [
                     chunkConfig.tableClassName,
                     sectionConfig.syncRowHeights ? 'fc-scrollgrid-sync-table' : '',
@@ -8931,7 +9138,11 @@ var FullCalendar = (function (exports) {
                     width: arg.clientWidth,
                     height: expandRows ? arg.clientHeight : '', // css `height` on a <table> serves as a min-height
                 },
-            }, arg.tableColGroupNode, createElement('tbody', {}, typeof chunkConfig.rowContent === 'function' ? chunkConfig.rowContent(arg) : chunkConfig.rowContent));
+            }, arg.tableColGroupNode, createElement(isHeader ? 'thead' : 'tbody', {
+                role: 'presentation',
+            }, typeof chunkConfig.rowContent === 'function'
+                ? chunkConfig.rowContent(arg)
+                : chunkConfig.rowContent));
         return content;
     }
     function isColPropsEqual(cols0, cols1) {
@@ -9032,7 +9243,7 @@ var FullCalendar = (function (exports) {
             };
             // TODO: can do a really simple print-view. dont need to join rows
             _this.handleSizing = function () {
-                _this.setState(__assign({ shrinkWidth: _this.computeShrinkWidth() }, _this.computeScrollerDims()));
+                _this.safeSetState(__assign({ shrinkWidth: _this.computeShrinkWidth() }, _this.computeScrollerDims()));
             };
             return _this;
         }
@@ -9053,15 +9264,15 @@ var FullCalendar = (function (exports) {
             var bodySectionNodes = [];
             var footSectionNodes = [];
             while (configI < configCnt && (currentConfig = sectionConfigs[configI]).type === 'header') {
-                headSectionNodes.push(this.renderSection(currentConfig, microColGroupNode));
+                headSectionNodes.push(this.renderSection(currentConfig, microColGroupNode, true));
                 configI += 1;
             }
             while (configI < configCnt && (currentConfig = sectionConfigs[configI]).type === 'body') {
-                bodySectionNodes.push(this.renderSection(currentConfig, microColGroupNode));
+                bodySectionNodes.push(this.renderSection(currentConfig, microColGroupNode, false));
                 configI += 1;
             }
             while (configI < configCnt && (currentConfig = sectionConfigs[configI]).type === 'footer') {
-                footSectionNodes.push(this.renderSection(currentConfig, microColGroupNode));
+                footSectionNodes.push(this.renderSection(currentConfig, microColGroupNode, true));
                 configI += 1;
             }
             // firefox bug: when setting height on table and there is a thead or tfoot,
@@ -9069,18 +9280,20 @@ var FullCalendar = (function (exports) {
             // use getCanVGrowWithinCell as a way to detect table-stupid firefox.
             // if so, use a simpler dom structure, jam everything into a lone tbody.
             var isBuggy = !getCanVGrowWithinCell();
+            var roleAttrs = { role: 'rowgroup' };
             return createElement('table', {
+                role: 'grid',
                 className: classNames.join(' '),
                 style: { height: props.height },
-            }, Boolean(!isBuggy && headSectionNodes.length) && createElement.apply(void 0, __spreadArray(['thead', {}], headSectionNodes)), Boolean(!isBuggy && bodySectionNodes.length) && createElement.apply(void 0, __spreadArray(['tbody', {}], bodySectionNodes)), Boolean(!isBuggy && footSectionNodes.length) && createElement.apply(void 0, __spreadArray(['tfoot', {}], footSectionNodes)), isBuggy && createElement.apply(void 0, __spreadArray(__spreadArray(__spreadArray(['tbody', {}], headSectionNodes), bodySectionNodes), footSectionNodes)));
+            }, Boolean(!isBuggy && headSectionNodes.length) && createElement.apply(void 0, __spreadArray(['thead', roleAttrs], headSectionNodes)), Boolean(!isBuggy && bodySectionNodes.length) && createElement.apply(void 0, __spreadArray(['tbody', roleAttrs], bodySectionNodes)), Boolean(!isBuggy && footSectionNodes.length) && createElement.apply(void 0, __spreadArray(['tfoot', roleAttrs], footSectionNodes)), isBuggy && createElement.apply(void 0, __spreadArray(__spreadArray(__spreadArray(['tbody', roleAttrs], headSectionNodes), bodySectionNodes), footSectionNodes)));
         };
-        SimpleScrollGrid.prototype.renderSection = function (sectionConfig, microColGroupNode) {
+        SimpleScrollGrid.prototype.renderSection = function (sectionConfig, microColGroupNode, isHeader) {
             if ('outerContent' in sectionConfig) {
                 return (createElement(Fragment, { key: sectionConfig.key }, sectionConfig.outerContent));
             }
-            return (createElement("tr", { key: sectionConfig.key, className: getSectionClassNames(sectionConfig, this.props.liquid).join(' ') }, this.renderChunkTd(sectionConfig, microColGroupNode, sectionConfig.chunk)));
+            return (createElement("tr", { key: sectionConfig.key, role: "presentation", className: getSectionClassNames(sectionConfig, this.props.liquid).join(' ') }, this.renderChunkTd(sectionConfig, microColGroupNode, sectionConfig.chunk, isHeader)));
         };
-        SimpleScrollGrid.prototype.renderChunkTd = function (sectionConfig, microColGroupNode, chunkConfig) {
+        SimpleScrollGrid.prototype.renderChunkTd = function (sectionConfig, microColGroupNode, chunkConfig, isHeader) {
             if ('outerContent' in chunkConfig) {
                 return chunkConfig.outerContent;
             }
@@ -9104,11 +9317,13 @@ var FullCalendar = (function (exports) {
                 syncRowHeights: false,
                 rowSyncHeights: [],
                 reportRowHeightChange: function () { },
-            });
-            return (createElement("td", { ref: chunkConfig.elRef },
-                createElement("div", { className: "fc-scroller-harness" + (isLiquid ? ' fc-scroller-harness-liquid' : '') },
-                    createElement(Scroller, { ref: this.scrollerRefs.createRef(sectionKey), elRef: this.scrollerElRefs.createRef(sectionKey), overflowY: overflowY, overflowX: !props.liquid ? 'visible' : 'hidden' /* natural height? */, maxHeight: sectionConfig.maxHeight, liquid: isLiquid, liquidIsAbsolute // because its within a harness
-                        : true }, content))));
+            }, isHeader);
+            return createElement(isHeader ? 'th' : 'td', {
+                ref: chunkConfig.elRef,
+                role: 'presentation',
+            }, createElement("div", { className: "fc-scroller-harness" + (isLiquid ? ' fc-scroller-harness-liquid' : '') },
+                createElement(Scroller, { ref: this.scrollerRefs.createRef(sectionKey), elRef: this.scrollerElRefs.createRef(sectionKey), overflowY: overflowY, overflowX: !props.liquid ? 'visible' : 'hidden' /* natural height? */, maxHeight: sectionConfig.maxHeight, liquid: isLiquid, liquidIsAbsolute // because its within a harness
+                    : true }, content)));
         };
         SimpleScrollGrid.prototype._handleScrollerEl = function (scrollerEl, key) {
             var section = getSectionByKey(this.props.sections, key);
@@ -9240,7 +9455,7 @@ var FullCalendar = (function (exports) {
             return (createElement(EventRoot, { seg: seg, timeText: timeText, disableDragging: props.disableDragging, disableResizing: props.disableResizing, defaultContent: props.defaultContent || renderInnerContent$4, isDragging: props.isDragging, isResizing: props.isResizing, isDateSelecting: props.isDateSelecting, isSelected: props.isSelected, isPast: props.isPast, isFuture: props.isFuture, isToday: props.isToday }, function (rootElRef, classNames, innerElRef, innerContent, hookProps) { return (createElement("a", __assign({ className: props.extraClassNames.concat(classNames).join(' '), style: {
                     borderColor: hookProps.borderColor,
                     backgroundColor: hookProps.backgroundColor,
-                }, ref: rootElRef }, getSegAnchorAttrs$1(seg)),
+                }, ref: rootElRef }, getSegAnchorAttrs(seg, context)),
                 createElement("div", { className: "fc-event-main", ref: innerElRef, style: { color: hookProps.textColor } }, innerContent),
                 hookProps.isStartResizable &&
                     createElement("div", { className: "fc-event-resizer fc-event-resizer-start" }),
@@ -9254,10 +9469,6 @@ var FullCalendar = (function (exports) {
             innerProps.timeText && (createElement("div", { className: "fc-event-time" }, innerProps.timeText)),
             createElement("div", { className: "fc-event-title-container" },
                 createElement("div", { className: "fc-event-title fc-sticky" }, innerProps.event.title || createElement(Fragment, null, "\u00A0")))));
-    }
-    function getSegAnchorAttrs$1(seg) {
-        var url = seg.eventRange.def.url;
-        return url ? { href: url } : {};
     }
 
     var NowIndicatorRoot = function (props) { return (createElement(ViewContextType.Consumer, null, function (context) {
@@ -9358,6 +9569,9 @@ var FullCalendar = (function (exports) {
         __extends(Popover, _super);
         function Popover() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.state = {
+                titleId: getUniqueDomId(),
+            };
             _this.handleRootEl = function (el) {
                 _this.rootEl = el;
                 if (_this.props.elRef) {
@@ -9365,10 +9579,15 @@ var FullCalendar = (function (exports) {
                 }
             };
             // Triggered when the user clicks *anywhere* in the document, for the autoHide feature
-            _this.handleDocumentMousedown = function (ev) {
+            _this.handleDocumentMouseDown = function (ev) {
                 // only hide the popover if the click happened outside the popover
                 var target = getEventTargetViaRoot(ev);
                 if (!_this.rootEl.contains(target)) {
+                    _this.handleCloseClick();
+                }
+            };
+            _this.handleDocumentKeyDown = function (ev) {
+                if (ev.key === 'Escape') {
                     _this.handleCloseClick();
                 }
             };
@@ -9381,24 +9600,26 @@ var FullCalendar = (function (exports) {
             return _this;
         }
         Popover.prototype.render = function () {
-            var theme = this.context.theme;
-            var props = this.props;
+            var _a = this.context, theme = _a.theme, options = _a.options;
+            var _b = this, props = _b.props, state = _b.state;
             var classNames = [
                 'fc-popover',
                 theme.getClass('popover'),
             ].concat(props.extraClassNames || []);
-            return createPortal(createElement("div", __assign({ className: classNames.join(' ') }, props.extraAttrs, { ref: this.handleRootEl }),
+            return createPortal(createElement("div", __assign({ id: props.id, className: classNames.join(' '), "aria-labelledby": state.titleId }, props.extraAttrs, { ref: this.handleRootEl }),
                 createElement("div", { className: 'fc-popover-header ' + theme.getClass('popoverHeader') },
-                    createElement("span", { className: "fc-popover-title" }, props.title),
-                    createElement("span", { className: 'fc-popover-close ' + theme.getIconClass('close'), onClick: this.handleCloseClick })),
+                    createElement("span", { className: "fc-popover-title", id: state.titleId }, props.title),
+                    createElement("span", { className: 'fc-popover-close ' + theme.getIconClass('close'), title: options.closeHint, onClick: this.handleCloseClick })),
                 createElement("div", { className: 'fc-popover-body ' + theme.getClass('popoverContent') }, props.children)), props.parentEl);
         };
         Popover.prototype.componentDidMount = function () {
-            document.addEventListener('mousedown', this.handleDocumentMousedown);
+            document.addEventListener('mousedown', this.handleDocumentMouseDown);
+            document.addEventListener('keydown', this.handleDocumentKeyDown);
             this.updateSize();
         };
         Popover.prototype.componentWillUnmount = function () {
-            document.removeEventListener('mousedown', this.handleDocumentMousedown);
+            document.removeEventListener('mousedown', this.handleDocumentMouseDown);
+            document.removeEventListener('keydown', this.handleDocumentKeyDown);
         };
         Popover.prototype.updateSize = function () {
             var isRtl = this.context.isRtl;
@@ -9449,7 +9670,7 @@ var FullCalendar = (function (exports) {
             var props = this.props;
             var startDate = props.startDate, todayRange = props.todayRange, dateProfile = props.dateProfile;
             var title = dateEnv.format(startDate, options.dayPopoverFormat);
-            return (createElement(DayCellRoot, { date: startDate, dateProfile: dateProfile, todayRange: todayRange, elRef: this.handleRootEl }, function (rootElRef, dayClassNames, dataAttrs) { return (createElement(Popover, { elRef: rootElRef, title: title, extraClassNames: ['fc-more-popover'].concat(dayClassNames), extraAttrs: dataAttrs /* TODO: make these time-based when not whole-day? */, parentEl: props.parentEl, alignmentEl: props.alignmentEl, alignGridTop: props.alignGridTop, onClose: props.onClose },
+            return (createElement(DayCellRoot, { date: startDate, dateProfile: dateProfile, todayRange: todayRange, elRef: this.handleRootEl }, function (rootElRef, dayClassNames, dataAttrs) { return (createElement(Popover, { elRef: rootElRef, id: props.id, title: title, extraClassNames: ['fc-more-popover'].concat(dayClassNames), extraAttrs: dataAttrs /* TODO: make these time-based when not whole-day? */, parentEl: props.parentEl, alignmentEl: props.alignmentEl, alignGridTop: props.alignGridTop, onClose: props.onClose },
                 createElement(DayCellContent, { date: startDate, dateProfile: dateProfile, todayRange: todayRange }, function (innerElRef, innerContent) { return (innerContent &&
                     createElement("div", { className: "fc-more-popover-misc", ref: innerElRef }, innerContent)); }),
                 props.children)); }));
@@ -9486,6 +9707,7 @@ var FullCalendar = (function (exports) {
             _this.linkElRef = createRef();
             _this.state = {
                 isPopoverOpen: false,
+                popoverId: getUniqueDomId(),
             };
             _this.handleClick = function (ev) {
                 var _a = _this, props = _a.props, context = _a.context;
@@ -9525,23 +9747,25 @@ var FullCalendar = (function (exports) {
         }
         MoreLinkRoot.prototype.render = function () {
             var _this = this;
-            var props = this.props;
+            var _a = this, props = _a.props, state = _a.state;
             return (createElement(ViewContextType.Consumer, null, function (context) {
                 var viewApi = context.viewApi, options = context.options, calendarApi = context.calendarApi;
                 var moreLinkText = options.moreLinkText;
                 var moreCnt = props.moreCnt;
                 var range = computeRange(props);
+                var text = typeof moreLinkText === 'function' // TODO: eventually use formatWithOrdinals
+                    ? moreLinkText.call(calendarApi, moreCnt)
+                    : "+" + moreCnt + " " + moreLinkText;
+                var title = formatWithOrdinals(options.moreLinkHint, [moreCnt], text);
                 var hookProps = {
                     num: moreCnt,
                     shortText: "+" + moreCnt,
-                    text: typeof moreLinkText === 'function'
-                        ? moreLinkText.call(calendarApi, moreCnt)
-                        : "+" + moreCnt + " " + moreLinkText,
+                    text: text,
                     view: viewApi,
                 };
                 return (createElement(Fragment, null,
-                    Boolean(props.moreCnt) && (createElement(RenderHook, { elRef: _this.linkElRef, hookProps: hookProps, classNames: options.moreLinkClassNames, content: options.moreLinkContent, defaultContent: props.defaultContent || renderMoreLinkInner$1, didMount: options.moreLinkDidMount, willUnmount: options.moreLinkWillUnmount }, function (rootElRef, customClassNames, innerElRef, innerContent) { return props.children(rootElRef, ['fc-more-link'].concat(customClassNames), innerElRef, innerContent, _this.handleClick); })),
-                    _this.state.isPopoverOpen && (createElement(MorePopover, { startDate: range.start, endDate: range.end, dateProfile: props.dateProfile, todayRange: props.todayRange, extraDateSpan: props.extraDateSpan, parentEl: _this.parentEl, alignmentEl: props.alignmentElRef.current, alignGridTop: props.alignGridTop, onClose: _this.handlePopoverClose }, props.popoverContent()))));
+                    Boolean(props.moreCnt) && (createElement(RenderHook, { elRef: _this.linkElRef, hookProps: hookProps, classNames: options.moreLinkClassNames, content: options.moreLinkContent, defaultContent: props.defaultContent || renderMoreLinkInner$1, didMount: options.moreLinkDidMount, willUnmount: options.moreLinkWillUnmount }, function (rootElRef, customClassNames, innerElRef, innerContent) { return props.children(rootElRef, ['fc-more-link'].concat(customClassNames), innerElRef, innerContent, _this.handleClick, title, state.isPopoverOpen, state.isPopoverOpen ? state.popoverId : ''); })),
+                    state.isPopoverOpen && (createElement(MorePopover, { id: state.popoverId, startDate: range.start, endDate: range.end, dateProfile: props.dateProfile, todayRange: props.todayRange, extraDateSpan: props.extraDateSpan, parentEl: _this.parentEl, alignmentEl: props.alignmentElRef.current, alignGridTop: props.alignGridTop, onClose: _this.handlePopoverClose }, props.popoverContent()))));
             }));
         };
         MoreLinkRoot.prototype.componentDidMount = function () {
@@ -9588,7 +9812,7 @@ var FullCalendar = (function (exports) {
 
     // exports
     // --------------------------------------------------------------------------------------------------
-    var version = '5.9.0'; // important to type it, so .d.ts has generic string
+    var version = '5.11.3'; // important to type it, so .d.ts has generic string
 
     var Calendar = /** @class */ (function (_super) {
         __extends(Calendar, _super);
@@ -9615,12 +9839,14 @@ var FullCalendar = (function (exports) {
                 if (_this.isRendering) {
                     _this.isRendered = true;
                     var currentData_1 = _this.currentData;
-                    render(createElement(CalendarRoot, { options: currentData_1.calendarOptions, theme: currentData_1.theme, emitter: currentData_1.emitter }, function (classNames, height, isHeightAuto, forPrint) {
-                        _this.setClassNames(classNames);
-                        _this.setHeight(height);
-                        return (createElement(CustomContentRenderContext.Provider, { value: _this.customContentRenderId },
-                            createElement(CalendarContent, __assign({ isHeightAuto: isHeightAuto, forPrint: forPrint }, currentData_1))));
-                    }), _this.el);
+                    flushSync(function () {
+                        render(createElement(CalendarRoot, { options: currentData_1.calendarOptions, theme: currentData_1.theme, emitter: currentData_1.emitter }, function (classNames, height, isHeightAuto, forPrint) {
+                            _this.setClassNames(classNames);
+                            _this.setHeight(height);
+                            return (createElement(CustomContentRenderContext.Provider, { value: _this.customContentRenderId },
+                                createElement(CalendarContent, __assign({ isHeightAuto: isHeightAuto, forPrint: forPrint }, currentData_1))));
+                        }), _this.el);
+                    });
                 }
                 else if (_this.isRendered) {
                     _this.isRendered = false;
@@ -9628,7 +9854,6 @@ var FullCalendar = (function (exports) {
                     _this.setClassNames([]);
                     _this.setHeight('');
                 }
-                flushToDom();
             };
             _this.el = el;
             _this.renderRunner = new DelayedRunner(_this.handleRenderRequest);
@@ -9666,8 +9891,10 @@ var FullCalendar = (function (exports) {
             }
         };
         Calendar.prototype.updateSize = function () {
-            _super.prototype.updateSize.call(this);
-            flushToDom();
+            var _this = this;
+            flushSync(function () {
+                _super.prototype.updateSize.call(_this);
+            });
         };
         Calendar.prototype.batchRendering = function (func) {
             this.renderRunner.pause('batchRendering');
@@ -10336,8 +10563,9 @@ var FullCalendar = (function (exports) {
         AutoScroller.prototype.computeBestEdge = function (left, top) {
             var edgeThreshold = this.edgeThreshold;
             var bestSide = null;
-            for (var _i = 0, _a = this.scrollCaches; _i < _a.length; _i++) {
-                var scrollCache = _a[_i];
+            var scrollCaches = this.scrollCaches || [];
+            for (var _i = 0, scrollCaches_1 = scrollCaches; _i < scrollCaches_1.length; _i++) {
+                var scrollCache = scrollCaches_1[_i];
                 var rect = scrollCache.clientRect;
                 var leftDist = left - rect.left;
                 var rightDist = rect.right - left;
@@ -11987,11 +12215,9 @@ var FullCalendar = (function (exports) {
         }
         TableCellTop.prototype.render = function () {
             var props = this.props;
-            var navLinkAttrs = this.context.options.navLinks
-                ? { 'data-navlink': buildNavLinkData(props.date), tabIndex: 0 }
-                : {};
+            var navLinkAttrs = buildNavLinkAttrs(this.context, props.date);
             return (createElement(DayCellContent, { date: props.date, dateProfile: props.dateProfile, todayRange: props.todayRange, showDayNumber: props.showDayNumber, extraHookProps: props.extraHookProps, defaultContent: renderTopInner }, function (innerElRef, innerContent) { return ((innerContent || props.forceDayTop) && (createElement("div", { className: "fc-daygrid-day-top", ref: innerElRef },
-                createElement("a", __assign({ className: "fc-daygrid-day-number" }, navLinkAttrs), innerContent || createElement(Fragment, null, "\u00A0"))))); }));
+                createElement("a", __assign({ id: props.dayNumberId, className: "fc-daygrid-day-number" }, navLinkAttrs), innerContent || createElement(Fragment, null, "\u00A0"))))); }));
         };
         return TableCellTop;
     }(BaseComponent));
@@ -12037,7 +12263,7 @@ var FullCalendar = (function (exports) {
             var timeFormat = context.options.eventTimeFormat || DEFAULT_TABLE_EVENT_TIME_FORMAT;
             var timeText = buildSegTimeText(props.seg, timeFormat, context, true, props.defaultDisplayEventEnd);
             return (createElement(EventRoot, { seg: props.seg, timeText: timeText, defaultContent: renderInnerContent$2, isDragging: props.isDragging, isResizing: false, isDateSelecting: false, isSelected: props.isSelected, isPast: props.isPast, isFuture: props.isFuture, isToday: props.isToday }, function (rootElRef, classNames, innerElRef, innerContent) { return ( // we don't use styles!
-            createElement("a", __assign({ className: ['fc-daygrid-event', 'fc-daygrid-dot-event'].concat(classNames).join(' '), ref: rootElRef }, getSegAnchorAttrs(props.seg)), innerContent)); }));
+            createElement("a", __assign({ className: ['fc-daygrid-event', 'fc-daygrid-dot-event'].concat(classNames).join(' '), ref: rootElRef }, getSegAnchorAttrs(props.seg, context)), innerContent)); }));
         };
         return TableListItemEvent;
     }(BaseComponent));
@@ -12046,10 +12272,6 @@ var FullCalendar = (function (exports) {
             createElement("div", { className: "fc-daygrid-event-dot", style: { borderColor: innerProps.borderColor || innerProps.backgroundColor } }),
             innerProps.timeText && (createElement("div", { className: "fc-event-time" }, innerProps.timeText)),
             createElement("div", { className: "fc-event-title" }, innerProps.event.title || createElement(Fragment, null, "\u00A0"))));
-    }
-    function getSegAnchorAttrs(seg) {
-        var url = seg.eventRange.def.url;
-        return url ? { href: url } : {};
     }
 
     var TableCellMoreLink = /** @class */ (function (_super) {
@@ -12072,7 +12294,7 @@ var FullCalendar = (function (exports) {
                                 visibility: isForcedInvisible[instanceId] ? 'hidden' : '',
                             } }, hasListItemDisplay(seg) ? (createElement(TableListItemEvent, __assign({ seg: seg, isDragging: false, isSelected: instanceId === props.eventSelection, defaultDisplayEventEnd: false }, getSegMeta(seg, props.todayRange)))) : (createElement(TableBlockEvent, __assign({ seg: seg, isDragging: false, isResizing: false, isDateSelecting: false, isSelected: instanceId === props.eventSelection, defaultDisplayEventEnd: false }, getSegMeta(seg, props.todayRange))))));
                     })));
-                } }, function (rootElRef, classNames, innerElRef, innerContent, handleClick) { return (createElement("a", { ref: rootElRef, className: ['fc-daygrid-more-link'].concat(classNames).join(' '), onClick: handleClick }, innerContent)); }));
+                } }, function (rootElRef, classNames, innerElRef, innerContent, handleClick, title, isExpanded, popoverId) { return (createElement("a", __assign({ ref: rootElRef, className: ['fc-daygrid-more-link'].concat(classNames).join(' '), title: title, "aria-expanded": isExpanded, "aria-controls": popoverId }, createAriaClickAttrs(handleClick)), innerContent)); }));
         };
         return TableCellMoreLink;
     }(BaseComponent));
@@ -12095,6 +12317,9 @@ var FullCalendar = (function (exports) {
         function TableCell() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this.rootElRef = createRef();
+            _this.state = {
+                dayNumberId: getUniqueDomId(),
+            };
             _this.handleRootEl = function (el) {
                 setRef(_this.rootElRef, el);
                 setRef(_this.props.elRef, el);
@@ -12102,16 +12327,13 @@ var FullCalendar = (function (exports) {
             return _this;
         }
         TableCell.prototype.render = function () {
-            var _a = this, props = _a.props, context = _a.context, rootElRef = _a.rootElRef;
-            var options = context.options;
+            var _a = this, context = _a.context, props = _a.props, state = _a.state, rootElRef = _a.rootElRef;
             var date = props.date, dateProfile = props.dateProfile;
-            var navLinkAttrs = options.navLinks
-                ? { 'data-navlink': buildNavLinkData(date, 'week'), tabIndex: 0 }
-                : {};
-            return (createElement(DayCellRoot, { date: date, dateProfile: dateProfile, todayRange: props.todayRange, showDayNumber: props.showDayNumber, extraHookProps: props.extraHookProps, elRef: this.handleRootEl }, function (dayElRef, dayClassNames, rootDataAttrs, isDisabled) { return (createElement("td", __assign({ ref: dayElRef, className: ['fc-daygrid-day'].concat(dayClassNames, props.extraClassNames || []).join(' ') }, rootDataAttrs, props.extraDataAttrs),
+            var navLinkAttrs = buildNavLinkAttrs(context, date, 'week');
+            return (createElement(DayCellRoot, { date: date, dateProfile: dateProfile, todayRange: props.todayRange, showDayNumber: props.showDayNumber, extraHookProps: props.extraHookProps, elRef: this.handleRootEl }, function (dayElRef, dayClassNames, rootDataAttrs, isDisabled) { return (createElement("td", __assign({ ref: dayElRef, role: "gridcell", className: ['fc-daygrid-day'].concat(dayClassNames, props.extraClassNames || []).join(' ') }, rootDataAttrs, props.extraDataAttrs, (props.showDayNumber ? { 'aria-labelledby': state.dayNumberId } : {})),
                 createElement("div", { className: "fc-daygrid-day-frame fc-scrollgrid-sync-inner", ref: props.innerElRef /* different from hook system! RENAME */ },
                     props.showWeekNumber && (createElement(WeekNumberRoot, { date: date, defaultFormat: DEFAULT_WEEK_NUM_FORMAT$1 }, function (weekElRef, weekClassNames, innerElRef, innerContent) { return (createElement("a", __assign({ ref: weekElRef, className: ['fc-daygrid-week-number'].concat(weekClassNames).join(' ') }, navLinkAttrs), innerContent)); })),
-                    !isDisabled && (createElement(TableCellTop, { date: date, dateProfile: dateProfile, showDayNumber: props.showDayNumber, forceDayTop: props.forceDayTop, todayRange: props.todayRange, extraHookProps: props.extraHookProps })),
+                    !isDisabled && (createElement(TableCellTop, { date: date, dateProfile: dateProfile, showDayNumber: props.showDayNumber, dayNumberId: state.dayNumberId, forceDayTop: props.forceDayTop, todayRange: props.todayRange, extraHookProps: props.extraHookProps })),
                     createElement("div", { className: "fc-daygrid-day-events", ref: props.fgContentElRef },
                         props.fgContent,
                         createElement("div", { className: "fc-daygrid-day-bottom", style: { marginTop: props.moreMarginTop } },
@@ -12385,7 +12607,7 @@ var FullCalendar = (function (exports) {
              (props.eventDrag && props.eventDrag.affectedInstances) ||
                 (props.eventResize && props.eventResize.affectedInstances) ||
                 {};
-            return (createElement("tr", { ref: this.rootElRef },
+            return (createElement("tr", { ref: this.rootElRef, role: "row" },
                 props.renderIntro && props.renderIntro(),
                 props.cells.map(function (cell, col) {
                     var normalFgNodes = _this.renderFgSegs(col, props.forPrint ? singleColPlacements[col] : multiColPlacements[col], props.todayRange, isForcedInvisible);
@@ -12503,9 +12725,14 @@ var FullCalendar = (function (exports) {
                         });
                     }
                 }
+                var oldInstanceHeights = this.state.eventInstanceHeights;
+                var newInstanceHeights = this.queryEventInstanceHeights();
                 var limitByContentHeight = props.dayMaxEvents === true || props.dayMaxEventRows === true;
-                this.setState({
-                    eventInstanceHeights: this.queryEventInstanceHeights(),
+                this.safeSetState({
+                    // HACK to prevent oscillations of events being shown/hidden from max-event-rows
+                    // Essentially, once you compute an element's height, never null-out.
+                    // TODO: always display all events, as visibility:hidden?
+                    eventInstanceHeights: __assign(__assign({}, oldInstanceHeights), newInstanceHeights),
                     maxContentHeight: limitByContentHeight ? this.computeMaxContentHeight() : null,
                 });
             }
@@ -12617,13 +12844,13 @@ var FullCalendar = (function (exports) {
                     minWidth: props.tableMinWidth,
                 } },
                 createElement(NowTimer, { unit: "day" }, function (nowDate, todayRange) { return (createElement(Fragment, null,
-                    createElement("table", { className: "fc-scrollgrid-sync-table", style: {
+                    createElement("table", { role: "presentation", className: "fc-scrollgrid-sync-table", style: {
                             width: props.clientWidth,
                             minWidth: props.tableMinWidth,
                             height: expandRows ? props.clientHeight : '',
                         } },
                         props.colGroupNode,
-                        createElement("tbody", null, props.cells.map(function (cells, row) { return (createElement(TableRow, { ref: _this.rowRefs.createRef(row), key: cells.length
+                        createElement("tbody", { role: "presentation" }, props.cells.map(function (cells, row) { return (createElement(TableRow, { ref: _this.rowRefs.createRef(row), key: cells.length
                                 ? cells[0].date.toISOString() /* best? or put key on cell? or use diff formatter? */
                                 : row // in case there are no cells (like when resource view is loading)
                             , showDayNumbers: rowCnt > 1, showWeekNumbers: props.showWeekNumbers, todayRange: todayRange, dateProfile: dateProfile, cells: cells, renderIntro: props.renderRowIntro, businessHourSegs: businessHourSegsByRow[row], eventSelection: props.eventSelection, bgEventSegs: bgEventSegsByRow[row].filter(isSegAllDay) /* hack */, fgEventSegs: fgEventSegsByRow[row], dateSelectionSegs: dateSelectionSegsByRow[row], eventDrag: eventDragByRow[row], eventResize: eventResizeByRow[row], dayMaxEvents: dayMaxEvents, dayMaxEventRows: dayMaxEventRows, clientWidth: props.clientWidth, clientHeight: props.clientHeight, forPrint: props.forPrint })); }))))); })));
@@ -12889,18 +13116,18 @@ var FullCalendar = (function (exports) {
                 var dateProfile = _this.props.dateProfile;
                 var range = dateProfile.renderRange;
                 var dayCnt = diffDays(range.start, range.end);
-                var navLinkAttrs = (options.navLinks && dayCnt === 1) // only do in day views (to avoid doing in week views that dont need it)
-                    ? { 'data-navlink': buildNavLinkData(range.start, 'week'), tabIndex: 0 }
+                var navLinkAttrs = (dayCnt === 1) // only do in day views (to avoid doing in week views that dont need it)
+                    ? buildNavLinkAttrs(_this.context, range.start, 'week')
                     : {};
                 if (options.weekNumbers && rowKey === 'day') {
-                    return (createElement(WeekNumberRoot, { date: range.start, defaultFormat: DEFAULT_WEEK_NUM_FORMAT }, function (rootElRef, classNames, innerElRef, innerContent) { return (createElement("th", { ref: rootElRef, className: [
+                    return (createElement(WeekNumberRoot, { date: range.start, defaultFormat: DEFAULT_WEEK_NUM_FORMAT }, function (rootElRef, classNames, innerElRef, innerContent) { return (createElement("th", { ref: rootElRef, "aria-hidden": true, className: [
                             'fc-timegrid-axis',
                             'fc-scrollgrid-shrink',
                         ].concat(classNames).join(' ') },
                         createElement("div", { className: "fc-timegrid-axis-frame fc-scrollgrid-shrink-frame fc-timegrid-axis-frame-liquid", style: { height: frameHeight } },
                             createElement("a", __assign({ ref: innerElRef, className: "fc-timegrid-axis-cushion fc-scrollgrid-shrink-cushion fc-scrollgrid-sync-inner" }, navLinkAttrs), innerContent)))); }));
                 }
-                return (createElement("th", { className: "fc-timegrid-axis" },
+                return (createElement("th", { "aria-hidden": true, className: "fc-timegrid-axis" },
                     createElement("div", { className: "fc-timegrid-axis-frame", style: { height: frameHeight } })));
             };
             /* Table Component Render Methods
@@ -12915,7 +13142,7 @@ var FullCalendar = (function (exports) {
                 };
                 return (
                 // TODO: make reusable hook. used in list view too
-                createElement(RenderHook, { hookProps: hookProps, classNames: options.allDayClassNames, content: options.allDayContent, defaultContent: renderAllDayInner$1, didMount: options.allDayDidMount, willUnmount: options.allDayWillUnmount }, function (rootElRef, classNames, innerElRef, innerContent) { return (createElement("td", { ref: rootElRef, className: [
+                createElement(RenderHook, { hookProps: hookProps, classNames: options.allDayClassNames, content: options.allDayContent, defaultContent: renderAllDayInner$1, didMount: options.allDayDidMount, willUnmount: options.allDayWillUnmount }, function (rootElRef, classNames, innerElRef, innerContent) { return (createElement("td", { ref: rootElRef, "aria-hidden": true, className: [
                         'fc-timegrid-axis',
                         'fc-scrollgrid-shrink',
                     ].concat(classNames).join(' ') },
@@ -12955,7 +13182,7 @@ var FullCalendar = (function (exports) {
                     type: 'body',
                     key: 'all-day-divider',
                     outerContent: ( // TODO: rename to cellContent so don't need to define <tr>?
-                    createElement("tr", { className: "fc-scrollgrid-section" },
+                    createElement("tr", { role: "presentation", className: "fc-scrollgrid-section" },
                         createElement("td", { className: 'fc-timegrid-divider ' + context.theme.getClass('tableCellShaded') }))),
                 });
             }
@@ -12991,7 +13218,7 @@ var FullCalendar = (function (exports) {
                     chunks: [
                         {
                             key: 'axis',
-                            rowContent: function (arg) { return (createElement("tr", null, _this.renderHeadAxis('day', arg.rowSyncHeights[0]))); },
+                            rowContent: function (arg) { return (createElement("tr", { role: "presentation" }, _this.renderHeadAxis('day', arg.rowSyncHeights[0]))); },
                         },
                         {
                             key: 'cols',
@@ -13010,7 +13237,7 @@ var FullCalendar = (function (exports) {
                     chunks: [
                         {
                             key: 'axis',
-                            rowContent: function (contentArg) { return (createElement("tr", null, _this.renderTableRowAxis(contentArg.rowSyncHeights[0]))); },
+                            rowContent: function (contentArg) { return (createElement("tr", { role: "presentation" }, _this.renderTableRowAxis(contentArg.rowSyncHeights[0]))); },
                         },
                         {
                             key: 'cols',
@@ -13022,7 +13249,7 @@ var FullCalendar = (function (exports) {
                     key: 'all-day-divider',
                     type: 'body',
                     outerContent: ( // TODO: rename to cellContent so don't need to define <tr>?
-                    createElement("tr", { className: "fc-scrollgrid-section" },
+                    createElement("tr", { role: "presentation", className: "fc-scrollgrid-section" },
                         createElement("td", { colSpan: 2, className: 'fc-timegrid-divider ' + context.theme.getClass('tableCellShaded') }))),
                 });
             }
@@ -13038,7 +13265,7 @@ var FullCalendar = (function (exports) {
                         content: function (arg) { return (
                         // TODO: make this now-indicator arrow more DRY with TimeColsContent
                         createElement("div", { className: "fc-timegrid-axis-chunk" },
-                            createElement("table", { style: { height: arg.expandRows ? arg.clientHeight : '' } },
+                            createElement("table", { "aria-hidden": true, style: { height: arg.expandRows ? arg.clientHeight : '' } },
                                 arg.tableColGroupNode,
                                 createElement("tbody", null,
                                     createElement(TimeBodyAxis, { slatMetas: slatMetas }))),
@@ -13194,8 +13421,8 @@ var FullCalendar = (function (exports) {
         }
         TimeColsSlats.prototype.render = function () {
             var _a = this, props = _a.props, context = _a.context;
-            return (createElement("div", { className: "fc-timegrid-slots", ref: this.rootElRef },
-                createElement("table", { className: context.theme.getClass('table'), style: {
+            return (createElement("div", { ref: this.rootElRef, className: "fc-timegrid-slots" },
+                createElement("table", { "aria-hidden": true, className: context.theme.getClass('table'), style: {
                         minWidth: props.tableMinWidth,
                         width: props.clientWidth,
                         height: props.minHeight,
@@ -13277,10 +13504,10 @@ var FullCalendar = (function (exports) {
         TimeColMoreLink.prototype.render = function () {
             var _this = this;
             var props = this.props;
-            return (createElement(MoreLinkRoot, { allDayDate: null, moreCnt: props.hiddenSegs.length, allSegs: props.hiddenSegs, hiddenSegs: props.hiddenSegs, alignmentElRef: this.rootElRef, defaultContent: renderMoreLinkInner, extraDateSpan: props.extraDateSpan, dateProfile: props.dateProfile, todayRange: props.todayRange, popoverContent: function () { return renderPlainFgSegs(props.hiddenSegs, props); } }, function (rootElRef, classNames, innerElRef, innerContent, handleClick) { return (createElement("a", { ref: function (el) {
+            return (createElement(MoreLinkRoot, { allDayDate: null, moreCnt: props.hiddenSegs.length, allSegs: props.hiddenSegs, hiddenSegs: props.hiddenSegs, alignmentElRef: this.rootElRef, defaultContent: renderMoreLinkInner, extraDateSpan: props.extraDateSpan, dateProfile: props.dateProfile, todayRange: props.todayRange, popoverContent: function () { return renderPlainFgSegs(props.hiddenSegs, props); } }, function (rootElRef, classNames, innerElRef, innerContent, handleClick, title, isExpanded, popoverId) { return (createElement("a", { ref: function (el) {
                     setRef(rootElRef, el);
                     setRef(_this.rootElRef, el);
-                }, className: ['fc-timegrid-more-link'].concat(classNames).join(' '), style: { top: props.top, bottom: props.bottom }, onClick: handleClick },
+                }, className: ['fc-timegrid-more-link'].concat(classNames).join(' '), style: { top: props.top, bottom: props.bottom }, onClick: handleClick, title: title, "aria-expanded": isExpanded, "aria-controls": popoverId },
                 createElement("div", { ref: innerElRef, className: "fc-timegrid-more-link-inner fc-sticky" }, innerContent))); }));
         };
         return TimeColMoreLink;
@@ -13541,7 +13768,7 @@ var FullCalendar = (function (exports) {
                 (props.eventResize && props.eventResize.affectedInstances) ||
                 {};
             var sortedFgSegs = this.sortEventSegs(props.fgEventSegs, context.options.eventOrder);
-            return (createElement(DayCellRoot, { elRef: props.elRef, date: props.date, dateProfile: props.dateProfile, todayRange: props.todayRange, extraHookProps: props.extraHookProps }, function (rootElRef, classNames, dataAttrs) { return (createElement("td", __assign({ ref: rootElRef, className: ['fc-timegrid-col'].concat(classNames, props.extraClassNames || []).join(' ') }, dataAttrs, props.extraDataAttrs),
+            return (createElement(DayCellRoot, { elRef: props.elRef, date: props.date, dateProfile: props.dateProfile, todayRange: props.todayRange, extraHookProps: props.extraHookProps }, function (rootElRef, classNames, dataAttrs) { return (createElement("td", __assign({ ref: rootElRef, role: "gridcell", className: ['fc-timegrid-col'].concat(classNames, props.extraClassNames || []).join(' ') }, dataAttrs, props.extraDataAttrs),
                 createElement("div", { className: "fc-timegrid-col-frame" },
                     createElement("div", { className: "fc-timegrid-col-bg" },
                         _this.renderFillSegs(props.businessHourSegs, 'non-business'),
@@ -13697,14 +13924,14 @@ var FullCalendar = (function (exports) {
             var eventDragByRow = this.splitEventDrag(props.eventDrag, colCnt);
             var eventResizeByRow = this.splitEventResize(props.eventResize, colCnt);
             return (createElement("div", { className: "fc-timegrid-cols", ref: this.rootElRef },
-                createElement("table", { style: {
+                createElement("table", { role: "presentation", style: {
                         minWidth: props.tableMinWidth,
                         width: props.clientWidth,
                     } },
                     props.tableColGroupNode,
-                    createElement("tbody", null,
-                        createElement("tr", null,
-                            props.axis && (createElement("td", { className: "fc-timegrid-col fc-timegrid-axis" },
+                    createElement("tbody", { role: "presentation" },
+                        createElement("tr", { role: "row" },
+                            props.axis && (createElement("td", { "aria-hidden": true, className: "fc-timegrid-col fc-timegrid-axis" },
                                 createElement("div", { className: "fc-timegrid-col-frame" },
                                     createElement("div", { className: "fc-timegrid-now-indicator-container" }, typeof nowIndicatorTop === 'number' && (createElement(NowIndicatorRoot, { isAxis: true, date: props.nowDate }, function (rootElRef, classNames, innerElRef, innerContent) { return (createElement("div", { ref: rootElRef, className: ['fc-timegrid-now-indicator-arrow'].concat(classNames).join(' '), style: { top: nowIndicatorTop } }, innerContent)); })))))),
                             props.cells.map(function (cell, i) { return (createElement(TimeCol, { key: cell.key, elRef: _this.cellElRefs.createRef(cell.key), dateProfile: props.dateProfile, date: cell.date, nowDate: props.nowDate, todayRange: props.todayRange, extraHookProps: cell.extraHookProps, extraDataAttrs: cell.extraDataAttrs, extraClassNames: cell.extraClassNames, extraDateSpan: cell.extraDateSpan, fgEventSegs: fgEventSegsByRow[i], bgEventSegs: bgEventSegsByRow[i], businessHourSegs: businessHourSegsByRow[i], nowIndicatorSegs: nowIndicatorSegsByRow[i], dateSelectionSegs: dateSelectionSegsByRow[i], eventDrag: eventDragByRow[i], eventResize: eventResizeByRow[i], slatCoords: props.slatCoords, eventSelection: props.eventSelection, forPrint: props.forPrint })); }))))));
@@ -14010,37 +14237,36 @@ var FullCalendar = (function (exports) {
     var ListViewHeaderRow = /** @class */ (function (_super) {
         __extends(ListViewHeaderRow, _super);
         function ListViewHeaderRow() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.state = {
+                textId: getUniqueDomId(),
+            };
+            return _this;
         }
         ListViewHeaderRow.prototype.render = function () {
-            var _a = this.props, dayDate = _a.dayDate, todayRange = _a.todayRange;
-            var _b = this.context, theme = _b.theme, dateEnv = _b.dateEnv, options = _b.options, viewApi = _b.viewApi;
+            var _a = this.context, theme = _a.theme, dateEnv = _a.dateEnv, options = _a.options, viewApi = _a.viewApi;
+            var _b = this.props, cellId = _b.cellId, dayDate = _b.dayDate, todayRange = _b.todayRange;
+            var textId = this.state.textId;
             var dayMeta = getDateMeta(dayDate, todayRange);
             // will ever be falsy?
             var text = options.listDayFormat ? dateEnv.format(dayDate, options.listDayFormat) : '';
             // will ever be falsy? also, BAD NAME "alt"
             var sideText = options.listDaySideFormat ? dateEnv.format(dayDate, options.listDaySideFormat) : '';
-            var navLinkData = options.navLinks
-                ? buildNavLinkData(dayDate)
-                : null;
-            var hookProps = __assign({ date: dateEnv.toDate(dayDate), view: viewApi, text: text,
-                sideText: sideText,
-                navLinkData: navLinkData }, dayMeta);
+            var hookProps = __assign({ date: dateEnv.toDate(dayDate), view: viewApi, textId: textId,
+                text: text,
+                sideText: sideText, navLinkAttrs: buildNavLinkAttrs(this.context, dayDate), sideNavLinkAttrs: buildNavLinkAttrs(this.context, dayDate, 'day', false) }, dayMeta);
             var classNames = ['fc-list-day'].concat(getDayClassNames(dayMeta, theme));
             // TODO: make a reusable HOC for dayHeader (used in daygrid/timegrid too)
             return (createElement(RenderHook, { hookProps: hookProps, classNames: options.dayHeaderClassNames, content: options.dayHeaderContent, defaultContent: renderInnerContent, didMount: options.dayHeaderDidMount, willUnmount: options.dayHeaderWillUnmount }, function (rootElRef, customClassNames, innerElRef, innerContent) { return (createElement("tr", { ref: rootElRef, className: classNames.concat(customClassNames).join(' '), "data-date": formatDayString(dayDate) },
-                createElement("th", { colSpan: 3 },
+                createElement("th", { scope: "colgroup", colSpan: 3, id: cellId, "aria-labelledby": textId },
                     createElement("div", { className: 'fc-list-day-cushion ' + theme.getClass('tableCellShaded'), ref: innerElRef }, innerContent)))); }));
         };
         return ListViewHeaderRow;
     }(BaseComponent));
     function renderInnerContent(props) {
-        var navLinkAttrs = props.navLinkData // is there a type for this?
-            ? { 'data-navlink': props.navLinkData, tabIndex: 0 }
-            : {};
         return (createElement(Fragment, null,
-            props.text && (createElement("a", __assign({ className: "fc-list-day-text" }, navLinkAttrs), props.text)),
-            props.sideText && (createElement("a", __assign({ className: "fc-list-day-side-text" }, navLinkAttrs), props.sideText))));
+            props.text && (createElement("a", __assign({ id: props.textId, className: "fc-list-day-text" }, props.navLinkAttrs), props.text)),
+            props.sideText && ( /* not keyboard tabbable */createElement("a", __assign({ "aria-hidden": true, className: "fc-list-day-side-text" }, props.sideNavLinkAttrs), props.sideText))));
     }
 
     var DEFAULT_TIME_FORMAT = createFormatter({
@@ -14055,24 +14281,22 @@ var FullCalendar = (function (exports) {
         }
         ListViewEventRow.prototype.render = function () {
             var _a = this, props = _a.props, context = _a.context;
-            var seg = props.seg;
+            var seg = props.seg, timeHeaderId = props.timeHeaderId, eventHeaderId = props.eventHeaderId, dateHeaderId = props.dateHeaderId;
             var timeFormat = context.options.eventTimeFormat || DEFAULT_TIME_FORMAT;
             return (createElement(EventRoot, { seg: seg, timeText: "" // BAD. because of all-day content
-                , disableDragging: true, disableResizing: true, defaultContent: renderEventInnerContent, isPast: props.isPast, isFuture: props.isFuture, isToday: props.isToday, isSelected: props.isSelected, isDragging: props.isDragging, isResizing: props.isResizing, isDateSelecting: props.isDateSelecting }, function (rootElRef, classNames, innerElRef, innerContent, hookProps) { return (createElement("tr", { className: ['fc-list-event', hookProps.event.url ? 'fc-event-forced-url' : ''].concat(classNames).join(' '), ref: rootElRef },
-                buildTimeContent(seg, timeFormat, context),
-                createElement("td", { className: "fc-list-event-graphic" },
+                , disableDragging: true, disableResizing: true, defaultContent: function () { return renderEventInnerContent(seg, context); } /* weird */, isPast: props.isPast, isFuture: props.isFuture, isToday: props.isToday, isSelected: props.isSelected, isDragging: props.isDragging, isResizing: props.isResizing, isDateSelecting: props.isDateSelecting }, function (rootElRef, classNames, innerElRef, innerContent, hookProps) { return (createElement("tr", { className: ['fc-list-event', hookProps.event.url ? 'fc-event-forced-url' : ''].concat(classNames).join(' '), ref: rootElRef },
+                buildTimeContent(seg, timeFormat, context, timeHeaderId, dateHeaderId),
+                createElement("td", { "aria-hidden": true, className: "fc-list-event-graphic" },
                     createElement("span", { className: "fc-list-event-dot", style: { borderColor: hookProps.borderColor || hookProps.backgroundColor } })),
-                createElement("td", { className: "fc-list-event-title", ref: innerElRef }, innerContent))); }));
+                createElement("td", { ref: innerElRef, headers: eventHeaderId + " " + dateHeaderId, className: "fc-list-event-title" }, innerContent))); }));
         };
         return ListViewEventRow;
     }(BaseComponent));
-    function renderEventInnerContent(props) {
-        var event = props.event;
-        var url = event.url;
-        var anchorAttrs = url ? { href: url } : {};
-        return (createElement("a", __assign({}, anchorAttrs), event.title));
+    function renderEventInnerContent(seg, context) {
+        var interactiveAttrs = getSegAnchorAttrs(seg, context);
+        return (createElement("a", __assign({}, interactiveAttrs), seg.eventRange.def.title));
     }
-    function buildTimeContent(seg, timeFormat, context) {
+    function buildTimeContent(seg, timeFormat, context, timeHeaderId, dateHeaderId) {
         var options = context.options;
         if (options.displayEventTime !== false) {
             var eventDef = seg.eventRange.def;
@@ -14101,7 +14325,7 @@ var FullCalendar = (function (exports) {
                     text: context.options.allDayText,
                     view: context.viewApi,
                 };
-                return (createElement(RenderHook, { hookProps: hookProps, classNames: options.allDayClassNames, content: options.allDayContent, defaultContent: renderAllDayInner, didMount: options.allDayDidMount, willUnmount: options.allDayWillUnmount }, function (rootElRef, classNames, innerElRef, innerContent) { return (createElement("td", { className: ['fc-list-event-time'].concat(classNames).join(' '), ref: rootElRef }, innerContent)); }));
+                return (createElement(RenderHook, { hookProps: hookProps, classNames: options.allDayClassNames, content: options.allDayContent, defaultContent: renderAllDayInner, didMount: options.allDayDidMount, willUnmount: options.allDayWillUnmount }, function (rootElRef, classNames, innerElRef, innerContent) { return (createElement("td", { ref: rootElRef, headers: timeHeaderId + " " + dateHeaderId, className: ['fc-list-event-time'].concat(classNames).join(' ') }, innerContent)); }));
             }
             return (createElement("td", { className: "fc-list-event-time" }, timeText));
         }
@@ -14120,6 +14344,11 @@ var FullCalendar = (function (exports) {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this.computeDateVars = memoize(computeDateVars);
             _this.eventStoreToSegs = memoize(_this._eventStoreToSegs);
+            _this.state = {
+                timeHeaderId: getUniqueDomId(),
+                eventHeaderId: getUniqueDomId(),
+                dateHeaderIdRoot: getUniqueDomId(),
+            };
             _this.setRootEl = function (rootEl) {
                 if (rootEl) {
                     _this.context.registerInteractiveComponent(_this, {
@@ -14158,23 +14387,30 @@ var FullCalendar = (function (exports) {
         };
         ListView.prototype.renderSegList = function (allSegs, dayDates) {
             var _a = this.context, theme = _a.theme, options = _a.options;
+            var _b = this.state, timeHeaderId = _b.timeHeaderId, eventHeaderId = _b.eventHeaderId, dateHeaderIdRoot = _b.dateHeaderIdRoot;
             var segsByDay = groupSegsByDay(allSegs); // sparse array
             return (createElement(NowTimer, { unit: "day" }, function (nowDate, todayRange) {
                 var innerNodes = [];
                 for (var dayIndex = 0; dayIndex < segsByDay.length; dayIndex += 1) {
                     var daySegs = segsByDay[dayIndex];
                     if (daySegs) { // sparse array, so might be undefined
-                        var dayStr = dayDates[dayIndex].toISOString();
+                        var dayStr = formatDayString(dayDates[dayIndex]);
+                        var dateHeaderId = dateHeaderIdRoot + '-' + dayStr;
                         // append a day header
-                        innerNodes.push(createElement(ListViewHeaderRow, { key: dayStr, dayDate: dayDates[dayIndex], todayRange: todayRange }));
+                        innerNodes.push(createElement(ListViewHeaderRow, { key: dayStr, cellId: dateHeaderId, dayDate: dayDates[dayIndex], todayRange: todayRange }));
                         daySegs = sortEventSegs(daySegs, options.eventOrder);
                         for (var _i = 0, daySegs_1 = daySegs; _i < daySegs_1.length; _i++) {
                             var seg = daySegs_1[_i];
-                            innerNodes.push(createElement(ListViewEventRow, __assign({ key: dayStr + ':' + seg.eventRange.instance.instanceId /* are multiple segs for an instanceId */, seg: seg, isDragging: false, isResizing: false, isDateSelecting: false, isSelected: false }, getSegMeta(seg, todayRange, nowDate))));
+                            innerNodes.push(createElement(ListViewEventRow, __assign({ key: dayStr + ':' + seg.eventRange.instance.instanceId /* are multiple segs for an instanceId */, seg: seg, isDragging: false, isResizing: false, isDateSelecting: false, isSelected: false, timeHeaderId: timeHeaderId, eventHeaderId: eventHeaderId, dateHeaderId: dateHeaderId }, getSegMeta(seg, todayRange, nowDate))));
                         }
                     }
                 }
                 return (createElement("table", { className: 'fc-list-table ' + theme.getClass('table') },
+                    createElement("thead", null,
+                        createElement("tr", null,
+                            createElement("th", { scope: "col", id: timeHeaderId }, options.timeHint),
+                            createElement("th", { scope: "col", "aria-hidden": true }),
+                            createElement("th", { scope: "col", id: eventHeaderId }, options.eventHint))),
                     createElement("tbody", null, innerNodes)));
             }));
         };
@@ -14303,14 +14539,14 @@ var FullCalendar = (function (exports) {
         },
     });
 
-    var BootstrapTheme = /** @class */ (function (_super) {
+    var BootstrapTheme$1 = /** @class */ (function (_super) {
         __extends(BootstrapTheme, _super);
         function BootstrapTheme() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
         return BootstrapTheme;
     }(Theme));
-    BootstrapTheme.prototype.classes = {
+    BootstrapTheme$1.prototype.classes = {
         root: 'fc-theme-bootstrap',
         table: 'table-bordered',
         tableCellShaded: 'table-active',
@@ -14321,26 +14557,67 @@ var FullCalendar = (function (exports) {
         popoverHeader: 'popover-header',
         popoverContent: 'popover-body',
     };
-    BootstrapTheme.prototype.baseIconClass = 'fa';
-    BootstrapTheme.prototype.iconClasses = {
+    BootstrapTheme$1.prototype.baseIconClass = 'fa';
+    BootstrapTheme$1.prototype.iconClasses = {
         close: 'fa-times',
         prev: 'fa-chevron-left',
         next: 'fa-chevron-right',
         prevYear: 'fa-angle-double-left',
         nextYear: 'fa-angle-double-right',
     };
-    BootstrapTheme.prototype.rtlIconClasses = {
+    BootstrapTheme$1.prototype.rtlIconClasses = {
         prev: 'fa-chevron-right',
         next: 'fa-chevron-left',
         prevYear: 'fa-angle-double-right',
         nextYear: 'fa-angle-double-left',
     };
-    BootstrapTheme.prototype.iconOverrideOption = 'bootstrapFontAwesome'; // TODO: make TS-friendly. move the option-processing into this plugin
-    BootstrapTheme.prototype.iconOverrideCustomButtonOption = 'bootstrapFontAwesome';
-    BootstrapTheme.prototype.iconOverridePrefix = 'fa-';
+    BootstrapTheme$1.prototype.iconOverrideOption = 'bootstrapFontAwesome'; // TODO: make TS-friendly. move the option-processing into this plugin
+    BootstrapTheme$1.prototype.iconOverrideCustomButtonOption = 'bootstrapFontAwesome';
+    BootstrapTheme$1.prototype.iconOverridePrefix = 'fa-';
+    var plugin$1 = createPlugin({
+        themeClasses: {
+            bootstrap: BootstrapTheme$1,
+        },
+    });
+
+    var BootstrapTheme = /** @class */ (function (_super) {
+        __extends(BootstrapTheme, _super);
+        function BootstrapTheme() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return BootstrapTheme;
+    }(Theme));
+    BootstrapTheme.prototype.classes = {
+        root: 'fc-theme-bootstrap5',
+        tableCellShaded: 'fc-theme-bootstrap5-shaded',
+        buttonGroup: 'btn-group',
+        button: 'btn btn-primary',
+        buttonActive: 'active',
+        popover: 'popover',
+        popoverHeader: 'popover-header',
+        popoverContent: 'popover-body',
+    };
+    BootstrapTheme.prototype.baseIconClass = 'bi';
+    BootstrapTheme.prototype.iconClasses = {
+        close: 'bi-x-lg',
+        prev: 'bi-chevron-left',
+        next: 'bi-chevron-right',
+        prevYear: 'bi-chevron-double-left',
+        nextYear: 'bi-chevron-double-right',
+    };
+    BootstrapTheme.prototype.rtlIconClasses = {
+        prev: 'bi-chevron-right',
+        next: 'bi-chevron-left',
+        prevYear: 'bi-chevron-double-right',
+        nextYear: 'bi-chevron-double-left',
+    };
+    // wtf
+    BootstrapTheme.prototype.iconOverrideOption = 'buttonIcons'; // TODO: make TS-friendly
+    BootstrapTheme.prototype.iconOverrideCustomButtonOption = 'icon';
+    BootstrapTheme.prototype.iconOverridePrefix = 'bi-';
     var plugin = createPlugin({
         themeClasses: {
-            bootstrap: BootstrapTheme,
+            bootstrap5: BootstrapTheme,
         },
     });
 
@@ -14484,13 +14761,13 @@ var FullCalendar = (function (exports) {
         eventSourceRefiners: EVENT_SOURCE_REFINERS,
     });
 
-    globalPlugins.push(interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin, plugin, googleCalendarPlugin);
+    globalPlugins.push(interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin, plugin$1, plugin, googleCalendarPlugin);
 
     exports.BASE_OPTION_DEFAULTS = BASE_OPTION_DEFAULTS;
     exports.BASE_OPTION_REFINERS = BASE_OPTION_REFINERS;
     exports.BaseComponent = BaseComponent;
     exports.BgEvent = BgEvent;
-    exports.BootstrapTheme = BootstrapTheme;
+    exports.BootstrapTheme = BootstrapTheme$1;
     exports.Calendar = Calendar;
     exports.CalendarApi = CalendarApi;
     exports.CalendarContent = CalendarContent;
@@ -14579,7 +14856,7 @@ var FullCalendar = (function (exports) {
     exports.buildEventRangeKey = buildEventRangeKey;
     exports.buildHashFromArray = buildHashFromArray;
     exports.buildIsoString = buildIsoString;
-    exports.buildNavLinkData = buildNavLinkData;
+    exports.buildNavLinkAttrs = buildNavLinkAttrs;
     exports.buildSegCompareObj = buildSegCompareObj;
     exports.buildSegTimeText = buildSegTimeText;
     exports.buildSlatMetas = buildSlatMetas;
@@ -14604,6 +14881,7 @@ var FullCalendar = (function (exports) {
     exports.computeVisibleDayRange = computeVisibleDayRange;
     exports.config = config;
     exports.constrainPoint = constrainPoint;
+    exports.createAriaClickAttrs = createAriaClickAttrs;
     exports.createContext = createContext;
     exports.createDuration = createDuration;
     exports.createElement = createElement;
@@ -14631,7 +14909,7 @@ var FullCalendar = (function (exports) {
     exports.findDirectChildren = findDirectChildren;
     exports.findElements = findElements;
     exports.flexibleCompare = flexibleCompare;
-    exports.flushToDom = flushToDom;
+    exports.flushSync = flushSync;
     exports.formatDate = formatDate;
     exports.formatDayString = formatDayString;
     exports.formatIsoTimeString = formatIsoTimeString;
@@ -14654,11 +14932,13 @@ var FullCalendar = (function (exports) {
     exports.getScrollbarWidths = getScrollbarWidths;
     exports.getSectionClassNames = getSectionClassNames;
     exports.getSectionHasLiquidHeight = getSectionHasLiquidHeight;
+    exports.getSegAnchorAttrs = getSegAnchorAttrs;
     exports.getSegMeta = getSegMeta;
     exports.getSlotClassNames = getSlotClassNames;
     exports.getStickyFooterScrollbar = getStickyFooterScrollbar;
     exports.getStickyHeaderDates = getStickyHeaderDates;
     exports.getUnequalProps = getUnequalProps;
+    exports.getUniqueDomId = getUniqueDomId;
     exports.globalLocales = globalLocales;
     exports.globalPlugins = globalPlugins;
     exports.greatestDurationDenominator = greatestDurationDenominator;
