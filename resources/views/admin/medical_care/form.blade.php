@@ -368,45 +368,30 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="form-group">
-                                    <label for="aggression" id="label_aggression"><strong>Agressões:</strong></label><br/>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="aggression-y" name="aggression" @if(old('aggression') or (($medical_care) AND $medical_care->aggression == "y")) checked @endif value="y"/>
-                                        <label class="form-check-label" for="aggression-y">Sim</label>
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="aggression-n" name="aggression" @if((empty(old('aggression')) or empty(($medical_care))) OR old('aggression') or (($medical_care) AND $medical_care->aggression == "n")) checked @endif value="n"/>
-                                        <label class="form-check-label" for="aggression-n">Não</label>
+                                    <label class="form-check-label" for="aggression" id="label_aggression">Agressões:</label>
+                                    <div class="form-check form-switch">                                       
+                                        <input class="form-check-input" id="aggression" type="checkbox" @if(old('aggression') or (($medical_care) AND $medical_care->aggression == "y")) checked @endif value="y"/>
+                                        <td>Sim</td>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="form-group">
-                                    <label for="firearm_aggression" id="label_firearm_aggression"><strong>Agressão com arma de fogo:</strong></label><br/>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="firearm_aggression-y" @if(old('firearm_aggression') or (($medical_care) AND $medical_care->firearm_aggression == "y")) checked @endif name="firearm_aggression" value="y"/>
-                                        <label class="form-check-label" for="firearm_aggression-y">Sim</label>
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="firearm_aggression-n" @if((empty(old('firearm_aggression')) or empty(($medical_care))) OR old('firearm_aggression') or (($medical_care) AND $medical_care->firearm_aggression == "n")) checked @endif name="firearm_aggression" value="n"/>
-                                        <label class="form-check-label" for="firearm_aggression-n">Não</label>
+                                    <label class="form-check-label" for="firearm_aggression" id="label_firearm_aggression">Agressão com arma de fogo:</label>
+                                    <div class="form-check form-switch">                                       
+                                        <input class="form-check-input" id="firearm_aggression" type="checkbox" @if(old('firearm_aggression') or (($medical_care) AND $medical_care->firearm_aggression == "y")) checked @endif name="firearm_aggression" value="y"/>
+                                        <td>Sim</td>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="form-group">
-                                    <label for="weapon_flaps" id="label_weapon_flaps"><strong>Agressão com arma branca:</strong></label><br/>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="weapon_flaps-y" @if(old('weapon_flaps') or (($medical_care) AND $medical_care->weapon_flaps == "y")) checked @endif name="weapon_flaps" value="y"/>
-                                        <label class="form-check-label" for="weapon_flaps-y">Sim</label>
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="weapon_flaps-n" @if((empty(old('weapon_flaps')) or empty(($medical_care))) OR old('weapon_flaps') or (($medical_care) AND $medical_care->weapon_flaps == "n")) checked @endif name="weapon_flaps" value="n"/>
-                                        <label class="form-check-label" for="weapon_flaps-n">Não</label>
+                                    <label class="form-check-label" for="weapon_flaps" id="label_weapon_flaps">Agressão com arma branca:</label>
+                                    <div class="form-check form-switch">                                       
+                                        <input class="form-check-input" id="weapon_flaps" type="checkbox" @if(old('weapon_flaps') or (($medical_care) AND $medical_care->weapon_flaps == "y")) checked @endif name="weapon_flaps" value="y"/>
+                                        <td>Sim</td>
                                     </div>
                                 </div>
                             </div>
@@ -415,45 +400,30 @@
                         <div class="row mt-1">
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="form-group">
-                                    <label for="self_extermination" id="label_self_extermination"><strong>Tentativa de auto extermínio:</strong></label><br/>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="self_extermination-y" @if(old('self_extermination') or (($medical_care) AND $medical_care->self_extermination == "y")) checked @endif name="self_extermination" value="y"/>
-                                        <label class="form-check-label" for="self_extermination-y">Sim</label>
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="self_extermination-n" @if((empty(old('self_extermination')) or empty(($medical_care))) OR old('self_extermination') or (($medical_care) AND $medical_care->self_extermination == "n")) checked @endif name="self_extermination" value="n"/>
-                                        <label class="form-check-label" for="self_extermination-n">Não</label>
+                                    <label class="form-check-label" for="self_extermination" id="label_self_extermination">Tentativa de auto extermínio:</label>
+                                    <div class="form-check form-switch">                                       
+                                        <input class="form-check-input" id="self_extermination" type="checkbox" @if(old('self_extermination') or (($medical_care) AND $medical_care->self_extermination == "y")) checked @endif name="self_extermination" value="y"/>
+                                        <td>Sim</td>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="form-group">
-                                    <label for="sexual_violence" id="label_sexual_violence"><strong>Violência sexual:</strong></label><br/>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="sexual_violence-y" @if(old('sexual_violence') or (($medical_care) AND $medical_care->sexual_violence == "y")) checked @endif name="sexual_violence" value="y"/>
-                                        <label class="form-check-label" for="sexual_violence-y">Sim</label>
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="sexual_violence-n" @if((empty(old('sexual_violence')) or empty(($medical_care))) OR old('sexual_violence') or (($medical_care) AND $medical_care->sexual_violence == "n")) checked @endif name="sexual_violence" value="n"/>
-                                        <label class="form-check-label" for="sexual_violence-n">Não</label>
+                                    <label class="form-check-label" for="sexual_violence" id="label_sexual_violence">Violência sexual:</label>
+                                    <div class="form-check form-switch">                                       
+                                        <input class="form-check-input" id="sexual_violence" type="checkbox" @if(old('sexual_violence') or (($medical_care) AND $medical_care->sexual_violence == "y")) checked @endif name="sexual_violence" value="y"/>
+                                        <td>Sim</td>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="form-group">
-                                    <label for="forensic_examination" id="label_forensic_examination"><strong>Realizado exame de corpo de delito:</strong></label><br/>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="forensic_examination-y" @if(old('forensic_examination') or (($medical_care) AND $medical_care->forensic_examination == "y")) checked @endif name="forensic_examination" value="y"/>
-                                        <label class="form-check-label" for="forensic_examination-y">Sim</label>
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="forensic_examination-n" @if((empty(old('forensic_examination')) or empty(($medical_care))) OR old('forensic_examination') or (($medical_care) AND $medical_care->forensic_examination == "n")) checked @endif name="forensic_examination" value="n"/>
-                                        <label class="form-check-label" for="forensic_examination-n">Não</label>
+                                    <label class="form-check-label" for="forensic_examination" id="label_forensic_examination">Realizado exame de corpo de delito:</label><br>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" id="forensic_examination" type="checkbox" @if(old('forensic_examination') or (($medical_care) AND $medical_care->forensic_examination == "y")) checked @endif name="forensic_examination" value="y"/>
+                                        <td>Sim</td>
                                     </div>
                                 </div>
                             </div>

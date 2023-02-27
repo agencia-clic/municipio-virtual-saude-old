@@ -250,3 +250,13 @@ button.btn-circle {
 .shadow-button:hover {
     box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Adicionar sombra ao botão quando o cursor passar por cima */
   }
+
+.button-yes-no{
+    padding: 1.25rem 1.25rem !important;
+    border: none !important; /* Remover borda do botão */
+    border-radius: 5px !important;
+    text-align: center !important; /* Centralizar texto do botão */
+    text-decoration: none !important; /* Remover sublinhado do texto do botão */
+    display: inline-block !important; /* Exibir o botão como um bloco */
+    font-size: 20px !important;
+}
