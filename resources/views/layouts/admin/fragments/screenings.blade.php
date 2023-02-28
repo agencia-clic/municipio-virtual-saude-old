@@ -197,7 +197,10 @@
 </div>
 
 <!-- medical care -->
-@if(!empty($medical_care = $emergency_services->medical_care()))
+
+
+
+@if(!empty($medical_care = $emergency_services->medical_care()) AND (count($medical_care) > 0))
 <div class="card mb-3">
     <div class="card-header">
         <div class="row flex-between-end">
