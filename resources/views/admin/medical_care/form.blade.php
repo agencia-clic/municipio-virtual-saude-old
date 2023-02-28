@@ -148,174 +148,161 @@
                 <!-- anamnesis - start -->
                 <div class="col-lg-12 col-xl-12 col-xxl-12 h-100">
                     
-					<div class="col-lg-12 col-xl-12 col-xxl-12 h-100">
-						<div class="card theme-wizard h-100 mb-5">
-							<div class="card-header">
-								<div class="row flex-between-end">
-									<div class="col-auto align-self-center">
-										<h5 class="mb-0">Atendimento</h5>
-									</div>
-								</div>
-							</div>
-					
-							<div class="card-header bg-light pt-3 pb-2">
-								<ul class="nav justify-content-between nav-wizard">
-									<li class="nav-item">
-										<a class="nav-link active fw-semi-bold" href="#bootstrap-wizard-validation-tab1" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
-											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-lock"></span></span>
-											</span>
-											<span class="d-none text-service-form d-md-block mt-1 fs--1">Anamnese / Exame Físico</span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab2" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
-											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-user"></span></span>
-											</span>
-											<span class="d-none text-service-form d-md-block mt-1 fs--1">Queixa Principal</span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab3" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
-											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-dollar-sign"></span></span>
-											</span>
-											<span class="d-none text-service-form d-md-block mt-1 fs--1">Comorbidades</span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab4" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
-											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-thumbs-up"></span></span>
-											</span>
-											<span class="d-none text-service-form d-md-block mt-1 fs--1">Medicações de Uso Contínuo</span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab5" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
-											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-lock"></span></span>
-											</span>
-											<span class="d-none text-service-form d-md-block mt-1 fs--1">Alergias</span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab6" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
-											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-user"></span></span>
-											</span>
-											<span class="d-none text-service-form d-md-block mt-1 fs--1">Exame Clínico</span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab7" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
-											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-dollar-sign"></span></span>
-											</span>
-											<span class="d-none text-service-form d-md-block mt-1 fs--1">Hupotese Diagnóstica</span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab8" data-bs-toggle="tab" data-wizard-step="data-wizard-step">
-											<span class="nav-item-circle-parent">
-												<span class="nav-item-circle"><span class="fas fa-thumbs-up"></span></span>
-											</span>
-											<span class="d-none text-service-form d-md-block mt-1 fs--1">Conduta</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<div class="card-body py-4" id="wizard-controller">
-								<div class="tab-content">
-									
-									<!-- History / Physical Examination -->
-									<div class="tab-pane active px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab1" id="bootstrap-wizard-validation-tab1">
-										<form class="form-validation">
-											<div class="mb-3">
-												<textarea class="form-control form-control-sm @error('anamnesis') is-invalid @enderror" id="anamnesis" name="anamnesis" rows="8" placeholder="Anamnese / Exame Físico" data-wizard-validate-email="true" required>{{old('anamnesis') ?? $medical_care->anamnesis ?? ""}}</textarea>
-												<div class="valid-feedback">sucesso!</div>
-											</div>
-										</form>
-									</div>
-					
-									<div class="tab-pane px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab2" id="bootstrap-wizard-validation-tab2">
-										<form class="form-validation">
-											<div class="mb-3">
-												<textarea class="form-control form-control-sm @error('anamnesis') is-invalid @enderror" id="anamnesis" name="anamnesis" rows="8" placeholder="Anamnese / Exame Físico" data-wizard-validate-email="true" required>{{old('anamnesis') ?? $medical_care->anamnesis ?? ""}}</textarea>
-												<div class="valid-feedback">sucesso!</div>
-											</div>
-										</form>
-									</div>
-									<div class="tab-pane px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab3" id="bootstrap-wizard-validation-tab3">
-										<form class="form-validation">
-											<div class="mb-3">
-												<textarea class="form-control form-control-sm @error('anamnesis') is-invalid @enderror" id="anamnesis" name="anamnesis" rows="8" placeholder="Anamnese / Exame Físico" data-wizard-validate-email="true" required>{{old('anamnesis') ?? $medical_care->anamnesis ?? ""}}</textarea>
-												<div class="valid-feedback">sucesso!</div>
-											</div>
-										</form>
-									</div>
-									
-									<div class="tab-pane px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab4" id="bootstrap-wizard-validation-tab4">
-										<form class="form-validation">
-											<div class="mb-3">
-												<textarea class="form-control form-control-sm @error('anamnesis') is-invalid @enderror" id="anamnesis" name="anamnesis" rows="8" placeholder="Anamnese / Exame Físico" data-wizard-validate-email="true" required>{{old('anamnesis') ?? $medical_care->anamnesis ?? ""}}</textarea>
-												<div class="valid-feedback">sucesso!</div>
-											</div>
-										</form>
-									</div>
-					
-									<div class="tab-pane px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab5" id="bootstrap-wizard-validation-tab5">
-										<form class="form-validation">
-											<div class="mb-3">
-												<textarea class="form-control form-control-sm @error('anamnesis') is-invalid @enderror" id="anamnesis" name="anamnesis" rows="8" placeholder="Anamnese / Exame Físico" data-wizard-validate-email="true" required>{{old('anamnesis') ?? $medical_care->anamnesis ?? ""}}</textarea>
-												<div class="valid-feedback">sucesso!</div>
-											</div>
-										</form>
-									</div>
-					
-									<div class="tab-pane px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab6" id="bootstrap-wizard-validation-tab6">
-										<form class="form-validation">
-											<div class="mb-3">
-												<textarea class="form-control form-control-sm @error('anamnesis') is-invalid @enderror" id="anamnesis" name="anamnesis" rows="8" placeholder="Anamnese / Exame Físico" data-wizard-validate-email="true" required>{{old('anamnesis') ?? $medical_care->anamnesis ?? ""}}</textarea>
-												<div class="valid-feedback">sucesso!</div>
-											</div>
-										</form>
-									</div>
-					
-									<div class="tab-pane px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab7" id="bootstrap-wizard-validation-tab7">
-										<form class="form-validation">
-											<div class="mb-3">
-												<textarea class="form-control form-control-sm @error('anamnesis') is-invalid @enderror" id="anamnesis" name="anamnesis" rows="8" placeholder="Anamnese / Exame Físico" data-wizard-validate-email="true" required>{{old('anamnesis') ?? $medical_care->anamnesis ?? ""}}</textarea>
-												<div class="valid-feedback">sucesso!</div>
-											</div>
-										</form>
-									</div>
-					
-									<div class="tab-pane px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab8" id="bootstrap-wizard-validation-tab8">
-										<form class="form-validation">
-											<div class="mb-3">
-												<textarea class="form-control form-control-sm @error('anamnesis') is-invalid @enderror" id="anamnesis" name="anamnesis" rows="8" placeholder="Anamnese / Exame Físico" data-wizard-validate-email="true" required>{{old('anamnesis') ?? $medical_care->anamnesis ?? ""}}</textarea>
-												<div class="valid-feedback">sucesso!</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-							<div class="card-footer bg-light">
-								<div class="px-sm-3 px-md-5">
-									<ul class="pager wizard list-inline mb-0">
-										<li class="previous">
-											<button class="btn btn-link ps-0 btn-sm" type="button"><span class="fas fa-chevron-left me-2" data-fa-transform="shrink-3"></span>Prev</button>
-										</li>
-										<li class="next">
-											<button class="btn btn-primary px-5 px-sm-3 btn-sm" type="button">Next<span class="fas fa-chevron-right ms-2" data-fa-transform="shrink-3"> </span></button>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
+					<div class="card theme-wizard h-100 mb-5">
+                        <div class="card-header">
+                            <div class="row flex-between-end">
+                                <div class="col-auto align-self-center">
+                                    <h5 class="mb-0">Atendimento</h5>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="card-header bg-light pt-3 pb-2">
+                            <ul class="nav justify-content-between nav-wizard">
+                                <li class="nav-item">
+                                    <a class="nav-link active fw-semi-bold" href="#bootstrap-wizard-validation-tab1" tab-position="1" data-bs-toggle="tab" data-wizard-step="data-wizard-step" disabled>
+                                        <span class="nav-item-circle-parent">
+                                            <span class="nav-item-circle"><span class="fas fa-stethoscope"></span></span>
+                                        </span>
+                                        <span class="d-none text-service-form d-md-block mt-1 fs--1">Anamnese / Exame Físico</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab2" tab-position="2" data-bs-toggle="tab" data-wizard-step="data-wizard-step" disabled>
+                                        <span class="nav-item-circle-parent">
+                                            <span class="nav-item-circle"><span class="fas fa-notes-medical"></span></span>
+                                        </span>
+                                        <span class="d-none text-service-form d-md-block mt-1 fs--1">Queixa Principal</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab3" tab-position="3" data-bs-toggle="tab" data-wizard-step="data-wizard-step" disabled>
+                                        <span class="nav-item-circle-parent">
+                                            <span class="nav-item-circle"><span class="fas fa-procedures"></span></span>
+                                        </span>
+                                        <span class="d-none text-service-form d-md-block mt-1 fs--1">Comorbidades</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab4" tab-position="4" data-bs-toggle="tab" data-wizard-step="data-wizard-step" disabled>
+                                        <span class="nav-item-circle-parent">
+                                            <span class="nav-item-circle"><span class="fas fa-prescription-bottle-alt"></span></span>
+                                        </span>
+                                        <span class="d-none text-service-form d-md-block mt-1 fs--1">Medicações de Uso Contínuo</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab5" tab-position="5" data-bs-toggle="tab" data-wizard-step="data-wizard-step" disabled>
+                                        <span class="nav-item-circle-parent">
+                                            <span class="nav-item-circle"><span class="fas fa-first-aid"></span></span>
+                                        </span>
+                                        <span class="d-none text-service-form d-md-block mt-1 fs--1">Alergias</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab6" tab-position="6" data-bs-toggle="tab" data-wizard-step="data-wizard-step" disabled>
+                                        <span class="nav-item-circle-parent">
+                                            <span class="nav-item-circle"><span class="fas fa-hospital-user"></span></span>
+                                        </span>
+                                        <span class="d-none text-service-form d-md-block mt-1 fs--1">Exame Clínico</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab7" tab-position="7" data-bs-toggle="tab" data-wizard-step="data-wizard-step" disabled>
+                                        <span class="nav-item-circle-parent">
+                                            <span class="nav-item-circle"><span class="fas fa-user-md"></span></span>
+                                        </span>
+                                        <span class="d-none text-service-form d-md-block mt-1 fs--1">Hipótese Diagnóstica</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semi-bold" href="#bootstrap-wizard-validation-tab8" tab-position="8" data-bs-toggle="tab" data-wizard-step="data-wizard-step" disabled>
+                                        <span class="nav-item-circle-parent">
+                                            <span class="nav-item-circle"><span class="fas fa-laptop-medical"></span></span>
+                                        </span>
+                                        <span class="d-none text-service-form d-md-block mt-1 fs--1">Conduta</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body py-4" id="wizard-controller">
+                            <div class="tab-content">
+                                
+                                <!-- History / Physical Examination -->
+                                <div class="tab-pane wizard active px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab1" id="bootstrap-wizard-validation-tab1">
+                                    <div class="mb-3">
+                                        <textarea class="form-control form-control-sm @error('anamnesis') is-invalid @enderror" id="anamnesis" name="anamnesis" rows="8" placeholder="ANAMNESE / EXAME FÍSICO" data-wizard-validate-email="true" required>{{old('anamnesis') ?? $medical_care->anamnesis ?? ""}}</textarea>
+                                        <div class="valid-feedback">sucesso!</div>
+                                    </div>
+                                </div>
+                    
+                                <div class="tab-pane wizard px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab2" id="bootstrap-wizard-validation-tab2">
+                                    <div class="mb-3">
+                                        <textarea class="form-control form-control-sm @error('chief_complaint') is-invalid @enderror" id="chief_complaint" name="chief_complaint" rows="8" placeholder="QUEIXA PRINCIPAL" data-wizard-validate-email="true" required>{{old('chief_complaint') ?? $medical_care->chief_complaint ?? ""}}</textarea>
+                                        <div class="valid-feedback">sucesso!</div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane wizard px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab3" id="bootstrap-wizard-validation-tab3">
+                                    <div class="mb-3">
+                                        <textarea class="form-control form-control-sm @error('comorbidities') is-invalid @enderror" id="comorbidities" name="comorbidities" rows="8" placeholder="COMORBIDADES" data-wizard-validate-email="true" required>{{old('comorbidities') ?? $medical_care->comorbidities ?? ""}}</textarea>
+                                        <div class="valid-feedback">sucesso!</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane wizard px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab4" id="bootstrap-wizard-validation-tab4">
+                                    <div class="mb-3">
+                                        <textarea class="form-control form-control-sm @error('medication_continues') is-invalid @enderror" id="medication_continues" name="medication_continues" rows="8" placeholder="MEDICAÇÕES DE USO CONTÍNUO" data-wizard-validate-email="true" required>{{old('medication_continues') ?? $medical_care->medication_continues ?? ""}}</textarea>
+                                        <div class="valid-feedback">sucesso!</div>
+                                    </div>
+                                </div>
+                    
+                                <div class="tab-pane wizard px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab5" id="bootstrap-wizard-validation-tab5">
+                                    <div class="mb-3">
+                                        <textarea class="form-control form-control-sm @error('allergies') is-invalid @enderror" id="allergies" name="allergies" rows="8" placeholder="ALERGIAS" data-wizard-validate-email="true" required>{{old('allergies') ?? $medical_care->allergies ?? ""}}</textarea>
+                                        <div class="valid-feedback">sucesso!</div>
+                                    </div>
+                                </div>
+                    
+                                <div class="tab-pane wizard px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab6" id="bootstrap-wizard-validation-tab6">
+                                    <div class="mb-3">
+                                        <textarea class="form-control form-control-sm @error('clinical_exam') is-invalid @enderror" id="clinical_exam" name="clinical_exam" rows="8" placeholder="EXAME CLÍNICO" data-wizard-validate-email="true" required>{{old('clinical_exam') ?? $medical_care->clinical_exam ?? ""}}</textarea>
+                                        <div class="valid-feedback">sucesso!</div>
+                                    </div>
+                                </div>
+                    
+                                <div class="tab-pane wizard px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab7" id="bootstrap-wizard-validation-tab7">
+                                    <div class="mb-3">
+                                        <textarea class="form-control form-control-sm @error('hypothesis_diagnostics') is-invalid @enderror" id="hypothesis_diagnostics" name="hypothesis_diagnostics" rows="8" placeholder="HIPÓTESE DIAGNÓSTICA" data-wizard-validate-email="true" required>{{old('hypothesis_diagnostics') ?? $medical_care->hypothesis_diagnostics ?? ""}}</textarea>
+                                        <div class="valid-feedback">sucesso!</div>
+                                    </div>
+                                </div>
+                    
+                                <div class="tab-pane wizard px-sm-3 px-md-5" role="tabpanel" aria-labelledby="bootstrap-wizard-validation-tab8" id="bootstrap-wizard-validation-tab8">
+                                    <div class="mb-3">
+                                        <textarea class="form-control form-control-sm @error('conduct') is-invalid @enderror" id="conduct" name="conduct" rows="8" placeholder="CONDUTA" data-wizard-validate-email="true" required>{{old('conduct') ?? $medical_care->conduct ?? ""}}</textarea>
+                                        <div class="valid-feedback">sucesso!</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <div class="px-sm-3 px-md-5">
+                                <ul class="pager wizard list-inline mb-0">
+                                    <li class="previous">
+                                        <button class="btn btn-link ps-0 btn-sm hide" id="prev-wizard" onclick="tap_position('-')" type="button">
+                                            <span class="fas fa-chevron-left me-2" data-fa-transform="shrink-3"></span>
+                                            Voltar
+                                        </button>
+                                    </li>
+                                    <li class="next">
+                                        <button class="btn btn-primary px-5 px-sm-3 btn-sm " id="next-wizard" onclick="tap_position('+')" type="button">Próximo
+                                            <span class="fas fa-chevron-right ms-2" data-fa-transform="shrink-3"> </span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -335,22 +322,6 @@
                         <div class="col-12 mt-2">
                             <button class="btn btn-primary btn-sm diagnostics-button" type="button"  title="Diagnósticos" iframe-form="{{ route('emergency_services_diagnostics.form', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}" iframe-create="{{ route('emergency_services_diagnostics.form.create', ['IdEmergencyServices' => base64_encode($emergency_services->IdEmergencyServices)]) }}">Inserir</button>
                         </div>
-                    </div>
-                </div>
-
-                <!-- guidelines - start -->
-                <div class="card mb-3 ">
-                    <div class="card-header">
-                        <div class="row flex-between-end">
-                            <div class="col-auto align-self-center">
-                                <h5 class="mb-0">Orientações</h5>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card-body bg-light">
-                        <textarea class="form-control form-control-sm @error('guidelines') is-invalid @enderror" id="guidelines" name="guidelines" rows="3" placeholder="Observação">{{old('guidelines') ?? $medical_care->guidelines ?? ""}}</textarea>
-                        <div class="valid-feedback">sucesso!</div>
                     </div>
                 </div>
 
@@ -452,7 +423,7 @@
                                     </div>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="forensic_examination-n" @if((empty(old('forensic_examination')) or empty(($medical_care))) OR old('forensic_examination') or (($medical_care) AND $medical_care->forensic_examination == "n")) checked @endif name="forensic_examination" value="n"/>
+                                        <input class="form-check-input" type="radio" id="forensic_examination-n" @if((empty(old('forensic_examination')) or empty(($medical_care))) OR old('forensic_examination') or (($medical_care) AND $medical_care->forensic_examination == "n")) checked @endif name="forensic_examination" value="n" required/>
                                         <label class="form-check-label" for="forensic_examination-n">Não</label>
                                     </div>
                                 </div>
@@ -580,6 +551,7 @@
 <script src="{{ asset('admin/js/iframe-form.js') }}"></script>
 <script src="{{ asset('admin/js/iframe.js') }}" type="text/javascript"></script>
 <script src="{{ asset('admin/js/block-item.js') }}" type="text/javascript"></script>
+<script src="{{ asset('admin/js/modules/wizard.js') }}" type="text/javascript"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -590,14 +562,11 @@ $(document).ready(function() {
             
 		},
 		messages: {
-
 		},
 		onkeyup: false,
 		submitHandler: function(form) {
-
 			$(this.submitButton).prop('disabled', true);
 			form.submit();
-
 		},
 		errorElement: "label",
 		errorPlacement: function (error, element) {
@@ -615,11 +584,11 @@ $(document).ready(function() {
 			$(element).addClass("is-invalid");
             $(element).prop('required', true)
             validate_form()
+            validation_wizard()
 		},
 		unhighlight: function (element, errorClass, validClass) {
 			$(element).removeClass("is-invalid");
 			$("label[id='"+$(element).attr("id")+"-error']").remove(); // exclui o label já validade (padrao validate é display: none)
-
 		},
 		ignore: true
 	});

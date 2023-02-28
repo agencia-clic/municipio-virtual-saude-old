@@ -119,7 +119,7 @@
             @endif
 
             @if($message = json_decode(Session::get('modal'), true))
-                modal_info("SUCESSO", '', '{{$message['description']}}', '{{$message['color']}}', "<?=$message['button'] ?? ""?>")
+                modal_info("{{$message['title']}}", '', '{{$message['description']}}', '{{$message['color']}}', "<?=$message['button'] ?? ""?>")
             @endif
 
             @if($open = Session::get('open-tab'))

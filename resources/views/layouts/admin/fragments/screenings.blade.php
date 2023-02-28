@@ -1,4 +1,4 @@
-<!-- acolhimentos -->
+<!-- recepção -->
 @if(!empty($emergency_services->note))
 <div class="card mb-3">
     <div class="card-header">
@@ -14,7 +14,6 @@
     </div>
 </div>
 @endif
-
 
 <!-- acolhimentos -->
 <div class="card mb-3">
@@ -196,3 +195,25 @@
         </div>
     </div>
 </div>
+
+<!-- medical care -->
+@if(!empty($emergency_services->note))
+<div class="card mb-3">
+    <div class="card-header">
+        <div class="row flex-between-end">
+            <div class="col-auto align-self-center" style="margin-top:5px;">
+                <h5 class="mb-0">Atendimentos médicos</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body" style="margin-top:-20px">
+        
+        <a class="list-group-item list-group-item-action not_urgent text-white" data-bs-toggle="collapse" data-bs-target="#collapse_medical_care{{$val->IdScreenings}}" aria-expanded="true" aria-controls="collapse_medical_care{{$val->IdScreenings}}" style="font-size: 12px; padding-top:5px; padding-bottom:5px" href="#">
+            <span class="far fa-arrow-alt-circle-down"></span> 
+            <strong>Medico clinico</strong> • 20-07-2023 20:15
+        </a>
+
+    </div>
+</div>
+@endif

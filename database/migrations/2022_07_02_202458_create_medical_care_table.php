@@ -23,12 +23,10 @@ class CreateMedicalCareTable extends Migration
             $table->text('chief_complaint')->nullable();
             $table->text('comorbidities')->nullable();;
             $table->text('medication_continues')->nullable();
+            $table->text('allergies')->nullable();
             $table->text('clinical_exam')->nullable();
-            $table->text('hypothesis')->nullable();
-            $table->text('diagnostics')->nullable();
+            $table->text('hypothesis_diagnostics')->nullable();
             $table->text('conduct')->nullable();
-            $table->text('guidelines')->nullable();
-            $table->enum('bodily_injury', ['y', 'n'])->default('n')->nullable();
             $table->enum('aggression', ['y', 'n'])->default('n')->nullable();
             $table->enum('firearm_aggression', ['y', 'n'])->default('n')->nullable();
             $table->enum('weapon_flaps', ['y', 'n'])->default('n')->nullable();

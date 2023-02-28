@@ -249,4 +249,19 @@ button.btn-circle {
 
 .shadow-button:hover {
     box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Adicionar sombra ao botão quando o cursor passar por cima */
-  }
+}
+
+/* wizard form */
+a[data-wizard-step="data-wizard-step"][disabled] > .nav-item-circle-parent > .nav-item-circle {
+    background-color: #acacac;
+    color: #fff;
+}
+.is-invalid-wizard{
+    border: solid 2px !important;
+    border-color: rgb(238, 64, 64) !important;
+}
+.theme-wizard .nav-link.active .nav-item-circle {
+    background-color: #2c7be5 !important;
+    color: #fff !important;
+    border-color: #2c7be5;
+}

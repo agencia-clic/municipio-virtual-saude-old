@@ -22,7 +22,7 @@ class CreateEmergencyServicesForwardInternalTable extends Migration
             $table->integer('IdUsersResponsibleExecution')->nullable();
             $table->integer('IdMedicalCare')->nullable();
             $table->integer('IdScreenings')->nullable();
-            $table->enum('status', ['a', 'b', 'e']);
+            $table->enum('status', ['a', 'b', 'r', 'e'])->comment('a - active // b - block // r - running // e - executed');;
             $table->enum('type', ['r', 'c', 't'])->comment('r - reavaliação // c - consulta // t - triagem');
             $table->text('note')->nullable();
             $table->timestamps();

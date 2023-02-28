@@ -92,7 +92,7 @@
                                         <div class="bg-white py-2">
 
                                             <!-- atender -->
-                                            <a class="dropdown-item fw-bold" href="{{ route('medical_care.form', ['IdEmergencyServices' => base64_encode($val->IdEmergencyServices)]) }}" modal-alert="Atenção, Tem certeza que deseja iniciar esse processo ?"><span class="fas fa-user-plus me-1"></span><span> Atender</span></a>
+                                            <a class="dropdown-item fw-bold" href="{{ route('medical_care.form', ['IdEmergencyServices' => base64_encode($val->IdEmergencyServices)]) }}" modal-alert="Atenção, Tem certeza que deseja iniciar esse atendimento ?"><span class="fas fa-user-plus me-1"></span><span> Atender</span></a>
                                             
                                             <!-- call -->
                                             <div class="dropdown-divider"></div>
@@ -100,7 +100,7 @@
                                             <div class="dropdown-divider"></div>
 
                                             <!-- Liberar atendimento -->
-                                            @if(!empty($val->responsible_execution))
+                                            @if(!empty($val->responsible_execution == auth()->user()->IdUsers) OR (auth()->user()->level == 'a'))
                                                 <a class="dropdown-item fw-bold medical-care-watch" title="Realmente deseja libera esse atendimento ?" href="{{ route('medical_care.release', ['IdEmergencyServices' => base64_encode($val->IdEmergencyServices)]) }}"><span class="fas fa-arrow-alt-circle-right me-1"></span><span> Libera Atendimento</span></a>
                                                 <div class="dropdown-divider"></div>
                                             @endif

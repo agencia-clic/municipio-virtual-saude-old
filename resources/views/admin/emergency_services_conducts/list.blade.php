@@ -28,7 +28,7 @@
                                 @elseif($type == "o")
                                     {{ route('observation') }}
                                 @else
-                                    {{ route('medical_care', ['IdFlowcharts' => $type]) }}
+                                    {{ route('medical_care') }}
                                 @endif"><span class="fas fa-arrow-left"></span></button>
 
                             @if($emergency_services->status == "a")
@@ -50,7 +50,7 @@
                                         @elseif($type == "o")
                                             {{ route('observation') }}
                                         @else
-                                            {{ route('medical_care', ['IdFlowcharts' => $type]) }}
+                                            {{ route('medical_care') }}
                                         @endif
                                     ">Voltar</a></li>
 
@@ -91,13 +91,15 @@
                                         bg-500
                                     @endif me-1 icon-item" style="float: left;"></span>
 
-                                   <span class="mt-1"> {{ $emergency_services->users_name }}
-                                    @if($emergency_services->users_cpf_cnpj)
-                                        • {{ $mask->cpf_cnpj($emergency_services->users_cpf_cnpj) }}
+                                    <span class="mt-1"> {{ $emergency_services->users_name }}
+                                    @if(strlen($emergency_services->users_cpf_cnpj) == 11)
+                                        •  {{ Mask::default($emergency_services->users_cpf_cnpj, '###.###.###-##') }}
+                                    @elseif(strlen($emergency_services->users_cpf_cnpj) == 14)
+                                        •  {{ Mask::default($emergency_services->users_cpf_cnpj, '##.###.###/####-##') }}
                                     @endif
                         
                                     @if($emergency_services->users_date_birth)
-                                        • {{ $mask->birth($emergency_services->users_date_birth) }} ANOS
+                                        • {{ Mask::birth($emergency_services->users_date_birth) }} ANOS
                                     @endif</span> 
                                 </h6>
                         

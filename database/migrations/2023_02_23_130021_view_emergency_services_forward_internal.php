@@ -28,11 +28,11 @@ class ViewEmergencyServicesForwardInternal extends Migration
                 JOIN medical_specialties ON emergency_services_forward_internal.IdMedicalSpecialties = medical_specialties.IdMedicalSpecialties
                 JOIN users ON emergency_services.IdUsers = users.IdUsers
                 JOIN screenings ON emergency_services_forward_internal.IdScreenings = screenings.IdScreenings
-                LEFT JOIN users as users_execution ON emergency_services_forward_internal.IdUsersResponsibleExecution = users.IdUsers
+                LEFT JOIN users as users_execution ON emergency_services_forward_internal.IdUsersResponsibleExecution = users_execution.IdUsers
             WHERE 
-                emergency_services_forward_internal.status = 'a'
+                emergency_services_forward_internal.status IN ('a', 'r')
             ORDER BY 
-                screenings.classification DESC, 
+                screenings.classification ASC, 
                 is_pregnant DESC, 
                 CASE
                     WHEN TIMESTAMPDIFF(YEAR, users.date_birth, CURDATE()) > 60 THEN 0

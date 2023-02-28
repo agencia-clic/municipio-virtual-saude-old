@@ -133,7 +133,6 @@
                                 </td>
                                 <td class="border email py-2 text-left">
                                     <strong>{{ $val->patient }} • {{ $mask->birth($val->date_birth_patient) }} ANOS</strong><br>
-                                
                                     <span class="badge rounded-pill badge-soft-primary" title="Entrada">{{ date('d-m-Y H:i', strtotime($val->created_at_services)) }}</span>
                                     <span class="badge rounded-pill badge-soft-primary" title="Último atendimento médico">{{ $val->users_responsible_care }}</span>
                                     <span class="badge rounded-pill badge-soft-primary" title="">Atendimento: {{ $val->IdEmergencyServices }}</span>
