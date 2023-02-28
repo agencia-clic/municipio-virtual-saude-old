@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-body" style="margin-top:-20px">
-        <span class="common-label">{{ $emergency_services->note }}</span>
+        <span class="common-label" style="font-size: 14px">{{ $emergency_services->note }}</span>
     </div>
 </div>
 @endif
@@ -197,7 +197,7 @@
 </div>
 
 <!-- medical care -->
-@if(!empty($emergency_services->note))
+@if(!empty($medical_care = $emergency_services->medical_care()))
 <div class="card mb-3">
     <div class="card-header">
         <div class="row flex-between-end">
@@ -209,10 +209,22 @@
 
     <div class="card-body" style="margin-top:-20px">
         
-        <a class="list-group-item list-group-item-action not_urgent text-white" data-bs-toggle="collapse" data-bs-target="#collapse_medical_care{{$val->IdScreenings}}" aria-expanded="true" aria-controls="collapse_medical_care{{$val->IdScreenings}}" style="font-size: 12px; padding-top:5px; padding-bottom:5px" href="#">
-            <span class="far fa-arrow-alt-circle-down"></span> 
-            <strong>Medico clinico</strong> • 20-07-2023 20:15
-        </a>
+        @foreach($medical_care as $index => $val)
+
+            <a class="list-group-item list-group-item-action not_urgent text-white" data-bs-toggle="collapse" data-bs-target="#collapse_medical_care{{$val->IdMedicalCare}}" aria-expanded="true" aria-controls="collapse_medical_care{{$val->IdScreenings}}" style="font-size: 12px; padding-top:5px; padding-bottom:5px" href="#">
+                <span class="far fa-arrow-alt-circle-down"></span> 
+                <strong>{{ $val->responsible }} Medico clinico</strong> • {{date('d-m-Y H:i', strtotime($val->created_at))}}
+            </a>
+
+            <div class="accordion-collapse collapse" id="collapse_medical_care{{$val->IdMedicalCare}}" aria-labelledby="heading2" data-bs-parent="#accordionExample">
+                <div class="list-group-item list-group-item-action">
+
+                    teste
+
+                </div>
+            </div>
+
+        @endforeach
 
     </div>
 </div>
